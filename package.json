@@ -1,0 +1,16 @@
+{
+  "name": "s-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init_client": "cd client && npm i",
+    "init_server": "cd server && npm i",
+    "init": "npm run init_client && npm run init_server",
+    "client": "cd client && npm start",
+    "server": "cd server && npm run server"
+  },
+  "keywords": [],
+  "author": "Alexey Sergeev <sega21rus98@mail.ru>",
+  "license": "ISC"
+}
