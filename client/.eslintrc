@@ -87,6 +87,7 @@
     "arrow-parens": [
       "warn",
       "as-needed"
-    ]
+    ],
+    "prefer-const": 0
   }
 }
