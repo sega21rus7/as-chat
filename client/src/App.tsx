@@ -1,6 +1,8 @@
-import React from 'react';
+import React from "react";
 
-function App() : JSX.Element {
+function App(): JSX.Element {
+  const a = 5;
+
   return (
     <div className="App">
       <h1>Hello React</h1>

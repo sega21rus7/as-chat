@@ -21,23 +21,72 @@
   "plugins": [
     "react"
   ],
-  "rules": {  
-    "no-multi-spaces": ["error"],
-    "no-multiple-empty-lines": ["warn", {"max": 1}],
-    "curly": ["warn", "all"],
-    "array-callback-return": ["warn"],
-    "no-redeclare": ["warn"],
-    "eqeqeq": ["warn"],
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "windows"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+  "rules": {
+    "no-multi-spaces": [
+      "error"
+    ],
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1
+      }
+    ],
+    "curly": [
+      "warn",
+      "all"
+    ],
+    "array-callback-return": [
+      "warn"
+    ],
+    "no-redeclare": [
+      "warn"
+    ],
+    "eqeqeq": [
+      "warn"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "quotes": [
+      "warn",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
     "no-console": [
       "error",
       {
-        "allow": ["log", "warn", "error"]
+        "allow": [
+          "log",
+          "warn",
+          "error"
+        ]
       }
     ],
-    "comma-dangle": ["error", "only-multiline"]
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 80
+      }
+    ],
+    "arrow-parens": [
+      "warn",
+      "as-needed"
+    ]
   }
 }
