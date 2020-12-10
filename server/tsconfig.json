@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./build",
+    "rootDir": "./",
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "lib": [
+    "es2015"
+  ],
+  "include": [
+    "/"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
