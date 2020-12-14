@@ -1,19 +1,42 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 interface IFormValues {
   [key: string]: string
 }
-
+interface IRules {
+  minLen: number;
+  maxLen: number;
+  minLenErrorMes: string;
+  maxLenErrorMes: string;
+}
 interface IProps {
-  requireMessage: string;
+  requireMess: string;
+  passRules: IRules;
+  loginRules: IRules;
   setIsLogin(value: boolean): void;
 }
 
 const LoginForm: React.FC<IProps> = props => {
-  const onFinish = (values: IFormValues) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values: IFormValues) => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const res = await response.json();
+      console.log(res);
+      if (res.errorMessage) {
+        message.error(res.errorMessage);
+      }
+    } catch (err) {
+      console.log(err);
+      message.error(err);
+    }
   };
 
   return <Form
@@ -24,15 +47,15 @@ const LoginForm: React.FC<IProps> = props => {
     onFinish={onFinish}
   >
     <Form.Item
-      name="username"
-      rules={[{ required: true, message: props.requireMessage }]}
+      name="login"
+      rules={[{ required: true, message: props.requireMess }]}
     >
       <Input prefix={<UserOutlined />}
         placeholder="Логин" />
     </Form.Item>
     <Form.Item
       name="password"
-      rules={[{ required: true, message: props.requireMessage }]}
+      rules={[{ required: true, message: props.requireMess }]}
     >
       <Input
         prefix={<LockOutlined />}

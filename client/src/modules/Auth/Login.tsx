@@ -4,16 +4,32 @@ import RegForm from "./RegForm";
 
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = React.useState(true);
-  const requireMessage = "Поле обязательно для заполнения!";
+  const requireMess = "Поле обязательно для заполнения!";
+  const passRules = {
+    minLen: 6,
+    maxLen: 20,
+    minLenErrorMes: "Минимальная длина пароля 6 символов!",
+    maxLenErrorMes: "Максимальная длина пароля 20 символов!",
+  };
+  const loginRules = {
+    minLen: 4,
+    maxLen: 20,
+    minLenErrorMes: "Минимальная длина логина 4 символа!",
+    maxLenErrorMes: "Максимальная длина логина 20 символов!",
+  };
 
   if (isLogin) {
     return <LoginForm
-      requireMessage={requireMessage}
+      requireMess={requireMess}
+      passRules={passRules}
+      loginRules={loginRules}
       setIsLogin={setIsLogin}
     />;
   }
   return <RegForm
-    requireMessage={requireMessage}
+    requireMess={requireMess}
+    passRules={passRules}
+    loginRules={loginRules}
     setIsLogin={setIsLogin}
   />;
 };
