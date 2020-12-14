@@ -11,11 +11,11 @@ export const login = async (req: express.Request, res: express.Response): Promis
       candidate = await User.findOne({ email: req.body.login });
     }
     if (!candidate) {
-      return res.status(400).json({ "errorMessage": "Пользователь не найден." });
+      return res.status(404).end("Пользователь не найден.");
     }
     const passwordsEquals = bcrypt.compareSync(req.body.password, candidate.password);
     if (!passwordsEquals) {
-      return res.status(401).json({ "errorMessage": "Неверный пароль." });
+      return res.status(401).end("Неверный пароль.");
     }
     // генерируем токен
     const token = jwt.sign({
@@ -28,7 +28,7 @@ export const login = async (req: express.Request, res: express.Response): Promis
     res.status(200).json({ token: `Bearer ${token}` });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ "errorMessage": err.message });
+    res.status(500).end(err.message);
   }
 };
 
@@ -36,11 +36,11 @@ export const register = async (req: express.Request, res: express.Response): Pro
   try {
     let candidate = await User.findOne({ email: req.body.email });
     if (candidate) {
-      return res.status(400).json({ "errorMessage": "Пользователь c таким email уже зарегистрирован." });
+      return res.status(400).end("Пользователь c таким email уже зарегистрирован.");
     }
     candidate = await User.findOne({ login: req.body.login });
     if (candidate) {
-      return res.status(400).json({ "errorMessage": "Пользователь c таким логином уже зарегистрирован." });
+      return res.status(400).end("Пользователь c таким логином уже зарегистрирован.");
     }
     const user = new User({
       email: req.body.email,
@@ -54,6 +54,6 @@ export const register = async (req: express.Request, res: express.Response): Pro
     res.status(201).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ "errorMessage": err.message });
+    res.status(500).end(err.message);
   }
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-
+import { customFetch } from "../../tools";
 interface IFormValues {
   [key: string]: string
 }
@@ -36,34 +36,11 @@ const RegForm: React.FC<IProps> = props => {
     if (password !== password2) {
       return message.error("Пароли должны совпадать!");
     }
-
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.status > 201) {
-        try {
-          const res = await response.json();
-          message.error(res.errorMessage);
-        } catch (e) {
-          // костыль нужно выводить сообщения с прокси response.text()
-          // нужно использовать bson наверное
-          message.error("Произошла непредвиденная ошибка");
-        }
-        return;
-      }
-      const res = await response.json();
-      console.log(res);
-      if (res.errorMessage) {
-        message.error(res.errorMessage);
-      }
+      const res = await customFetch("/api/auth/register", values);
+      console.log("res", res);
     } catch (err) {
-      console.log(err);
-      message.error(err);
+      message.error(err.message);
     }
   };
 

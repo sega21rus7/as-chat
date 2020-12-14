@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { customFetch } from "../../tools";
 
 interface IFormValues {
   [key: string]: string
@@ -21,28 +22,9 @@ interface IProps {
 const LoginForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.status > 201) {
-        try {
-          const res = await response.json();
-          message.error(res.errorMessage);
-        } catch (e) {
-          // костыль нужно выводить сообщения с прокси response.text()
-          // нужно использовать bson наверное
-          message.error("Произошла непредвиденная ошибка");
-        }
-        return;
-      }
-      const res = await response.json();
-      console.log(res);
+      const res = await customFetch("/api/auth/login", values);
+      console.log("res", res);
     } catch (err) {
-      console.log(err.message);
       message.error(err.message);
     }
   };
