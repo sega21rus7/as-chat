@@ -7,8 +7,8 @@
     "init_client": "cd client && npm i",
     "init_server": "cd server && npm i",
     "init": "npm run init_client && npm run init_server",
-    "client": "cd client && npm start",
-    "server": "cd server && npm run server"
+    "client": "cd client && npm run start",
+    "server": "cd server && npm run start"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",
