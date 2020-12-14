@@ -28,14 +28,22 @@ const LoginForm: React.FC<IProps> = props => {
         },
         body: JSON.stringify(values),
       });
+      if (response.status > 201) {
+        try {
+          const res = await response.json();
+          message.error(res.errorMessage);
+        } catch (e) {
+          // костыль нужно выводить сообщения с прокси response.text()
+          // нужно использовать bson наверное
+          message.error("Произошла непредвиденная ошибка");
+        }
+        return;
+      }
       const res = await response.json();
       console.log(res);
-      if (res.errorMessage) {
-        message.error(res.errorMessage);
-      }
     } catch (err) {
-      console.log(err);
-      message.error(err);
+      console.log(err.message);
+      message.error(err.message);
     }
   };
 
