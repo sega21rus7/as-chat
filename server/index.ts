@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 (async () => {
   try {
     // const url = `mongodb+srv://${config.mongodb.username}:${config.mongodb.password}@cluster0.diaud.mongodb.net/${config.mongodb.dbName}?retryWrites=true&w=majority`;
-    const url = `mongodb://${config.mongodb.options.host}:${config.mongodb.options.port}/?gssapiServiceName=mongodb`;
+    const url = `mongodb://${config.mongodb.options.host}:${config.mongodb.options.port}/${config.mongodb.dbName}?gssapiServiceName=mongodb`;
     console.log("mongodb url: ", url);
     await mongoose.connect(url, {
       useNewUrlParser: true,
