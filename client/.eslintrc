@@ -78,12 +78,12 @@
       "error",
       "always"
     ],
-    "max-len": [
-      "error",
-      {
-        "code": 80
-      }
-    ],
+    // "max-len": [
+    //   "error",
+    //   {
+    //     "code": 80
+    //   }
+    // ],
     "arrow-parens": [
       "warn",
       "as-needed"
