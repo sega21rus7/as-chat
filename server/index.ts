@@ -11,6 +11,7 @@ import mongoose from "mongoose";
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false,
     });
     const server = app.listen(config.port, () => {
       console.log(`Сервер был запущен по адресу http://${config.host}:${config.port}`);

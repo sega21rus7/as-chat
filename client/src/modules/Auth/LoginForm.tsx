@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { customFetch } from "../../tools";
 import { IProps, IFormValues } from "./interfaces";
+import { passRules, loginRules } from "./rules";
 
 const LoginForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {
@@ -23,14 +24,14 @@ const LoginForm: React.FC<IProps> = props => {
   >
     <Form.Item
       name="login"
-      rules={[{ required: true, message: props.requireMess }]}
+      rules={loginRules}
     >
       <Input prefix={<UserOutlined />}
         placeholder="Логин" />
     </Form.Item>
     <Form.Item
       name="password"
-      rules={[{ required: true, message: props.requireMess }]}
+      rules={passRules}
     >
       <Input
         prefix={<LockOutlined />}

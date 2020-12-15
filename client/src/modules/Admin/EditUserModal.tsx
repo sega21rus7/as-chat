@@ -1,24 +1,30 @@
 import React from "react";
-import { Modal, Input, Form, Button, message } from "antd";
-import { loginRules } from "../Auth/rules";
+import { Modal, Input, Form, message } from "antd";
+import { loginRules, emailRules } from "../Auth/rules";
 import { IUser } from "./interfaces";
+import { customFetch } from "../../tools";
 
 interface IProps {
   visible: boolean;
   setVisible(value: boolean): void;
-  user?: IUser;
+  user: IUser;
 }
 
 const EditUserModal: React.FC<IProps> = props => {
   const [form] = Form.useForm();
 
+  React.useEffect(() => {
+    console.log("props.user", props.user);
+  }, [props.user.email, props.user.login]);
+
   const editUserFromModal = async () => {
+    const values = await form.validateFields();
+    console.log("values", values);
     try {
-      const values = await form.validateFields();
-      console.log("values", values);
+      const res = await customFetch("/api/admin/user/edit", values);
+      console.log("res", res);
     } catch (err) {
-      console.log("err", err);
-      message.error(err);
+      message.error(err.message);
     }
   };
 
@@ -31,29 +37,20 @@ const EditUserModal: React.FC<IProps> = props => {
       visible={props.visible}
       onOk={editUserFromModal}
       onCancel={cancelModal}
-      footer={[
-        <Button key="back" onClick={cancelModal}>
-          Закрыть
-        </Button>,
-        <Button key="submit" type="primary" onClick={editUserFromModal}>
-          Применить
-        </Button>,
-      ]}
+      okText="Применить"
+      cancelText="Закрыть"
     >
-      <Form
-        form={form}
-        initialValues={{
-          email: props.user?.email,
-          login: props.user?.login,
-        }}
-      >
+      <Form form={form} initialValues={{
+        login: props.user.login,
+        email: props.user.email,
+      }}>
         <Form.Item
           name="email"
+          rules={emailRules}
         >
           <Input
             placeholder="Email"
             type="email"
-
           />
         </Form.Item>
         <Form.Item
@@ -65,7 +62,7 @@ const EditUserModal: React.FC<IProps> = props => {
           />
         </Form.Item>
       </Form>
-    </Modal>
+    </Modal >
   );
 };
 

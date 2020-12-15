@@ -3,7 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { customFetch } from "../../tools";
 import { IProps, IFormValues } from "./interfaces";
-import { passRules, loginRules } from "./rules";
+import { passRules, loginRules, emailRules } from "./rules";
 
 const RegForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {
@@ -28,7 +28,7 @@ const RegForm: React.FC<IProps> = props => {
   >
     <Form.Item
       name="email"
-      rules={[{ required: true, message: props.requireMess }]}
+      rules={emailRules}
     >
       <Input prefix={<MailOutlined />}
         placeholder="Email"
@@ -37,10 +37,7 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="login"
-      rules={[
-        { required: true, message: props.requireMess },
-        ...loginRules,
-      ]}
+      rules={loginRules}
     >
       <Input
         prefix={<UserOutlined />}
@@ -49,10 +46,7 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="password"
-      rules={[
-        { required: true, message: props.requireMess },
-        ...passRules,
-      ]}
+      rules={passRules}
     >
       <Input
         prefix={<LockOutlined />}
@@ -63,10 +57,7 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="password2"
-      rules={[
-        { required: true, message: props.requireMess },
-        ...passRules,
-      ]}
+      rules={passRules}
     >
       <Input
         prefix={<LockOutlined />}

@@ -3,6 +3,5 @@ export interface IFormValues {
 }
 
 export interface IProps {
-  requireMess: string;
   setIsLogin(value: boolean): void;
 }

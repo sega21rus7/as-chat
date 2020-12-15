@@ -11,15 +11,16 @@ const UsersTable: React.FC = () => {
   const [dataSource, setDataSource] = React.useState<IUser[]>([]);
   const [editableUser, setEditableUser] = React.useState<IUser>();
   const [editModalIsVisible, setEditModalIsVisible] = React.useState(false);
-
-  let dataSourceObj: IDataSourceObj;
+  const [dataSourceObj, setDataSourceObj] = React.useState<IDataSourceObj>();
+  // let dataSourceObj: IDataSourceObj;
 
   React.useEffect(() => {
     getUsers();
   }, []);
 
   React.useEffect(() => {
-    dataSourceObj = arrToObj(dataSource);
+    setDataSourceObj(arrToObj(dataSource));
+    // dataSourceObj = arrToObj(dataSource);
   }, [dataSource]);
 
   const columns: ColumnsType<IUser> = [
@@ -41,7 +42,9 @@ const UsersTable: React.FC = () => {
       dataIndex: "_id",
       key: "edit",
       render: (id: string) => {
-        return <EditOutlined onClick={() => clickEditUser(id)} />;
+        return <EditOutlined onClick={() => {
+          clickEditUser(id);
+        }} />;
       },
     },
   ];
@@ -73,11 +76,11 @@ const UsersTable: React.FC = () => {
         size="small"
         dataSource={dataSource}
         columns={columns} />
-      <EditUserModal
+      {editableUser && <EditUserModal
         visible={editModalIsVisible}
         setVisible={setEditModalIsVisible}
         user={editableUser}
-      />
+      />}
     </React.Fragment>
   );
 };
