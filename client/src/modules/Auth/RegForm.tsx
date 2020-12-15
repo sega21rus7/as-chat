@@ -2,35 +2,10 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { customFetch } from "../../tools";
-interface IFormValues {
-  [key: string]: string
-}
-
-interface IRules {
-  minLen: number;
-  maxLen: number;
-  minLenErrorMes: string;
-  maxLenErrorMes: string;
-}
-interface IProps {
-  requireMess: string;
-  passRules: IRules;
-  loginRules: IRules;
-  setIsLogin(value: boolean): void;
-}
+import { IProps, IFormValues } from "./interfaces";
+import { passRules, loginRules } from "./rules";
 
 const RegForm: React.FC<IProps> = props => {
-  const passRules = [
-    { required: true, message: props.requireMess },
-    { min: props.passRules.minLen, message: props.passRules.minLenErrorMes },
-    { max: props.passRules.maxLen, message: props.passRules.maxLenErrorMes },
-  ];
-  const loginRules = [
-    { required: true, message: props.requireMess },
-    { min: props.loginRules.minLen, message: props.loginRules.minLenErrorMes },
-    { max: props.loginRules.maxLen, message: props.loginRules.maxLenErrorMes },
-  ];
-
   const onFinish = async (values: IFormValues) => {
     const { password, password2 } = values;
     if (password !== password2) {
@@ -62,7 +37,10 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="login"
-      rules={loginRules}
+      rules={[
+        { required: true, message: props.requireMess },
+        ...loginRules,
+      ]}
     >
       <Input
         prefix={<UserOutlined />}
@@ -71,7 +49,10 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="password"
-      rules={passRules}
+      rules={[
+        { required: true, message: props.requireMess },
+        ...passRules,
+      ]}
     >
       <Input
         prefix={<LockOutlined />}
@@ -82,7 +63,10 @@ const RegForm: React.FC<IProps> = props => {
     </Form.Item>
     <Form.Item
       name="password2"
-      rules={passRules}
+      rules={[
+        { required: true, message: props.requireMess },
+        ...passRules,
+      ]}
     >
       <Input
         prefix={<LockOutlined />}

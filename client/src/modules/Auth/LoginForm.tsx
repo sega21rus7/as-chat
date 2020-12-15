@@ -2,22 +2,7 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { customFetch } from "../../tools";
-
-interface IFormValues {
-  [key: string]: string
-}
-interface IRules {
-  minLen: number;
-  maxLen: number;
-  minLenErrorMes: string;
-  maxLenErrorMes: string;
-}
-interface IProps {
-  requireMess: string;
-  passRules: IRules;
-  loginRules: IRules;
-  setIsLogin(value: boolean): void;
-}
+import { IProps, IFormValues } from "./interfaces";
 
 const LoginForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {

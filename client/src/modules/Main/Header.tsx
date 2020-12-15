@@ -12,6 +12,7 @@ const CustomHeader: React.FC = () => {
   const links: ILinks = {
     "Главная": "/",
     "Войти": "/login",
+    "Пользователи": "/users",
   };
 
   const renderedLinks = Object.keys(links).map(text => {

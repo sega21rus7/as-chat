@@ -25,10 +25,10 @@ export const login = async (req: express.Request, res: express.Response): Promis
     }, config.jwt, {
       expiresIn: 60 * 60, // час
     });
-    res.status(200).json({ token: `Bearer ${token}` });
+    return res.status(200).json({ token: `Bearer ${token}` });
   } catch (err) {
     console.log(err);
-    res.status(500).end(err.message);
+    return res.status(500).end(err.message);
   }
 };
 
@@ -51,9 +51,9 @@ export const register = async (req: express.Request, res: express.Response): Pro
       ),
     });
     await user.save();
-    res.status(201).json(user);
+    return res.status(201).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).end(err.message);
+    return res.status(500).end(err.message);
   }
 };
