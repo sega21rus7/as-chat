@@ -1,17 +1,16 @@
 import React from "react";
-import { Table, message, Modal, Input, Form, Button } from "antd";
+import { Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined } from "@ant-design/icons";
 import { customFetch, arrToObj } from "../../tools";
 import { IResponse } from "../../tools/interfaces";
 import { IUser, IDataSourceObj } from "./interfaces";
-import { loginRules } from "../Auth/rules";
+import EditUserModal from "./EditUserModal";
 
 const UsersTable: React.FC = () => {
   const [dataSource, setDataSource] = React.useState<IUser[]>([]);
-  const [editModalIsVisible, setEditModalIsVisible] = React.useState(false);
   const [editableUser, setEditableUser] = React.useState<IUser>();
-  const [form] = Form.useForm();
+  const [editModalIsVisible, setEditModalIsVisible] = React.useState(false);
 
   let dataSourceObj: IDataSourceObj;
 
@@ -47,6 +46,11 @@ const UsersTable: React.FC = () => {
     },
   ];
 
+  const clickEditUser = (id: string) => {
+    setEditableUser(dataSourceObj && dataSourceObj[id]);
+    setEditModalIsVisible(true);
+  };
+
   const getUsers = async () => {
     try {
       let res: IResponse = await customFetch("/api/admin/users");
@@ -60,25 +64,6 @@ const UsersTable: React.FC = () => {
     }
   };
 
-  const clickEditUser = (id: string) => {
-    setEditableUser(dataSourceObj && dataSourceObj[id]);
-    setEditModalIsVisible(true);
-  };
-
-  const editUserFromModal = async () => {
-    try {
-      const values = await form.validateFields();
-      console.log("values", values);
-    } catch (err) {
-      console.log("err", err);
-      message.error(err);
-    }
-  };
-
-  const cancelModal = () => {
-    setEditModalIsVisible(false);
-  };
-
   return (
     <React.Fragment>
       <Table<IUser>
@@ -88,47 +73,12 @@ const UsersTable: React.FC = () => {
         size="small"
         dataSource={dataSource}
         columns={columns} />
-      <Modal title="Редактирование пользователя"
+      <EditUserModal
         visible={editModalIsVisible}
-        onOk={editUserFromModal}
-        onCancel={cancelModal}
-        footer={[
-          <Button key="back" onClick={cancelModal}>
-            Закрыть
-          </Button>,
-          <Button key="submit" type="primary" onClick={editUserFromModal}>
-            Применить
-          </Button>,
-        ]}
-      >
-        <Form
-          form={form}
-          initialValues={{
-            email: editableUser?.email,
-            login: editableUser?.login,
-          }}
-        >
-          <Form.Item
-            name="email"
-          >
-            <Input
-              placeholder="Email"
-              type="email"
-
-            />
-          </Form.Item>
-          <Form.Item
-            name="login"
-            rules={loginRules}
-          >
-            <Input
-              placeholder="Логин"
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
+        setVisible={setEditModalIsVisible}
+        user={editableUser}
+      />
     </React.Fragment>
-
   );
 };
 
