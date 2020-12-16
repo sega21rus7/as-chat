@@ -46,3 +46,7 @@ export const setToken = (token: string): void => {
 export const getToken = (): string => {
   return localStorage.getItem("token") || "";
 };
+
+export const isAuth = (): boolean => {
+  return !!getToken();
+};

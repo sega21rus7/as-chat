@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { customFetch, arrToObj, getToken } from "../../tools";
 import { IUser, IDataSourceObj } from "./interfaces";
+import ErrorIfNotAuth from "../../wrapperComponents/ErrorIfNotAuth";
 import EditUserModal from "./EditUserModal";
 
 interface IResponse {
@@ -103,25 +104,29 @@ const UsersTable: React.FC = () => {
   };
 
   if (!dataSource.length) {
-    return <Empty description="Нет данных" />;
+    return <ErrorIfNotAuth>
+      <Empty description="Нет данных" />
+    </ErrorIfNotAuth>;
   }
 
   return (
-    <React.Fragment>
-      <Table<IUser>
-        style={{
-          margin: "0px 50px",
-        }}
-        size="small"
-        dataSource={dataSource}
-        columns={columns} />
-      {editableUser && <EditUserModal
-        visible={editModalIsVisible}
-        setVisible={setEditModalIsVisible}
-        user={editableUser}
-        updateUsers={getUsers}
-      />}
-    </React.Fragment>
+    <ErrorIfNotAuth>
+      <React.Fragment>
+        <Table<IUser>
+          style={{
+            margin: "0px 50px",
+          }}
+          size="small"
+          dataSource={dataSource}
+          columns={columns} />
+        {editableUser && <EditUserModal
+          visible={editModalIsVisible}
+          setVisible={setEditModalIsVisible}
+          user={editableUser}
+          updateUsers={getUsers}
+        />}
+      </React.Fragment>
+    </ErrorIfNotAuth>
   );
 };
 
