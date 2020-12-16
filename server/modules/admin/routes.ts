@@ -1,5 +1,5 @@
 import express from "express";
-import { passportMiddleware } from "../../utils";
+import { passportMiddleware } from "../../tools";
 import {
   users as usersController,
   editUser as editUserController,

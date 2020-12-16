@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { handleError } from "../../utils";
+import { handleError } from "../../tools";
 import User from "../auth/models/User";
 
 export const users = async (req: express.Request, res: express.Response): Promise<unknown> => {

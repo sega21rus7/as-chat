@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "./models/User";
 import config from "../../config";
-import { handleError } from "../../utils";
+import { handleError } from "../../tools";
 
 export const login = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
