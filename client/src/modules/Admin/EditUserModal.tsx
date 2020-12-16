@@ -20,7 +20,6 @@ const EditUserModal: React.FC<IProps> = props => {
 
   const editUserFromModal = async () => {
     const values = await form.validateFields();
-    form.resetFields();
     console.log("values", values);
     try {
       const res = await customFetch("/api/admin/user/edit", values);

@@ -1,3 +1,5 @@
+import { Rule } from "antd/lib/form";
+
 const requireRules = [
   { required: true, message: "Поле обязательно для заполнения!" },
 ];
@@ -14,6 +16,7 @@ export const loginRules = [
   { max: 20, message: "Максимальная длина логина 20 символов!" },
 ];
 
-export const emailRules = [
+export const emailRules: Rule[] = [
   ...requireRules,
+  { type: "email", message: "Введите корректный email!" },
 ];
