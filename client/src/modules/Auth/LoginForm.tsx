@@ -1,15 +1,20 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { customFetch } from "../../tools";
+import { customFetch, setToken } from "../../tools";
 import { IProps, IFormValues } from "./interfaces";
 import { passRules, loginRules } from "./rules";
+
+interface IResponse {
+  token: string;
+}
 
 const LoginForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {
     try {
-      const res = await customFetch("/api/auth/login", values);
+      const res = await customFetch("/api/auth/login", values) as IResponse;
       console.log("res", res);
+      setToken(res.token);
     } catch (err) {
       message.error(err.message);
     }

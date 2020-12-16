@@ -1,5 +1,6 @@
 export interface IParams {
   method?: string;
+  token?: string;
 }
 
 export interface IObject {

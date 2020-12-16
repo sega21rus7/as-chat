@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Input, Form, message } from "antd";
 import { loginRules, emailRules } from "../Auth/rules";
 import { IUser } from "./interfaces";
-import { customFetch } from "../../tools";
+import { customFetch, getToken } from "../../tools";
 
 interface IProps {
   visible: boolean;
@@ -25,7 +25,9 @@ const EditUserModal: React.FC<IProps> = props => {
       _id: props.user._id,
     };
     try {
-      const res = await customFetch("/api/admin/user/edit", data);
+      const res = await customFetch("/api/admin/user/edit", data, {
+        token: getToken(),
+      });
       props.updateUsers();
       cancelModal();
       message.success(res);

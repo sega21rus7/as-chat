@@ -3,10 +3,12 @@
 import { IObject, IParams } from "./interfaces";
 
 export const customFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
+  const authHeader = params?.token && { "Authorization": params.token };
   const response = await fetch(url, {
     method: params && params.method || "POST",
     headers: {
       "Content-Type": "application/json",
+      ...authHeader,
     },
     body: data && JSON.stringify(data),
   });
@@ -35,4 +37,12 @@ export const arrToObj = (array: any[], key = "_id"): Record<string, any> => {
 
 export const getObjectKeyByValue = (object: IObject, value: any): string => {
   return Object.keys(object).find(key => object[key] === value) || "";
+};
+
+export const setToken = (token: string): void => {
+  localStorage.setItem("token", token);
+};
+
+export const getToken = (): string => {
+  return localStorage.getItem("token") || "";
 };
