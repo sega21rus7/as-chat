@@ -70,9 +70,7 @@ const RegForm: React.FC<IProps> = props => {
       <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
         Зарегистрироваться
       </Button>
-      Или <a role="button" onClick={() => {
-        props.setIsLogin(true);
-      }}>войдите в систему</a>
+      Или <a role="button" onClick={() => props.setIsLogin(true)}>войдите в систему</a>
     </Form.Item>
   </Form>;
 };

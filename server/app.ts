@@ -3,7 +3,7 @@ import authRouter from "./modules/auth/routes";
 import adminRouter from "./modules/admin/routes";
 import bodyParser from "body-parser";
 import passport from "passport";
-import passportMiddleware from "./middleware/passport";
+import passportMiddleware from "./middlewares/passport";
 
 const app = express();
 

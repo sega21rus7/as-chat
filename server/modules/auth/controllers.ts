@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "./models/User";
 import config from "../../config";
+import { handleError } from "../../utils";
 
 export const login = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
@@ -27,8 +28,7 @@ export const login = async (req: express.Request, res: express.Response): Promis
     });
     return res.status(200).json({ token: `Bearer ${token}` });
   } catch (err) {
-    console.log(err);
-    return res.status(500).end(err.message);
+    handleError(res, err);
   }
 };
 
@@ -53,7 +53,6 @@ export const register = async (req: express.Request, res: express.Response): Pro
     await user.save();
     return res.status(201).json(user);
   } catch (err) {
-    console.log(err);
-    return res.status(500).end(err.message);
+    handleError(res, err);
   }
 };

@@ -11,5 +11,5 @@ export default {
       port: 27017,
     },
   },
-  jwt: "dev-jwt",
+  jwt: "jwt",
 };

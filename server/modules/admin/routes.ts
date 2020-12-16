@@ -1,5 +1,5 @@
 import express from "express";
-import passport from "passport";
+import { passportMiddleware } from "../../utils";
 import {
   users as usersController,
   editUser as editUserController,
@@ -8,8 +8,8 @@ import {
 
 const router = express.Router();
 
-router.use("/users", passport.authenticate("jwt", { session: false }), usersController);
-router.use("/user/edit", passport.authenticate("jwt", { session: false }), editUserController);
-router.use("/user/delete", passport.authenticate("jwt", { session: false }), deleteUserController);
+router.use("/users", passportMiddleware(), usersController);
+router.use("/user/edit", passportMiddleware(), editUserController);
+router.use("/user/delete", passportMiddleware(), deleteUserController);
 
 export default router;

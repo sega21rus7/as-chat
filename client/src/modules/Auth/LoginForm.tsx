@@ -49,9 +49,8 @@ const LoginForm: React.FC<IProps> = props => {
       <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
         Войти
       </Button>
-      Или <a role="button" onClick={() => {
-        props.setIsLogin(false);
-      }}>зарегистрируйтесь сейчас</a>
+      Или <a role="button" onClick={() => props.setIsLogin(false)}>
+        зарегистрируйтесь сейчас</a>
     </Form.Item>
   </Form >;
 };
