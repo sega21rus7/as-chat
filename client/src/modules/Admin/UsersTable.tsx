@@ -1,18 +1,20 @@
 import React from "react";
-import { Table, message } from "antd";
+import { Table, Empty, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined } from "@ant-design/icons";
 import { customFetch, arrToObj } from "../../tools";
-import { IResponse } from "../../tools/interfaces";
 import { IUser, IDataSourceObj } from "./interfaces";
 import EditUserModal from "./EditUserModal";
+
+interface IResponse {
+  users: IUser[]
+}
 
 const UsersTable: React.FC = () => {
   const [dataSource, setDataSource] = React.useState<IUser[]>([]);
   const [editableUser, setEditableUser] = React.useState<IUser>();
   const [editModalIsVisible, setEditModalIsVisible] = React.useState(false);
   const [dataSourceObj, setDataSourceObj] = React.useState<IDataSourceObj>();
-  // let dataSourceObj: IDataSourceObj;
 
   React.useEffect(() => {
     getUsers();
@@ -20,7 +22,6 @@ const UsersTable: React.FC = () => {
 
   React.useEffect(() => {
     setDataSourceObj(arrToObj(dataSource));
-    // dataSourceObj = arrToObj(dataSource);
   }, [dataSource]);
 
   const columns: ColumnsType<IUser> = [
@@ -56,7 +57,8 @@ const UsersTable: React.FC = () => {
 
   const getUsers = async () => {
     try {
-      let res: IResponse = await customFetch("/api/admin/users");
+      // let res: IObject | string = await customFetch("/api/admin/users");
+      let res = await customFetch("/api/admin/users") as IResponse;
       res.users = res.users.map((x: IUser) => {
         x.key = x.email;
         return x;
@@ -66,6 +68,10 @@ const UsersTable: React.FC = () => {
       message.error(err.message);
     }
   };
+
+  if (!dataSource.length) {
+    return <Empty description="Нет данных" />;
+  }
 
   return (
     <React.Fragment>

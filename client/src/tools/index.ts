@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IResponse, IParams } from "./interfaces";
+import { IObject, IParams } from "./interfaces";
 
-interface IObject {
-  [key: string]: any;
-}
-
-export const customFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IResponse> => {
+export const customFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
   const response = await fetch(url, {
     method: params && params.method || "POST",
     headers: {
@@ -17,7 +13,11 @@ export const customFetch = async (url: string, data?: Record<string, unknown>, p
     const errMessage = await response.text();
     throw new Error(errMessage || "Произошла непредвиденная ошибка.");
   }
-  const res = await response.json();
+  let res: string | IObject = await response.text();
+  try {
+    res = JSON.parse(res);
+    // eslint-disable-next-line no-empty
+  } catch (err) { }
   return res;
 };
 

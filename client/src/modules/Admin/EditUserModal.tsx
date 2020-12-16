@@ -15,15 +15,18 @@ const EditUserModal: React.FC<IProps> = props => {
 
   React.useEffect(() => {
     console.log("props.user", props.user);
-  }, [props.user.email, props.user.login]);
+    form.resetFields();
+  }, [props.user]);
 
   const editUserFromModal = async () => {
     const values = await form.validateFields();
+    form.resetFields();
     console.log("values", values);
     try {
       const res = await customFetch("/api/admin/user/edit", values);
-      console.log("res", res);
+      message.info(res);
     } catch (err) {
+      console.log("err", err);
       message.error(err.message);
     }
   };

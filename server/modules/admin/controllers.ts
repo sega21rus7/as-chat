@@ -13,15 +13,8 @@ export const users = async (req: express.Request, res: express.Response): Promis
 
 export const editUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
-    await User.findOneAndUpdate({ _id: req.body._id }, req.body, {
-      upsert: true,
-    }, err => {
-      if (err) {
-        return res.status(400).end(err);
-      }
-      return res.status(200).end("Пользователь успешно обновлен.");
-    });
-    return res.end();
+    await User.updateOne({ _id: req.body._id }, req.body);
+    return res.status(200).end("Пользователь успешно обновлен.");
   } catch (err) {
     console.log(err);
     res.status(500).end(err.message);
