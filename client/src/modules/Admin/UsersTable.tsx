@@ -57,7 +57,6 @@ const UsersTable: React.FC = () => {
 
   const getUsers = async () => {
     try {
-      // let res: IObject | string = await customFetch("/api/admin/users");
       let res = await customFetch("/api/admin/users") as IResponse;
       res.users = res.users.map((x: IUser) => {
         x.key = x.email;
@@ -86,6 +85,7 @@ const UsersTable: React.FC = () => {
         visible={editModalIsVisible}
         setVisible={setEditModalIsVisible}
         user={editableUser}
+        updateUsers={getUsers}
       />}
     </React.Fragment>
   );

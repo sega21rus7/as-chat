@@ -8,21 +8,26 @@ interface IProps {
   visible: boolean;
   setVisible(value: boolean): void;
   user: IUser;
+  updateUsers(): void;
 }
 
 const EditUserModal: React.FC<IProps> = props => {
   const [form] = Form.useForm();
 
   React.useEffect(() => {
-    console.log("props.user", props.user);
     form.resetFields();
   }, [props.user]);
 
   const editUserFromModal = async () => {
     const values = await form.validateFields();
-    console.log("values", values);
+    const data = {
+      ...values,
+      _id: props.user._id,
+    };
     try {
-      const res = await customFetch("/api/admin/user/edit", values);
+      const res = await customFetch("/api/admin/user/edit", data);
+      props.updateUsers();
+      cancelModal();
       message.info(res);
     } catch (err) {
       console.log("err", err);
@@ -42,26 +47,25 @@ const EditUserModal: React.FC<IProps> = props => {
       okText="Применить"
       cancelText="Закрыть"
     >
-      <Form form={form} initialValues={{
-        login: props.user.login,
-        email: props.user.email,
-      }}>
+      <Form labelCol={{ span: 4 }}
+        form={form}
+        initialValues={{
+          login: props.user.login,
+          email: props.user.email,
+        }}>
         <Form.Item
           name="email"
+          label="Email"
           rules={emailRules}
         >
-          <Input
-            placeholder="Email"
-            type="email"
-          />
+          <Input type="email" />
         </Form.Item>
         <Form.Item
           name="login"
+          label="Логин"
           rules={loginRules}
         >
-          <Input
-            placeholder="Логин"
-          />
+          <Input />
         </Form.Item>
       </Form>
     </Modal >

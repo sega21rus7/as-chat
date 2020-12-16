@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import User from "../auth/models/User";
 
 export const users = async (req: express.Request, res: express.Response): Promise<unknown> => {
@@ -13,7 +14,8 @@ export const users = async (req: express.Request, res: express.Response): Promis
 
 export const editUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
-    await User.updateOne({ _id: req.body._id }, req.body);
+    const _id = mongoose.Types.ObjectId(req.body._id);
+    await User.updateOne({ _id }, req.body);
     return res.status(200).end("Пользователь успешно обновлен.");
   } catch (err) {
     console.log(err);
