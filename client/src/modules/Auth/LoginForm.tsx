@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { customFetch, setToken } from "../../tools";
@@ -10,11 +11,14 @@ interface IResponse {
 }
 
 const LoginForm: React.FC<IProps> = props => {
+  const history = useHistory();
+
   const onFinish = async (values: IFormValues) => {
     try {
       const res = await customFetch("/api/auth/login", values) as IResponse;
       console.log("res", res);
       setToken(res.token);
+      history.push("/admin/users");
     } catch (err) {
       message.error(err.message);
     }

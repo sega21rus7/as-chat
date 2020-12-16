@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { getObjectKeyByValue } from "../../tools";
+import { getObjectKeyByValue, isAuth } from "../../tools";
 
 const { Header } = Layout;
 
@@ -13,10 +13,17 @@ interface ILinks {
 const CustomHeader: React.FC = () => {
   const location = useLocation();
 
+  const linksIfAlreadyAuth: ILinks = {
+    "Пользователи": "/admin/users",
+  };
+  const linksIfNotAuth: ILinks = {
+    "Войти": "/login",
+  };
+
   const links: ILinks = {
     "Главная": "/",
-    "Войти": "/login",
-    "Пользователи": "/users",
+    ...(!isAuth() && linksIfNotAuth),
+    ...(isAuth() && linksIfAlreadyAuth),
   };
 
   const renderedLinks = Object.keys(links).map(text => {
