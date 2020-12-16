@@ -28,7 +28,7 @@ const EditUserModal: React.FC<IProps> = props => {
       const res = await customFetch("/api/admin/user/edit", data);
       props.updateUsers();
       cancelModal();
-      message.info(res);
+      message.success(res);
     } catch (err) {
       console.log("err", err);
       message.error(err.message);

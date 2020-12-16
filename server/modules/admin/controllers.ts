@@ -22,3 +22,14 @@ export const editUser = async (req: express.Request, res: express.Response): Pro
     res.status(500).end(err.message);
   }
 };
+
+export const deleteUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
+  try {
+    const _id = mongoose.Types.ObjectId(req.body._id);
+    await User.deleteOne({ _id });
+    return res.status(200).end("Пользователь успешно удален.");
+  } catch (err) {
+    console.log(err);
+    res.status(500).end(err.message);
+  }
+};

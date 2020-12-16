@@ -1,7 +1,7 @@
 import React from "react";
-import { Table, Empty, message } from "antd";
+import { Table, Empty, Popconfirm, Tooltip, message } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { customFetch, arrToObj } from "../../tools";
 import { IUser, IDataSourceObj } from "./interfaces";
 import EditUserModal from "./EditUserModal";
@@ -43,16 +43,45 @@ const UsersTable: React.FC = () => {
       dataIndex: "_id",
       key: "edit",
       render: (id: string) => {
-        return <EditOutlined onClick={() => {
-          clickEditUser(id);
-        }} />;
+        return <React.Fragment>
+          <Tooltip title="Редактировать">
+            <EditOutlined
+              style={{
+                marginRight: 5,
+              }}
+              onClick={() => editUser(id)}
+            />
+          </Tooltip>
+          <Tooltip title="Удалить">
+            <Popconfirm
+              title="Подтвердите действие?"
+              onConfirm={() => deleteUser(id)}
+              okText="Удалить"
+              cancelText="Отмена"
+              placement="leftTop"
+            >
+              <DeleteOutlined />
+            </Popconfirm>
+          </Tooltip>
+        </React.Fragment >;
       },
     },
   ];
 
-  const clickEditUser = (id: string) => {
-    setEditableUser(dataSourceObj && dataSourceObj[id]);
+  const editUser = (_id: string) => {
+    setEditableUser(dataSourceObj && dataSourceObj[_id]);
     setEditModalIsVisible(true);
+  };
+
+  const deleteUser = async (_id: string) => {
+    try {
+      const res = await customFetch("/api/admin/user/delete", { _id });
+      getUsers();
+      message.success(res);
+    } catch (err) {
+      console.log("err", err);
+      message.error(err.message);
+    }
   };
 
   const getUsers = async () => {
