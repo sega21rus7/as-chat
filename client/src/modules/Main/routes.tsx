@@ -5,13 +5,13 @@ import Login from "../Auth/Login";
 import UsersTable from "../Admin/UsersTable";
 
 const BaseRouter: React.FC = () => (
-  <div>
+  <React.Fragment>
     <Switch>
       <Route exact path="/" component={Content} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/users" component={UsersTable} />
     </Switch>
-  </div>
+  </React.Fragment>
 );
 
 export default BaseRouter;
