@@ -19,7 +19,7 @@ export const login = async (req: express.Request, res: express.Response): Promis
     }
     // генерируем токен
     const token = jwt.sign({
-      id: candidate._id,
+      _id: candidate._id,
       email: candidate.email,
       login: candidate.login,
     }, config.jwt, {

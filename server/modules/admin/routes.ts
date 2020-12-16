@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 import {
   users as usersController,
   editUser as editUserController,
@@ -7,8 +8,8 @@ import {
 
 const router = express.Router();
 
-router.post("/users", usersController);
-router.post("/user/edit", editUserController);
-router.post("/user/delete", deleteUserController);
+router.use("/users", passport.authenticate("jwt", { session: false }), usersController);
+router.use("/user/edit", passport.authenticate("jwt", { session: false }), editUserController);
+router.use("/user/delete", passport.authenticate("jwt", { session: false }), deleteUserController);
 
 export default router;

@@ -3,7 +3,7 @@ import { login as loginController, register as regController } from "./controlle
 
 const router = express.Router();
 
-router.post("/login", loginController);
-router.post("/register", regController);
+router.use("/login", loginController);
+router.use("/register", regController);
 
 export default router;
