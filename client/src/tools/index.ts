@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IObject, IParams } from "./interfaces";
 
@@ -30,4 +31,8 @@ export const arrToObj = (array: any[], key = "_id"): Record<string, any> => {
     result[item[key]] = item;
   });
   return result;
+};
+
+export const getObjectKeyByValue = (object: IObject, value: any): string => {
+  return Object.keys(object).find(key => object[key] === value) || "";
 };
