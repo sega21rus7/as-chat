@@ -20,6 +20,10 @@ const EditUserModal: React.FC<IProps> = props => {
 
   const editUserFromModal = async () => {
     const values = await form.validateFields();
+    if (values.login === props.user.login && values.email === props.user.email) {
+      message.error("Хотя бы одно из значений должно отличаться!");
+      return;
+    }
     const data = {
       ...values,
       _id: props.user._id,
