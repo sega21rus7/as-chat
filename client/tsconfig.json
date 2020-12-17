@@ -21,7 +21,9 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "config",
+    "scripts"
   ],
   "exclude": [
     "node_modules"
