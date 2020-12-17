@@ -16,7 +16,6 @@ const LoginForm: React.FC<IProps> = props => {
   const onFinish = async (values: IFormValues) => {
     try {
       const res = await customFetch("/api/auth/login", values) as IResponse;
-      console.log("res", res);
       setToken(res.token);
       history.push("/admin/users");
     } catch (err) {

@@ -43,6 +43,10 @@ export const setToken = (token: string): void => {
   localStorage.setItem("token", token);
 };
 
+export const removeToken = (): void => {
+  localStorage.removeItem("token");
+};
+
 export const getToken = (): string => {
   return localStorage.getItem("token") || "";
 };
@@ -50,3 +54,4 @@ export const getToken = (): string => {
 export const isAuth = (): boolean => {
   return !!getToken();
 };
+
