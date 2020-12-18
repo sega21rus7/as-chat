@@ -41,6 +41,12 @@ const UsersTable: React.FC = () => {
       showSorterTooltip: false,
     },
     {
+      title: "Дата регистрации",
+      dataIndex: "regDate",
+      key: "regDate",
+      render: (date: Date) => new Date(date).toLocaleString(),
+    },
+    {
       dataIndex: "_id",
       key: "edit",
       render: (id: string) => {

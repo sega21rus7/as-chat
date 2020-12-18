@@ -23,6 +23,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  regDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 export default mongoose.model<IUser & Document>("users", userSchema);

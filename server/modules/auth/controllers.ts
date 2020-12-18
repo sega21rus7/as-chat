@@ -53,6 +53,7 @@ export const register = async (req: IRequest, res: express.Response): Promise<un
       email: req.body.email,
       login: req.body.login,
       password: generatePassword(req.body.password),
+      regDate: new Date(),
     });
     await user.save();
     return res.status(201).json(user);
