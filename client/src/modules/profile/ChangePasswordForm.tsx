@@ -5,7 +5,7 @@ import { passRules } from "../auth/rules";
 import { customTokenFetch } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 
-const ChangePassword: React.FC = () => {
+const ChangePasswordForm: React.FC = () => {
   const onFinish = async (values: IFormValues) => {
     if (values.password1 !== values.password2) {
       return message.error("Пароли должны совпадать!");
@@ -29,9 +29,8 @@ const ChangePassword: React.FC = () => {
       name="old_password"
       rules={passRules}
     >
-      <Input
+      <Input.Password
         prefix={<LockOutlined />}
-        type="password"
         autoComplete="on"
         placeholder="Старый пароль"
       />
@@ -40,9 +39,8 @@ const ChangePassword: React.FC = () => {
       name="password1"
       rules={passRules}
     >
-      <Input
+      <Input.Password
         prefix={<LockOutlined />}
-        type="password"
         autoComplete="on"
         placeholder="Новый пароль"
       />
@@ -51,9 +49,8 @@ const ChangePassword: React.FC = () => {
       name="password2"
       rules={passRules}
     >
-      <Input
+      <Input.Password
         prefix={<LockOutlined />}
-        type="password"
         autoComplete="on"
         placeholder="Подтвердите новый пароль"
       />
@@ -66,4 +63,4 @@ const ChangePassword: React.FC = () => {
   </Form >;
 };
 
-export default ChangePassword;
+export default ChangePasswordForm;

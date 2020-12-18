@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
-import ChangePassword from "./ChangePassword";
+import ChangePassword from "./ChangePasswordForm";
 import Profile from "./Profile";
 
 const { SubMenu } = Menu;
