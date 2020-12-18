@@ -4,7 +4,7 @@ import Content from "./Content";
 import Login from "../auth/Login";
 import Component404 from "./404";
 import UsersTable from "../admin/UsersTable";
-import Profile from "../profile/Profile";
+import Profile from "../profile/Main";
 
 const BaseRouter: React.FC = () => (
   <React.Fragment>
