@@ -11,5 +11,12 @@ export default {
       port: 27017,
     },
   },
-  jwt: "jwt",
+  jwt: {
+    secretOrKey: "jwt",
+    expiresIn: 60 * 60,
+    salt: 10,
+  },
+  // jwt: "jwt",
+  // jwtExpiresIn: 60 * 60,
+  // jwtSalt: 10,
 };

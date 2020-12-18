@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { customFetch, setToken } from "../../tools";
-import { IProps, IFormValues } from "./interfaces";
+import { IFormValues } from "../../tools/interfaces";
+import { IProps } from "./interfaces";
 import { passRules, loginRules } from "./rules";
 
 interface IResponse {

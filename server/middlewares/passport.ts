@@ -1,13 +1,11 @@
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import config from "../config";
-import mongoose from "mongoose";
 import passport from "passport";
-
-const User = mongoose.model("users");
+import User from "../modules/auth/models/User";
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.jwt,
+  secretOrKey: config.jwt.secretOrKey,
 };
 
 export default function (pass: typeof passport): void {

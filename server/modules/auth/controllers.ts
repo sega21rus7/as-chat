@@ -1,9 +1,8 @@
 import express from "express";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "./models/User";
 import config from "../../config";
-import { handleError } from "../../tools";
+import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
 export const login = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
@@ -14,7 +13,7 @@ export const login = async (req: express.Request, res: express.Response): Promis
     if (!candidate) {
       return res.status(404).end("Пользователь не найден.");
     }
-    const passwordsEquals = bcrypt.compareSync(req.body.password, candidate.password);
+    const passwordsEquals = isPasswordsEqual(req.body.password, candidate.password);
     if (!passwordsEquals) {
       return res.status(401).end("Неверный пароль.");
     }
@@ -23,8 +22,8 @@ export const login = async (req: express.Request, res: express.Response): Promis
       _id: candidate._id,
       email: candidate.email,
       login: candidate.login,
-    }, config.jwt, {
-      expiresIn: 60 * 60, // час
+    }, config.jwt.secretOrKey, {
+      expiresIn: config.jwt.expiresIn, // час
     });
     return res.status(200).json({ token: `Bearer ${token}` });
   } catch (err) {
@@ -45,10 +44,7 @@ export const register = async (req: express.Request, res: express.Response): Pro
     const user = new User({
       email: req.body.email,
       login: req.body.login,
-      password: bcrypt.hashSync(
-        req.body.password,
-        bcrypt.genSaltSync(10)
-      ),
+      password: generatePassword(req.body.password),
     });
     await user.save();
     return res.status(201).json(user);

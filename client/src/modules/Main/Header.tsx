@@ -16,12 +16,14 @@ enum linkKeys {
   Login = "Войти",
   Out = "Выйти",
   Main = "Главная",
+  Profile = "Профиль",
 }
 
 const CustomHeader: React.FC = () => {
   const location = useLocation();
 
   const linksIfAlreadyAuth: ILinks = {
+    [linkKeys.Profile]: "/profile",
     [linkKeys.Users]: "/admin/users",
     [linkKeys.Out]: "/",
   };
