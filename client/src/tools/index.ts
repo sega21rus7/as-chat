@@ -24,6 +24,14 @@ export const customFetch = async (url: string, data?: Record<string, unknown>, p
   return res;
 };
 
+export const customTokenFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
+  const res = await customFetch(url, data, {
+    token: getToken(),
+    ...params,
+  });
+  return res;
+};
+
 export const arrToObj = (array: any[], key = "_id"): Record<string, any> => {
   if (!array.length) {
     return {};
