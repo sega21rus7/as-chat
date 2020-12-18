@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Input, Form, message } from "antd";
-import { loginRules, emailRules } from "../Auth/rules";
+import { loginRules, emailRules } from "../auth/rules";
 import { IUser } from "./interfaces";
 import { customFetch, getToken } from "../../tools";
 

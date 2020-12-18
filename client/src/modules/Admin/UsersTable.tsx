@@ -4,7 +4,7 @@ import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { customFetch, arrToObj, getToken } from "../../tools";
 import { IUser, IDataSourceObj } from "./interfaces";
-import ErrorIfNotAuth from "../../wrapperComponents/ErrorIfNotAuth";
+import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
 import EditUserModal from "./EditUserModal";
 
 interface IResponse {
