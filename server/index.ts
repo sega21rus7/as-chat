@@ -20,9 +20,10 @@ import mongoose from "mongoose";
       console.log(err);
     });
 
-    ["uncaughtException", "SIGINT", "SIGTERM"].forEach(x => {
-      process.on(x, () => {
+    ["uncaughtException", "SIGINT", "SIGTERM"].forEach(sig => {
+      process.on(sig, () => {
         server.close();
+        process.exit();
       });
     });
   } catch (err) {
