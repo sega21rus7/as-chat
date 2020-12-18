@@ -3,6 +3,12 @@ import mongoose from "mongoose";
 import { handleError } from "../../tools";
 import User from "../auth/models/User";
 
+interface IRequest extends express.Request {
+  body: {
+    _id: string;
+  }
+}
+
 export const users = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
     const users = await User.find({}, { password: 0 });
@@ -12,7 +18,7 @@ export const users = async (req: express.Request, res: express.Response): Promis
   }
 };
 
-export const editUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const editUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = mongoose.Types.ObjectId(req.body._id);
     await User.updateOne({ _id }, req.body);
@@ -22,7 +28,7 @@ export const editUser = async (req: express.Request, res: express.Response): Pro
   }
 };
 
-export const deleteUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const deleteUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = mongoose.Types.ObjectId(req.body._id);
     await User.deleteOne({ _id });

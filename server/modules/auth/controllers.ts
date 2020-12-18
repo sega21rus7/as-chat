@@ -4,7 +4,15 @@ import User from "./models/User";
 import config from "../../config";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
-export const login = async (req: express.Request, res: express.Response): Promise<unknown> => {
+interface IRequest extends express.Request {
+  body: {
+    email: string;
+    login: string;
+    password: string;
+  }
+}
+
+export const login = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ login: req.body.login });
     if (!candidate) {
@@ -31,7 +39,7 @@ export const login = async (req: express.Request, res: express.Response): Promis
   }
 };
 
-export const register = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const register = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ email: req.body.email });
     if (candidate) {
