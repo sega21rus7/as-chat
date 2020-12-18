@@ -69,9 +69,8 @@ const RegForm: React.FC<IProps> = props => {
       name="password2"
       rules={passRules}
     >
-      <Input
+      <Input.Password
         prefix={<LockOutlined />}
-        type="password"
         autoComplete="on"
         placeholder="Повторите пароль"
       />
