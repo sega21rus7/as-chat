@@ -1,10 +1,54 @@
 import React from "react";
+import { Form, Input, Button, message } from "antd";
 import { emailRules, loginRules } from "../auth/rules";
-import { Form, Input } from "antd";
+import { customTokenFetch } from "../../tools";
+import { IFormValues } from "../../tools/interfaces";
+import { IUser, IEditUserResponse } from "./interfaces";
 
 const EditUserForm: React.FC = () => {
+  const [user, setUser] = React.useState<IUser>();
+  const [form] = Form.useForm();
+
+  React.useEffect(() => {
+    getUser();
+  }, []);
+
+  React.useEffect(() => {
+    form.resetFields();
+  }, [user]);
+
+  const getUser = async () => {
+    const res = await customTokenFetch("/api/profile/user/info", undefined, {
+      method: "GET",
+    }) as IEditUserResponse;
+    setUser(res.user);
+  };
+
+  const onFinish = async (values: IFormValues) => {
+    try {
+      const res = await customTokenFetch("/api/profile/user/edit", values);
+      message.success(res);
+    } catch (err) {
+      message.error(err.message);
+    }
+  };
+
   return (
-    <Form labelCol={{ span: 4 }}>
+    <Form
+      form={form}
+      style={{
+        minWidth: 500,
+      }}
+      labelCol={{ span: 4 }}
+      initialValues={{
+        email: user?.email,
+        login: user?.login,
+        lastName: user?.lastName,
+        firstName: user?.firstName,
+        middleName: user?.middleName,
+      }}
+      onFinish={onFinish}
+    >
       <Form.Item
         name="email"
         label="Email"
@@ -37,7 +81,12 @@ const EditUserForm: React.FC = () => {
       >
         <Input />
       </Form.Item>
-    </Form>
+      <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+        <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
+          Сохранить
+        </Button>
+      </Form.Item>
+    </Form >
   );
 };
 
