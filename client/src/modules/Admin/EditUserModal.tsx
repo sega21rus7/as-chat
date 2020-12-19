@@ -20,7 +20,13 @@ const EditUserModal: React.FC<IProps> = props => {
 
   const editUserFromModal = async () => {
     const values = await form.validateFields();
-    if (values.login === props.user.login && values.email === props.user.email) {
+    if (
+      values.login === props.user.login &&
+      values.email === props.user.email &&
+      values.lastName === props.user.lastName &&
+      values.firstName === props.user.firstName &&
+      values.middleName === props.user.middleName
+    ) {
       message.error("Хотя бы одно из значений должно отличаться!");
       return;
     }
@@ -48,7 +54,7 @@ const EditUserModal: React.FC<IProps> = props => {
       visible={props.visible}
       onOk={editUserFromModal}
       onCancel={cancelModal}
-      okText="Применить"
+      okText="Сохранить"
       cancelText="Закрыть"
     >
       <Form labelCol={{ span: 4 }}
@@ -56,6 +62,9 @@ const EditUserModal: React.FC<IProps> = props => {
         initialValues={{
           login: props.user.login,
           email: props.user.email,
+          lastName: props.user.lastName,
+          firstName: props.user.firstName,
+          middleName: props.user.middleName,
         }}>
         <Form.Item
           name="email"
@@ -68,6 +77,24 @@ const EditUserModal: React.FC<IProps> = props => {
           name="login"
           label="Логин"
           rules={loginRules}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="lastName"
+          label="Фамилия"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="firstName"
+          label="Имя"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="middleName"
+          label="Отчество"
         >
           <Input />
         </Form.Item>

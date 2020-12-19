@@ -4,15 +4,25 @@ import User from "./models/User";
 import config from "../../config";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
-interface IRequest extends express.Request {
+interface ILoginRequest extends express.Request {
   body: {
-    email: string;
     login: string;
     password: string;
   }
 }
 
-export const login = async (req: IRequest, res: express.Response): Promise<unknown> => {
+interface IRegRequest extends ILoginRequest {
+  body: {
+    login: string;
+    password: string;
+    email: string;
+    lastName: string;
+    firstName: string;
+    middleName: string;
+  }
+}
+
+export const login = async (req: ILoginRequest, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ login: req.body.login });
     if (!candidate) {
@@ -39,7 +49,7 @@ export const login = async (req: IRequest, res: express.Response): Promise<unkno
   }
 };
 
-export const register = async (req: IRequest, res: express.Response): Promise<unknown> => {
+export const register = async (req: IRegRequest, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ email: req.body.email });
     if (candidate) {
@@ -52,6 +62,9 @@ export const register = async (req: IRequest, res: express.Response): Promise<un
     const user = new User({
       email: req.body.email,
       login: req.body.login,
+      lastName: req.body.lastName,
+      firstName: req.body.firstName,
+      middleName: req.body.middleName,
       password: generatePassword(req.body.password),
       regDate: new Date(),
     });

@@ -56,6 +56,30 @@ const RegForm: React.FC<IProps> = props => {
       />
     </Form.Item>
     <Form.Item
+      name="lastName"
+    >
+      <Input
+        prefix={<UserOutlined />}
+        placeholder="Фамилия (необязательное поле)"
+      />
+    </Form.Item>
+    <Form.Item
+      name="firstName"
+    >
+      <Input
+        prefix={<UserOutlined />}
+        placeholder="Имя (необязательное поле)"
+      />
+    </Form.Item>
+    <Form.Item
+      name="middleName"
+    >
+      <Input
+        prefix={<UserOutlined />}
+        placeholder="Отчество (необязательное поле)"
+      />
+    </Form.Item>
+    <Form.Item
       name="password"
       rules={passRules}
     >

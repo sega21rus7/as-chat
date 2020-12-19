@@ -41,6 +41,27 @@ const UsersTable: React.FC = () => {
       showSorterTooltip: false,
     },
     {
+      title: "Фамилия",
+      dataIndex: "lastName",
+      key: "lastName",
+      sorter: (a: IUser, b: IUser) => a.lastName.length - b.lastName.length,
+      showSorterTooltip: false,
+    },
+    {
+      title: "Имя",
+      dataIndex: "firstName",
+      key: "firstName",
+      sorter: (a: IUser, b: IUser) => a.firstName.length - b.firstName.length,
+      showSorterTooltip: false,
+    },
+    {
+      title: "Отчество",
+      dataIndex: "middleName",
+      key: "middleName",
+      sorter: (a: IUser, b: IUser) => a.middleName.length - b.middleName.length,
+      showSorterTooltip: false,
+    },
+    {
       title: "Дата регистрации",
       dataIndex: "regDate",
       key: "regDate",
