@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Content from "./Content";
-import Login from "../auth/Login";
+import Login from "../auth";
 import Component404 from "./404";
-import UsersTable from "../admin/UsersTable";
-import Profile from "../profile/Main";
+import UsersTable from "../admin";
+import Profile from "../profile";
 
 const BaseRouter: React.FC = () => (
   <React.Fragment>

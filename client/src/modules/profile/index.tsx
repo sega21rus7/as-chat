@@ -17,8 +17,7 @@ const Main: React.FC = () => {
         <Sider width={200}>
           <Menu
             mode="inline"
-            // defaultSelectedKeys={["change_password"]}
-            defaultOpenKeys={["profile"]}
+            defaultSelectedKeys={["user_profile"]}
             style={{ height: "100%", borderRight: 0 }}
           >
             <Menu.Item
