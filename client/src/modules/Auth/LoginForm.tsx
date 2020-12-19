@@ -4,19 +4,15 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { customFetch, setToken } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
-import { IProps } from "./interfaces";
+import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules } from "./rules";
-
-interface IResponse {
-  token: string;
-}
 
 const LoginForm: React.FC<IProps> = props => {
   const history = useHistory();
 
   const onFinish = async (values: IFormValues) => {
     try {
-      const res = await customFetch("/api/auth/login", values) as IResponse;
+      const res = await customFetch("/api/auth/login", values) as ILoginResponse;
       setToken(res.token);
       history.push("/admin/users");
     } catch (err) {

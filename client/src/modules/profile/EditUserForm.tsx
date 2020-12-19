@@ -3,7 +3,19 @@ import { Form, Input, Button, message } from "antd";
 import { emailRules, loginRules } from "../auth/rules";
 import { customTokenFetch } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
-import { IUser, IEditUserResponse } from "./interfaces";
+
+export interface IUser {
+  email: string;
+  login: string;
+  _id: string;
+  lastName: string;
+  firstName: string;
+  middleName: string;
+}
+
+export interface IEditUserResponse {
+  user: IUser,
+}
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = React.useState<IUser>();

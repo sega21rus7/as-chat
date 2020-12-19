@@ -9,7 +9,6 @@ const Profile: React.FC = () => {
         <Image
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         />
-
       </Col>
       <Col span={12}>
         <EditUserForm />

@@ -7,7 +7,3 @@ export interface IUser {
   firstName: string;
   middleName: string;
 }
-
-export interface IDataSourceObj {
-  [key: string]: IUser;
-}

@@ -4,13 +4,8 @@ import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { customFetch, setToken } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
-import { IProps } from "./interfaces";
+import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules, emailRules } from "./rules";
-
-// todo потом вынести интерфейсы в tools
-interface IResponse {
-  token: string,
-}
 
 const RegForm: React.FC<IProps> = props => {
   const history = useHistory();
@@ -21,8 +16,8 @@ const RegForm: React.FC<IProps> = props => {
       return message.error("Пароли должны совпадать!");
     }
     try {
-      let res = await customFetch("/api/auth/register", values);
-      res = await customFetch("/api/auth/login", values) as IResponse;
+      await customFetch("/api/auth/register", values);
+      const res = await customFetch("/api/auth/login", values) as ILoginResponse;
       setToken(res.token);
       history.push("/admin/users");
     } catch (err) {

@@ -3,12 +3,16 @@ import { Table, Empty, Popconfirm, Tooltip, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { customTokenFetch, arrToObj } from "../../tools";
-import { IUser, IDataSourceObj } from "./interfaces";
+import { IUser } from "./interfaces";
 import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
 import EditUserModal from "./EditUserModal";
 
 interface IResponse {
   users: IUser[]
+}
+
+export interface IDataSourceObj {
+  [key: string]: IUser;
 }
 
 const UsersTable: React.FC = () => {

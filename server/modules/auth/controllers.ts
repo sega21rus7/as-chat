@@ -69,7 +69,7 @@ export const register = async (req: IRegRequest, res: express.Response): Promise
       regDate: new Date(),
     });
     await user.save();
-    return res.status(201).json(user);
+    return res.status(201).end();
   } catch (err) {
     handleError(res, err);
   }
