@@ -1,7 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
+import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
 import ChangePassword from "./ChangePasswordForm";
 import Profile from "./Profile";
 
@@ -12,7 +12,7 @@ const Main: React.FC = () => {
   const [component, setComponent] = React.useState(<Profile />);
 
   return (
-    <Router>
+    <ErrorIfNotAuth>
       <Layout>
         <Sider width={200}>
           <Menu
@@ -49,7 +49,7 @@ const Main: React.FC = () => {
           </Content>
         </Layout>
       </Layout>
-    </Router>
+    </ErrorIfNotAuth>
   );
 };
 
