@@ -6,7 +6,7 @@ import { customTokenFetch } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 
 const ChangePasswordForm: React.FC = () => {
-  const onFinish = async (values: IFormValues) => {
+  const changePass = async (values: IFormValues) => {
     if (values.password1 !== values.password2) {
       return message.error("Пароли должны совпадать!");
     }
@@ -23,7 +23,7 @@ const ChangePasswordForm: React.FC = () => {
       width: 500,
       margin: "0 auto",
     }}
-    onFinish={onFinish}
+    onFinish={changePass}
   >
     <Form.Item
       name="old_password"

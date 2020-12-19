@@ -10,7 +10,7 @@ import { passRules, loginRules, emailRules } from "./rules";
 const RegForm: React.FC<IProps> = props => {
   const history = useHistory();
 
-  const onFinish = async (values: IFormValues) => {
+  const register = async (values: IFormValues) => {
     const { password, password2 } = values;
     if (password !== password2) {
       return message.error("Пароли должны совпадать!");
@@ -30,7 +30,7 @@ const RegForm: React.FC<IProps> = props => {
       width: 500,
       margin: "0 auto",
     }}
-    onFinish={onFinish}
+    onFinish={register}
   >
     <Form.Item
       name="email"

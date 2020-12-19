@@ -10,7 +10,7 @@ import { passRules, loginRules } from "./rules";
 const LoginForm: React.FC<IProps> = props => {
   const history = useHistory();
 
-  const onFinish = async (values: IFormValues) => {
+  const login = async (values: IFormValues) => {
     try {
       const res = await customFetch("/api/auth/login", values) as ILoginResponse;
       setToken(res.token);
@@ -25,7 +25,7 @@ const LoginForm: React.FC<IProps> = props => {
       width: 500,
       margin: "0 auto",
     }}
-    onFinish={onFinish}
+    onFinish={login}
   >
     <Form.Item
       name="login"

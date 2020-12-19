@@ -36,7 +36,7 @@ const EditUserForm: React.FC = () => {
     setUser(res.user);
   };
 
-  const onFinish = async (values: IFormValues) => {
+  const editUser = async (values: IFormValues) => {
     try {
       const res = await customTokenFetch("/api/profile/user/edit", values);
       message.success(res);
@@ -59,7 +59,7 @@ const EditUserForm: React.FC = () => {
         firstName: user?.firstName,
         middleName: user?.middleName,
       }}
-      onFinish={onFinish}
+      onFinish={editUser}
     >
       <Form.Item
         name="email"
