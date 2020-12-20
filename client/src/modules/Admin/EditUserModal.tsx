@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Input, Form, message } from "antd";
 import { loginRules, emailRules } from "../auth/rules";
-import { IUser } from "./interfaces";
+import { IUser } from "../../tools/interfaces";
 import { jsonFetch } from "../../tools";
 
 interface IProps {

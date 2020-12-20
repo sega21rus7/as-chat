@@ -4,19 +4,18 @@ import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
 import { UploadOutlined } from "@ant-design/icons";
 import { emailRules, loginRules } from "../auth/rules";
 import { jsonFetch } from "../../tools";
-import { IKeyStringValueString } from "../../tools/interfaces";
+import { IUser } from "../../tools/interfaces";
+export interface IEditUserResponse {
+  user: IUser,
+}
 
-export interface IUser {
+interface IUserFormValues {
+  avatar: UploadFile[],
   email: string;
   login: string;
-  _id: string;
   lastName: string;
   firstName: string;
   middleName: string;
-}
-
-export interface IEditUserResponse {
-  user: IUser,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,9 +55,13 @@ const EditUserForm: React.FC = () => {
     }
   };
 
-  const editUser = async (values: IKeyStringValueString) => {
+  const editUser = async (values: IUserFormValues) => {
+    console.log("values 1", values);
     try {
-      const res = await jsonFetch("/api/profile/user/edit", values);
+      const res = await jsonFetch("/api/profile/user/edit", {
+        values,
+        avatar: values.avatar[0].thumbUrl,
+      });
       message.success(res);
     } catch (err) {
       message.error(err.message);
@@ -77,7 +80,6 @@ const EditUserForm: React.FC = () => {
     if (info.file.status === "done") {
       message.success("Фото успешно загружено.");
       setFileList([info.file]);
-      console.log("info.file", info.file);
     } else if (info.file.status === "error") {
       message.error("При загрузке фото произошла ошибка. Попробуйте снова");
     }
@@ -103,6 +105,14 @@ const EditUserForm: React.FC = () => {
       <div style={{ marginTop: 8 }}>Загрузить</div>
     </div>
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const normFile = (e: any) => {
+    if (Array.isArray(e)) {
+      return e[0].thumbUrl;
+    }
+    return e && e.fileList[0].thumbUrl;
+  };
 
   return (
     <React.Fragment>
@@ -153,6 +163,7 @@ const EditUserForm: React.FC = () => {
         <Form.Item
           name="avatar"
           label="Аватар"
+          getValueFromEvent={normFile}
         >
           <Upload
             onChange={handleAvatarChange}
