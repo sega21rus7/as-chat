@@ -7,7 +7,6 @@ import User from "../modules/auth/models/User";
 
 const extractCookie = (req: express.Request): string => {
   const cookies = new Cookies(req.headers.cookie);
-  console.log("cookies", cookies);
   return cookies.get("jwt");
 };
 
