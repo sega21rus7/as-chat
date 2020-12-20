@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IObject, IParams } from "./interfaces";
 
-export const customFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
+export const jsonFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
   const authHeader = params?.token && { "Authorization": params.token };
   const response = await fetch(url, {
     method: params && params.method || "POST",
@@ -24,8 +24,8 @@ export const customFetch = async (url: string, data?: Record<string, unknown>, p
   return res;
 };
 
-export const customTokenFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
-  const res = await customFetch(url, data, {
+export const jsonTokenFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
+  const res = await jsonFetch(url, data, {
     token: getToken(),
     ...params,
   });

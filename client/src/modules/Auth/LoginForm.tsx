@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { customFetch, setToken } from "../../tools";
+import { jsonFetch, setToken } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules } from "./rules";
@@ -12,7 +12,7 @@ const LoginForm: React.FC<IProps> = props => {
 
   const login = async (values: IFormValues) => {
     try {
-      const res = await customFetch("/api/auth/login", values) as ILoginResponse;
+      const res = await jsonFetch("/api/auth/login", values) as ILoginResponse;
       setToken(res.token);
       history.push("/admin/users");
     } catch (err) {

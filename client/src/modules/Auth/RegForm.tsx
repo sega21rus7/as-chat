@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { customFetch, setToken } from "../../tools";
+import { jsonFetch, setToken } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules, emailRules } from "./rules";
@@ -16,8 +16,8 @@ const RegForm: React.FC<IProps> = props => {
       return message.error("Пароли должны совпадать!");
     }
     try {
-      await customFetch("/api/auth/register", values);
-      const res = await customFetch("/api/auth/login", values) as ILoginResponse;
+      await jsonFetch("/api/auth/register", values);
+      const res = await jsonFetch("/api/auth/login", values) as ILoginResponse;
       setToken(res.token);
       history.push("/admin/users");
     } catch (err) {

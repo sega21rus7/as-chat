@@ -3,7 +3,7 @@ import { Image, Form, Input, Button, Upload, Modal, message } from "antd";
 import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
 import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
 import { emailRules, loginRules } from "../auth/rules";
-import { customTokenFetch } from "../../tools";
+import { jsonTokenFetch } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 
 export interface IUser {
@@ -48,7 +48,7 @@ const EditUserForm: React.FC = () => {
 
   const getUser = async () => {
     try {
-      const res = await customTokenFetch("/api/profile/user/info", undefined, {
+      const res = await jsonTokenFetch("/api/profile/user/info", undefined, {
         method: "GET",
       }) as IEditUserResponse;
       setUser(res.user);
@@ -59,7 +59,7 @@ const EditUserForm: React.FC = () => {
 
   const editUser = async (values: IFormValues) => {
     try {
-      const res = await customTokenFetch("/api/profile/user/edit", values);
+      const res = await jsonTokenFetch("/api/profile/user/edit", values);
       message.success(res);
     } catch (err) {
       message.error(err.message);
@@ -80,6 +80,7 @@ const EditUserForm: React.FC = () => {
     } else if (info.file.status === "done") {
       message.success("Фото успешно загружено.");
       setFileList([info.file]);
+      console.log("info.file", info.file);
       setLoading(false);
     } else if (info.file.status === "error") {
       message.error("При загрузке фото произошла ошибка. Попробуйте снова");

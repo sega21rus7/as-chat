@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { passRules } from "../auth/rules";
-import { customTokenFetch } from "../../tools";
+import { jsonTokenFetch } from "../../tools";
 import { IFormValues } from "../../tools/interfaces";
 
 const ChangePasswordForm: React.FC = () => {
@@ -11,7 +11,7 @@ const ChangePasswordForm: React.FC = () => {
       return message.error("Пароли должны совпадать!");
     }
     try {
-      const res = await customTokenFetch("/api/profile/change_password", values);
+      const res = await jsonTokenFetch("/api/profile/change_password", values);
       message.success(res);
     } catch (err) {
       message.error(err.message);
