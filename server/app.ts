@@ -12,6 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 passportMiddleware(passport);
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+app.use(require("cors")());
+
 app.use("/api/auth", authRouter);
 app.use("/api/admin", adminRouter);
 app.use("/api/profile", profileRouter);

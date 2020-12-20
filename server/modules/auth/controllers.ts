@@ -43,7 +43,12 @@ export const login = async (req: ILoginRequest, res: express.Response): Promise<
     }, config.jwt.secretOrKey, {
       expiresIn: config.jwt.expiresIn, // час
     });
-    return res.status(200).json({ token: `Bearer ${token}` });
+    res.cookie("jwt", token, {
+      expires: new Date(Date.now() + config.jwt.timezoneDiffNum + config.jwt.expiresInNum),
+      secure: false, // todo prod true
+      httpOnly: false, //
+    });
+    return res.status(200).end();
   } catch (err) {
     handleError(res, err);
   }

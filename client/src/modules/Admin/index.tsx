@@ -2,7 +2,7 @@ import React from "react";
 import { Spin, Table, Popconfirm, Tooltip, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { jsonTokenFetch, arrToObj } from "../../tools";
+import { jsonFetch, arrToObj } from "../../tools";
 import { IUser } from "./interfaces";
 import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
 import EditUserModal from "./EditUserModal";
@@ -107,7 +107,7 @@ const UsersTable: React.FC = () => {
 
   const deleteUser = async (_id: string) => {
     try {
-      const res = await jsonTokenFetch("/api/admin/user/delete", { _id });
+      const res = await jsonFetch("/api/admin/user/delete", { _id });
       getUsers();
       message.success(res);
     } catch (err) {
@@ -118,7 +118,7 @@ const UsersTable: React.FC = () => {
 
   const getUsers = async () => {
     try {
-      let res = await jsonTokenFetch("/api/admin/users", undefined, {
+      let res = await jsonFetch("/api/admin/users", undefined, {
         method: "GET",
       }) as IResponse;
       res.users = res.users.map((x: IUser) => {

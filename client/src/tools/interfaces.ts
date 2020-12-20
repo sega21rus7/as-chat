@@ -8,6 +8,6 @@ export interface IObject {
   [key: string]: any | any[];
 }
 
-export interface IFormValues {
+export interface IKeyStringValueString {
   [key: string]: string
 }

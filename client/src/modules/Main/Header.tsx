@@ -4,12 +4,9 @@ import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { MenuInfo } from "rc-menu/lib/interface";
 import { getObjectKeyByValue, isAuth, removeToken } from "../../tools";
+import { IKeyStringValueString } from "../../tools/interfaces";
 
 const { Header } = Layout;
-
-interface ILinks {
-  [key: string]: string
-}
 
 enum linkKeys {
   Users = "Пользователи",
@@ -22,16 +19,16 @@ enum linkKeys {
 const CustomHeader: React.FC = () => {
   const location = useLocation();
 
-  const linksIfAlreadyAuth: ILinks = {
+  const linksIfAlreadyAuth: IKeyStringValueString = {
     [linkKeys.Profile]: "/profile",
     [linkKeys.Users]: "/admin/users",
     [linkKeys.Out]: "/",
   };
-  const linksIfNotAuth: ILinks = {
+  const linksIfNotAuth: IKeyStringValueString = {
     [linkKeys.Login]: "/login",
   };
 
-  const links: ILinks = {
+  const links: IKeyStringValueString = {
     [linkKeys.Main]: "/",
     ...(!isAuth() && linksIfNotAuth),
     ...(isAuth() && linksIfAlreadyAuth),

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Cookies from "universal-cookie";
 import { IObject, IParams } from "./interfaces";
 
 export const jsonFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
@@ -24,14 +25,6 @@ export const jsonFetch = async (url: string, data?: Record<string, unknown>, par
   return res;
 };
 
-export const jsonTokenFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
-  const res = await jsonFetch(url, data, {
-    token: getToken(),
-    ...params,
-  });
-  return res;
-};
-
 export const arrToObj = (array: any[], key = "_id"): Record<string, any> => {
   if (!array.length) {
     return {};
@@ -47,19 +40,13 @@ export const getObjectKeyByValue = (object: IObject, value: any): string => {
   return Object.keys(object).find(key => object[key] === value) || "";
 };
 
-export const setToken = (token: string): void => {
-  localStorage.setItem("token", token);
-};
-
 export const removeToken = (): void => {
-  localStorage.removeItem("token");
-};
-
-export const getToken = (): string => {
-  return localStorage.getItem("token") || "";
+  const cookies = new Cookies();
+  cookies.remove("jwt");
 };
 
 export const isAuth = (): boolean => {
-  return !!getToken();
+  const cookies = new Cookies();
+  return cookies.get("jwt");
 };
 

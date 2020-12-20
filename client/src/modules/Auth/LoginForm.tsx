@@ -2,18 +2,17 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { jsonFetch, setToken } from "../../tools";
-import { IFormValues } from "../../tools/interfaces";
+import { jsonFetch } from "../../tools";
+import { IKeyStringValueString } from "../../tools/interfaces";
 import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules } from "./rules";
 
 const LoginForm: React.FC<IProps> = props => {
   const history = useHistory();
 
-  const login = async (values: IFormValues) => {
+  const login = async (values: IKeyStringValueString) => {
     try {
-      const res = await jsonFetch("/api/auth/login", values) as ILoginResponse;
-      setToken(res.token);
+      await jsonFetch("/api/auth/login", values) as ILoginResponse;
       history.push("/admin/users");
     } catch (err) {
       message.error(err.message);

@@ -2,16 +2,16 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
 import { passRules } from "../auth/rules";
-import { jsonTokenFetch } from "../../tools";
-import { IFormValues } from "../../tools/interfaces";
+import { jsonFetch } from "../../tools";
+import { IKeyStringValueString } from "../../tools/interfaces";
 
 const ChangePasswordForm: React.FC = () => {
-  const changePass = async (values: IFormValues) => {
+  const changePass = async (values: IKeyStringValueString) => {
     if (values.password1 !== values.password2) {
       return message.error("Пароли должны совпадать!");
     }
     try {
-      const res = await jsonTokenFetch("/api/profile/change_password", values);
+      const res = await jsonFetch("/api/profile/change_password", values);
       message.success(res);
     } catch (err) {
       message.error(err.message);

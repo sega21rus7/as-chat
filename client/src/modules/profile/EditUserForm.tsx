@@ -1,10 +1,10 @@
 import React from "react";
 import { Image, Form, Input, Button, Upload, Modal, message } from "antd";
 import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
-import { UploadOutlined, LoadingOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 import { emailRules, loginRules } from "../auth/rules";
-import { jsonTokenFetch } from "../../tools";
-import { IFormValues } from "../../tools/interfaces";
+import { jsonFetch } from "../../tools";
+import { IKeyStringValueString } from "../../tools/interfaces";
 
 export interface IUser {
   email: string;
@@ -31,7 +31,6 @@ const getBase64 = (file: File | Blob): any => {
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = React.useState<IUser>();
-  const [loading, setLoading] = React.useState(false);
   const [fileList, setFileList] = React.useState<UploadFile[]>();
   const [previewVisible, setPreviewVisible] = React.useState(false);
   const [previewImage, setPreviewImage] = React.useState<string>();
@@ -48,7 +47,7 @@ const EditUserForm: React.FC = () => {
 
   const getUser = async () => {
     try {
-      const res = await jsonTokenFetch("/api/profile/user/info", undefined, {
+      const res = await jsonFetch("/api/profile/user/info", undefined, {
         method: "GET",
       }) as IEditUserResponse;
       setUser(res.user);
@@ -57,9 +56,9 @@ const EditUserForm: React.FC = () => {
     }
   };
 
-  const editUser = async (values: IFormValues) => {
+  const editUser = async (values: IKeyStringValueString) => {
     try {
-      const res = await jsonTokenFetch("/api/profile/user/edit", values);
+      const res = await jsonFetch("/api/profile/user/edit", values);
       message.success(res);
     } catch (err) {
       message.error(err.message);
@@ -75,16 +74,12 @@ const EditUserForm: React.FC = () => {
   };
 
   const handleAvatarChange = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
-      setLoading(true);
-    } else if (info.file.status === "done") {
+    if (info.file.status === "done") {
       message.success("Фото успешно загружено.");
       setFileList([info.file]);
       console.log("info.file", info.file);
-      setLoading(false);
     } else if (info.file.status === "error") {
       message.error("При загрузке фото произошла ошибка. Попробуйте снова");
-      setLoading(false);
     }
   };
 

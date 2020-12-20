@@ -2,23 +2,22 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { jsonFetch, setToken } from "../../tools";
-import { IFormValues } from "../../tools/interfaces";
+import { jsonFetch } from "../../tools";
+import { IKeyStringValueString } from "../../tools/interfaces";
 import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules, emailRules } from "./rules";
 
 const RegForm: React.FC<IProps> = props => {
   const history = useHistory();
 
-  const register = async (values: IFormValues) => {
+  const register = async (values: IKeyStringValueString) => {
     const { password, password2 } = values;
     if (password !== password2) {
       return message.error("Пароли должны совпадать!");
     }
     try {
       await jsonFetch("/api/auth/register", values);
-      const res = await jsonFetch("/api/auth/login", values) as ILoginResponse;
-      setToken(res.token);
+      await jsonFetch("/api/auth/login", values) as ILoginResponse;
       history.push("/admin/users");
     } catch (err) {
       message.error(err.message);
