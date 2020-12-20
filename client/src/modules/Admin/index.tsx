@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Empty, Popconfirm, Tooltip, message } from "antd";
+import { Spin, Table, Popconfirm, Tooltip, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { customTokenFetch, arrToObj } from "../../tools";
@@ -133,7 +133,10 @@ const UsersTable: React.FC = () => {
 
   if (!dataSource.length) {
     return <ErrorIfNotAuth>
-      <Empty description="Нет данных" />
+      <Spin tip="Загрузка" style={{
+        width: "100%",
+        margin: "0 auto",
+      }} />
     </ErrorIfNotAuth>;
   }
 
