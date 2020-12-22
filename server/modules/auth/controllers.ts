@@ -41,12 +41,12 @@ export const login = async (req: ILoginRequest, res: express.Response): Promise<
       email: candidate.email,
       login: candidate.login,
     }, config.jwt.secretOrKey, {
-      expiresIn: config.jwt.expiresIn, // час
+      expiresIn: config.jwt.maxAge, // час
     });
     res.cookie("jwt", token, {
-      expires: new Date(Date.now() + config.jwt.timezoneDiffNum + config.jwt.expiresInNum),
-      secure: false, // todo prod true
-      httpOnly: false, //
+      maxAge: config.jwt.maxAge * 1000,
+      secure: false,
+      httpOnly: false,
     });
     return res.status(200).end();
   } catch (err) {

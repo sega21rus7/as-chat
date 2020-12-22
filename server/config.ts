@@ -13,9 +13,7 @@ export default {
   },
   jwt: {
     secretOrKey: "jwt",
-    expiresIn: "60m",
-    expiresInNum: 1000 * 60 * 60,
-    timezoneDiffNum: 1000 * 60 * 60 * 3,
+    maxAge: 60 * 60,
     salt: 10,
   },
 };
