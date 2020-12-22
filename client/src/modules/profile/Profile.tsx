@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Image } from "antd";
+import { Row, Col } from "antd";
 import EditUserForm from "./EditUserForm";
 
 const Profile: React.FC = () => {
@@ -16,9 +16,9 @@ const Profile: React.FC = () => {
         style={{
           margin: "0 auto",
         }}>
-        <Image
+        {/* <Image
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        />
+        /> */}
       </Col>
     </Row>
   );
