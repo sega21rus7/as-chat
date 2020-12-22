@@ -55,7 +55,7 @@ const CustomHeader: React.FC = () => {
       theme="dark"
       mode="horizontal"
       onClick={handleClick}
-      defaultSelectedKeys={[getObjectKeyByValue(links, location.pathname)]}>
+      selectedKeys={[getObjectKeyByValue(links, location.pathname)]}>
       {renderedLinks}
     </Menu>
   </Header>;
