@@ -18,72 +18,66 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-multi-spaces": [
+    "no-multi-spaces": [ // лишние пробелы 
       "error"
     ],
-    "no-multiple-empty-lines": [
+    "no-multiple-empty-lines": [ // лишние пустые строки 
       "warn",
       {
         "max": 1
       }
     ],
-    "curly": [
+    "curly": [ // обязательные скобки
       "warn",
       "all"
     ],
-    "array-callback-return": [
+    "array-callback-return": [ // обязательный return в коллбэках
       "warn"
     ],
-    "no-redeclare": [
+    "no-redeclare": [ // нельзя переобъявить переменную
       "warn"
     ],
-    "eqeqeq": [
+    "eqeqeq": [ // сравнение и по значению, и по типу, например ===
       "warn"
     ],
-    "indent": [
+    "indent": [ // отступы 2 пробела
       "error",
       2
     ],
-    "linebreak-style": [
+    "linebreak-style": [ // разделение строк
       "error",
       "windows"
     ],
-    "quotes": [
+    "quotes": [ // двойные кавычки
       "warn",
       "double"
     ],
-    "semi": [
+    "semi": [ // обязательные ;
       "error",
       "always"
     ],
-    "no-console": [
+    "no-console": [ // запрет console 
       "error",
       {
-        "allow": [
+        "allow": [ // кроме этих
           "log",
           "warn",
           "error"
         ]
       }
     ],
-    "comma-dangle": [
+    "comma-dangle": [ // запятые в объектах
       "error",
       "always-multiline"
     ],
-    "object-curly-spacing": [
+    "object-curly-spacing": [ // пробелы между скобками и полями объекта
       "error",
       "always"
     ],
-    // "max-len": [
-    // "error",
-    // {
-    // "code": 100
-    // }
-    // ],
-    "arrow-parens": [
+    "arrow-parens": [ // скобки для аргументов коллбэка
       "warn",
       "as-needed"
     ],
-    "prefer-const": 0
+    "prefer-const": 0 // откл автозамена let на const
   }
 }
