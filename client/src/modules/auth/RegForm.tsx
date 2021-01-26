@@ -2,8 +2,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { jsonFetch } from "../../tools";
-import { IKeyStringValueString } from "../../tools/interfaces";
+import { jsonFetch } from "tools";
+import { IKeyStringValueString } from "tools/interfaces";
 import { IProps, ILoginResponse } from "./interfaces";
 import { passRules, loginRules, emailRules } from "./rules";
 

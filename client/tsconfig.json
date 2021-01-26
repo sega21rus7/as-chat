@@ -6,6 +6,21 @@
       "dom.iterable",
       "esnext"
     ],
+    "baseUrl": "./",
+    "paths": {
+      "tools": [
+        "./src/tools"
+      ],
+      "tools/*": [
+        "./src/tools/*"
+      ],
+      "modules": [
+        "./src/modules"
+      ],
+      "modules/*": [
+        "./src/modules/*"
+      ],
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { SettingOutlined, UserOutlined } from "@ant-design/icons";
-import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
+import ErrorIfNotAuth from "tools/wrapperComponents/ErrorIfNotAuth";
 import ChangePassword from "./ChangePasswordForm";
 import Profile from "./Profile";
 

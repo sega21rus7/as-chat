@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { MenuInfo } from "rc-menu/lib/interface";
-import { getObjectKeyByValue, isAuth, removeToken } from "../../tools";
-import { IKeyStringValueString } from "../../tools/interfaces";
+import { getObjectKeyByValue, isAuth, removeToken } from "tools";
+import { IKeyStringValueString } from "tools/interfaces";
 
 const { Header } = Layout;
 

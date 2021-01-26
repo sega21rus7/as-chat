@@ -1,8 +1,8 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
-import { emailRules, loginRules } from "../auth/rules";
-import { jsonFetch } from "../../tools";
-import { IUser, IKeyStringValueString } from "../../tools/interfaces";
+import { emailRules, loginRules } from "modules/auth/rules";
+import { jsonFetch } from "tools";
+import { IUser, IKeyStringValueString } from "tools/interfaces";
 export interface IEditUserResponse {
   user: IUser,
 }

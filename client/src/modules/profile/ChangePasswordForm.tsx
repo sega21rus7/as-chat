@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { LockOutlined } from "@ant-design/icons";
-import { passRules } from "../auth/rules";
-import { jsonFetch } from "../../tools";
-import { IKeyStringValueString } from "../../tools/interfaces";
+import { passRules } from "modules/auth/rules";
+import { jsonFetch } from "tools";
+import { IKeyStringValueString } from "tools/interfaces";
 
 const ChangePasswordForm: React.FC = () => {
   const changePass = async (values: IKeyStringValueString) => {

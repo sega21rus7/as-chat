@@ -2,9 +2,9 @@ import React from "react";
 import { Spin, Table, Popconfirm, Tooltip, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { jsonFetch, arrToObj } from "../../tools";
-import { IUser } from "../../tools/interfaces";
-import ErrorIfNotAuth from "../../tools/wrapperComponents/ErrorIfNotAuth";
+import { jsonFetch, arrToObj } from "tools";
+import { IUser } from "tools/interfaces";
+import ErrorIfNotAuth from "tools/wrapperComponents/ErrorIfNotAuth";
 import EditUserModal from "./EditUserModal";
 
 interface IResponse {
