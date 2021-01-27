@@ -1,9 +1,11 @@
+import { AutoComplete } from "antd";
 import React from "react";
 
 const Content: React.FC = () => {
   return (
     <div style={{
-      padding: "0px 50px",
+      maxWidth: 1180,
+      margin: "0 auto",
     }}>
       Content
     </div>

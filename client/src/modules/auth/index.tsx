@@ -5,14 +5,17 @@ import RegForm from "./RegForm";
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = React.useState(true);
 
-  if (isLogin) {
-    return <LoginForm
-      setIsLogin={setIsLogin}
-    />;
-  }
-  return <RegForm
-    setIsLogin={setIsLogin}
-  />;
+  const form = isLogin ? <LoginForm setIsLogin={setIsLogin} /> : <RegForm setIsLogin={setIsLogin} />;
+
+  return <div style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth: 1180,
+    margin: "0 auto",
+  }}>
+    {form}
+  </div>;
 };
 
 export default Login;

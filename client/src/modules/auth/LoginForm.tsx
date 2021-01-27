@@ -21,8 +21,8 @@ const LoginForm: React.FC<IProps> = props => {
 
   return <Form
     style={{
-      width: 500,
-      margin: "0 auto",
+      display: "flex",
+      flexDirection: "column",
     }}
     onFinish={login}
   >

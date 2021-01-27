@@ -48,9 +48,7 @@ const CustomHeader: React.FC = () => {
     }
   };
 
-  return <Header style={{
-    marginBottom: 20,
-  }}>
+  return <Header>
     <Menu
       theme="dark"
       mode="horizontal"
