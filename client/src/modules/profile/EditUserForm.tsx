@@ -9,7 +9,6 @@ export interface IEditUserResponse {
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = React.useState<IUser>();
-  // const [fileList, setFileList] = React.useState<UploadFile[]>();
   const [form] = Form.useForm();
 
   React.useEffect(() => {
@@ -39,36 +38,6 @@ const EditUserForm: React.FC = () => {
       message.error(err.message);
     }
   };
-
-  // const beforeAvatarUpload = (file: UploadFile) => {
-  //   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  //   if (!isJpgOrPng) {
-  //     message.error("Вы можете загрузить только JPG/PNG форматы!");
-  //   }
-  //   return isJpgOrPng;
-  // };
-
-  // const handleAvatarChange = (info: UploadChangeParam) => {
-  //   if (info.file.status === "done") {
-  //     message.success("Фото успешно загружено.");
-  //     setFileList([info.file]);
-  //   } else if (info.file.status === "error") {
-  //     message.error("При загрузке фото произошла ошибка. Попробуйте снова");
-  //   }
-  // };
-
-  // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const onAvatarRemove = (file: UploadFile) => {
-  //   setFileList([]);
-  // };
-
-  // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const normFile = (e: any) => {
-  //   if (Array.isArray(e)) {
-  //     return e;
-  //   }
-  //   return e && e.file.originFileObj;
-  // };
 
   return (
     <Form
@@ -115,24 +84,8 @@ const EditUserForm: React.FC = () => {
       >
         <Input />
       </Form.Item>
-      {/* <Form.Item
-        label="Аватар"
-        name="avatar"
-        getValueFromEvent={normFile}
-      >
-        <Upload
-          onChange={handleAvatarChange}
-          fileList={fileList}
-          listType="picture"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          beforeUpload={beforeAvatarUpload}
-          onRemove={onAvatarRemove}
-        >
-          {fileList && fileList.length > 0 ? null : <Button icon={<UploadOutlined />}>Загрузить</Button>}
-        </Upload>
-      </Form.Item> */}
       <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
-        <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
+        <Button type="primary" htmlType="submit">
           Сохранить
         </Button>
       </Form.Item>

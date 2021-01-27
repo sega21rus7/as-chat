@@ -19,7 +19,7 @@ const ChangePassword: React.FC = () => {
   };
 
   return (
-    <div className="change-password">
+    <div>
       <Form
         onFinish={changePass}
       >

@@ -38,7 +38,7 @@ const Main: React.FC = () => {
             </SubMenu>
           </Menu>
         </Sider>
-        <Content>
+        <Content className="sider-content">
           {component}
         </Content>
       </Layout>
