@@ -9,9 +9,6 @@ interface IProps {
 const ErrorIfNotAuth: React.FC<IProps> = props => {
   if (!isAuth()) {
     return <Alert
-      style={{
-        padding: "20px 50px",
-      }}
       message="Произошла ошибка"
       description="Вы не авторизованы"
       type="error"

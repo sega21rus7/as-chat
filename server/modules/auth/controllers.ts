@@ -67,9 +67,6 @@ export const register = async (req: IRegRequest, res: express.Response): Promise
     const user = new User({
       email: req.body.email,
       login: req.body.login,
-      lastName: req.body.lastName,
-      firstName: req.body.firstName,
-      middleName: req.body.middleName,
       password: generatePassword(req.body.password),
       regDate: new Date(),
     });

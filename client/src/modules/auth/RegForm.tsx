@@ -25,10 +25,7 @@ const RegForm: React.FC<IProps> = props => {
   };
 
   return <Form
-    style={{
-      width: 500,
-      margin: "0 auto",
-    }}
+    className="auth-form"
     onFinish={register}
   >
     <Form.Item
@@ -47,30 +44,6 @@ const RegForm: React.FC<IProps> = props => {
       <Input
         prefix={<UserOutlined />}
         placeholder="Логин"
-      />
-    </Form.Item>
-    <Form.Item
-      name="lastName"
-    >
-      <Input
-        prefix={<UserOutlined />}
-        placeholder="Фамилия (необязательное поле)"
-      />
-    </Form.Item>
-    <Form.Item
-      name="firstName"
-    >
-      <Input
-        prefix={<UserOutlined />}
-        placeholder="Имя (необязательное поле)"
-      />
-    </Form.Item>
-    <Form.Item
-      name="middleName"
-    >
-      <Input
-        prefix={<UserOutlined />}
-        placeholder="Отчество (необязательное поле)"
       />
     </Form.Item>
     <Form.Item
@@ -94,10 +67,21 @@ const RegForm: React.FC<IProps> = props => {
       />
     </Form.Item>
     <Form.Item>
-      <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
+      <Button
+        className="auth-form__submit"
+        type="primary"
+        htmlType="submit"
+        block
+      >
         Зарегистрироваться
       </Button>
-      Или <a role="button" onClick={() => props.setIsLogin(true)}>войдите в систему</a>
+      <a
+        className="auth-form__switch"
+        role="button"
+        onClick={() => props.setIsLogin(true)}
+      >
+        Войти в систему
+      </a>
     </Form.Item>
   </Form>;
 };

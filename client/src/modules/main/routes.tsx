@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Content from "./Content";
+import Content from "./MainPage";
 import Login from "modules/auth";
 import Component404 from "./404";
 import UsersTable from "modules/admin";

@@ -1,0 +1,19 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin: 0 auto;
+}
+.content{
+  flex: 1 0 auto;
+  padding: 10px 0;
+  height: 100%;
+}
+.container{
+  margin: 0 auto;
+  padding: 0 50px;
+}
+.full-height-container{
+  height: 100%;
+}

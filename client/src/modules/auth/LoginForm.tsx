@@ -20,11 +20,8 @@ const LoginForm: React.FC<IProps> = props => {
   };
 
   return <Form
-    style={{
-      display: "flex",
-      flexDirection: "column",
-    }}
     onFinish={login}
+    className="auth-form"
   >
     <Form.Item
       name="login"
@@ -44,11 +41,21 @@ const LoginForm: React.FC<IProps> = props => {
       />
     </Form.Item>
     <Form.Item>
-      <Button type="primary" htmlType="submit" style={{ marginRight: 5 }}>
-        Войти
+      <Button
+        className="auth-form__submit"
+        type="primary"
+        htmlType="submit"
+        block
+      >
+        Войти в аккаунт
       </Button>
-      Или <a role="button" onClick={() => props.setIsLogin(false)}>
-        зарегистрируйтесь сейчас</a>
+      <a
+        className="auth-form__switch"
+        role="button"
+        onClick={() => props.setIsLogin(false)}
+      >
+        Зарегистрироваться
+      </a>
     </Form.Item>
   </Form >;
 };

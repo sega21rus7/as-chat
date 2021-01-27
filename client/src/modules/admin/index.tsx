@@ -78,9 +78,6 @@ const UsersTable: React.FC = () => {
         return <React.Fragment>
           <Tooltip title="Редактировать">
             <EditOutlined
-              style={{
-                marginRight: 5,
-              }}
               onClick={() => editUser(id)}
             />
           </Tooltip>
@@ -142,11 +139,8 @@ const UsersTable: React.FC = () => {
 
   return (
     <ErrorIfNotAuth>
-      <React.Fragment>
+      <div className="container">
         <Table<IUser>
-          style={{
-            margin: "0px 50px",
-          }}
           size="small"
           dataSource={dataSource}
           columns={columns} />
@@ -156,7 +150,7 @@ const UsersTable: React.FC = () => {
           user={editableUser}
           updateUsers={getUsers}
         />}
-      </React.Fragment>
+      </div>
     </ErrorIfNotAuth>
   );
 };

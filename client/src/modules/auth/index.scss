@@ -1,0 +1,24 @@
+.auth {
+    height: 100%;
+    &__row {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    .ant-card-head-title {
+      text-align: center;
+      font-size: 25px;
+    }
+}
+.auth-form {
+  &__submit{
+    margin: 0 0 10px 0;
+  }
+  &__switch{
+    text-align: center;
+    display: block;
+    text-align: center;
+  }
+}

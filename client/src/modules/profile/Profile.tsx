@@ -5,17 +5,12 @@ import EditUserForm from "./EditUserForm";
 const Profile: React.FC = () => {
   return (
     <Row>
-      <Col span={12} style={{
-        maxWidth: "50%",
-      }}>
+      <Col span={12}>
         <EditUserForm />
       </Col>
 
       <Col
-        span={6}
-        style={{
-          margin: "0 auto",
-        }}>
+        span={6}>
         {/* <Image
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         /> */}
