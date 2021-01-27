@@ -1,4 +1,3 @@
-import { AutoComplete } from "antd";
 import React from "react";
 
 const Content: React.FC = () => {
