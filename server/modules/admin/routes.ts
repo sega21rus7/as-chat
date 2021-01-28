@@ -1,5 +1,4 @@
 import express from "express";
-import { passportMiddleware } from "../../tools";
 import {
   users as usersController,
   editUser as editUserController,
@@ -8,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.use("/users", passportMiddleware(), usersController);
-router.use("/user/edit", passportMiddleware(), editUserController);
-router.use("/user/delete", passportMiddleware(), deleteUserController);
+router.use("/users", usersController);
+router.use("/user/edit", editUserController);
+router.use("/user/delete", deleteUserController);
 
 export default router;

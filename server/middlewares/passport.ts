@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Strategy as JwtStrategy } from "passport-jwt";
 import passport from "passport";
 import express from "express";
@@ -15,10 +18,11 @@ const options = {
   secretOrKey: config.jwt.secretOrKey,
 };
 
-export default function (pass: typeof passport): void {
+export default (pass: typeof passport): void => {
   pass.use(
     new JwtStrategy(options, async (payload, done) => {
       try {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         const user = await User.findById(payload._id).select("_id email login");
         if (user) {
           return done(null, user);
@@ -29,6 +33,11 @@ export default function (pass: typeof passport): void {
         console.log("err", err);
         return done(err, false);
       }
-    })
+    }),
   );
-}
+};
+
+export const hanldeUnauthorized = (err: any, req: express.Request, res: express.Response, next: express.NextFunction): any => {
+  const mes = err.message === "Unauthorized" ? "Вы не авторизованы" : err.message;
+  return res.status(err.status).end(mes);
+}; 

@@ -9,8 +9,9 @@ export const handleError = (res: express.Response, err: Error): unknown => {
   return res.status(500).end(err.message || err);
 };
 
-export const passportMiddleware = (): any => {
-  return passport.authenticate("jwt", { session: false });
+export const checkJWT = (): any => {
+  return passport.authenticate("jwt", { session: false, failWithError: true }
+  );
 };
 
 export const generatePassword = (password: string): string => {
