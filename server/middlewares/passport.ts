@@ -22,7 +22,6 @@ export default (pass: typeof passport): void => {
   pass.use(
     new JwtStrategy(options, async (payload, done) => {
       try {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         const user = await User.findById(payload._id).select("_id email login");
         if (user) {
           return done(null, user);
