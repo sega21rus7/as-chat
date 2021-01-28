@@ -15,7 +15,7 @@ const Main: React.FC = () => {
   return (
     <ErrorIfNotAuth>
       <Layout>
-        <Sider width={200} className="full-height-container">
+        <Sider width={200} className="fh-container">
           <Menu
             mode="inline"
             defaultSelectedKeys={["user_profile"]}

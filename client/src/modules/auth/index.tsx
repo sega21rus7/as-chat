@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="auth">
-      <div className="container full-height-container">
+      <div className="container fh-container">
         <div className="auth__row">
           <Card
             title={isLogin ? "Авторизация" : "Регистрация"}
