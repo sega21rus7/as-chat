@@ -4,9 +4,9 @@ import path from "path";
 import passport from "passport";
 import passportMiddleware, { hanldeUnauthorized } from "./middlewares/passport";
 import { checkJWT } from "./tools";
-import authRouter from "./modules/auth/routes";
-import adminRouter from "./modules/admin/routes";
-import profileRouter from "./modules/profile/routes";
+import authRouter from "modules/auth/routes";
+import adminRouter from "modules/admin/routes";
+import profileRouter from "modules/profile/routes";
 
 const app = express();
 const staticPath = path.resolve(process.cwd(), "client_build");

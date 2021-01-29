@@ -2,7 +2,7 @@
 import express from "express";
 import passport from "passport";
 import bcrypt from "bcryptjs";
-import config from "../config";
+import config from "config";
 
 export const handleError = (res: express.Response, err: Error): unknown => {
   console.log(err.message || err);

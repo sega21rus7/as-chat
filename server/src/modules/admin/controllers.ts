@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import { handleError } from "../../tools";
-import User from "../auth/models/User";
+import { handleError } from "tools";
+import User from "modules/auth/models/User";
 
 interface IEditUserRequest extends express.Request {
   body: {

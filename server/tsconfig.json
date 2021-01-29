@@ -7,7 +7,7 @@
     "strict": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,5 +20,22 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "paths": {
+    "tools": [
+      "./tools"
+    ],
+    "tools/*": [
+      "./tools/*"
+    ],
+    "modules": [
+      "./modules"
+    ],
+    "modules/*": [
+      "./modules/*"
+    ],
+    "config": [
+      "./config"
+    ],
+  },
 }

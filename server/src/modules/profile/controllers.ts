@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import User from "../auth/models/User";
+import User from "modules/auth/models/User";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
 interface IChangePasswordRequest extends IGetUserInfoRequest {

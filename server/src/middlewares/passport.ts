@@ -5,8 +5,8 @@ import { Strategy as JwtStrategy } from "passport-jwt";
 import passport from "passport";
 import express from "express";
 import Cookies from "universal-cookie";
-import config from "../config";
-import User from "../modules/auth/models/User";
+import config from "config";
+import User from "modules/auth/models/User";
 
 const extractCookie = (req: express.Request): string => {
   const cookies = new Cookies(req.headers.cookie);
