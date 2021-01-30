@@ -5,8 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint-fix": "eslint . --ext .ts,.tsx --fix"
+    "start_prod": "babel-node --extensions \".ts\" src/index --ext .ts",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts, --fix"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",

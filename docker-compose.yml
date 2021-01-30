@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  as:
+    build: .
+    image: "as-template"
+    container_name: as-template
+    restart: always
+    labels:
+      org.label-schema.group: "mapcam"
+    env_file:
+        - ./.env
+    ports:
+     - "8000:8000"

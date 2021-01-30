@@ -19,7 +19,9 @@
     "."
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build",
+    "client_build"
   ],
   "paths": {
     "tools": [
