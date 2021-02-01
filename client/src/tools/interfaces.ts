@@ -19,5 +19,4 @@ export interface IUser {
   lastName: string;
   firstName: string;
   middleName: string;
-  avatar?: string;
 }
