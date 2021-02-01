@@ -22,7 +22,7 @@ app.use("/api/profile", checkJWT(), profileRouter, hanldeUnauthorized);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(staticPath));
-  app.use("/", (req: express.Request, res: express.Response): void => {
+  app.use("*", (req: express.Request, res: express.Response): void => {
     res.sendFile(path.resolve(staticPath, "index.html"));
   });
 }
