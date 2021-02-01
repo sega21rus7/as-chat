@@ -1,5 +1,4 @@
 */node_modules
 */package-lock.json
-client/build
-server/client_build
+server/src/client_build
 */.eslintcache

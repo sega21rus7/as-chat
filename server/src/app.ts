@@ -8,7 +8,6 @@ import authRouter from "modules/auth/routes";
 import profileRouter from "modules/profile/routes";
 
 const app = express();
-const staticPath = path.resolve(process.cwd(), "client_build");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -21,9 +20,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/profile", checkJWT(), profileRouter, hanldeUnauthorized);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(staticPath));
+  const clientFilesPath = path.resolve(process.cwd(), "src", "client_build");
+  app.use(express.static(clientFilesPath));
+  app.use("/static/", express.static(path.resolve(process.cwd(), "src", "static")));
   app.use("*", (req: express.Request, res: express.Response): void => {
-    res.sendFile(path.resolve(staticPath, "index.html"));
+    res.sendFile(path.resolve(clientFilesPath, "index.html"));
   });
 }
 
