@@ -5,7 +5,6 @@ import passport from "passport";
 import passportMiddleware, { hanldeUnauthorized } from "./middlewares/passport";
 import { checkJWT } from "./tools";
 import authRouter from "modules/auth/routes";
-import adminRouter from "modules/admin/routes";
 import profileRouter from "modules/profile/routes";
 
 const app = express();
@@ -19,7 +18,6 @@ passportMiddleware(passport);
 app.use(require("cors")());
 
 app.use("/api/auth", authRouter);
-app.use("/api/admin", checkJWT(), adminRouter, hanldeUnauthorized);
 app.use("/api/profile", checkJWT(), profileRouter, hanldeUnauthorized);
 
 if (process.env.NODE_ENV === "production") {
