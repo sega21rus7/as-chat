@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 /* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
 
