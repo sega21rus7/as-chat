@@ -1,2 +1,2 @@
-1. webpack разобраться со скриптом build, мб react-app-rewired
+1. найти способ не устанавливать devDeps для ts в react
 2. минификация pkg
