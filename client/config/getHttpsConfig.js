@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 /* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
 
@@ -16,7 +17,7 @@ function validateKeyAndCerts({ cert, key, keyFile, crtFile }) {
     encrypted = crypto.publicEncrypt(cert, Buffer.from("test"));
   } catch (err) {
     throw new Error(
-      `The certificate "${chalk.yellow(crtFile)}" is invalid.\n${err.message}`
+      `The certificate "${chalk.yellow(crtFile)}" is invalid.\n${err.message}`,
     );
   }
 
@@ -26,7 +27,7 @@ function validateKeyAndCerts({ cert, key, keyFile, crtFile }) {
   } catch (err) {
     throw new Error(
       `The certificate key "${chalk.yellow(keyFile)}" is invalid.\n${err.message
-      }`
+      }`,
     );
   }
 }
@@ -36,8 +37,8 @@ function readEnvFile(file, type) {
   if (!fs.existsSync(file)) {
     throw new Error(
       `You specified ${chalk.cyan(
-        type
-      )} in your env, but the file "${chalk.yellow(file)}" can't be found.`
+        type,
+      )} in your env, but the file "${chalk.yellow(file)}" can't be found.`,
     );
   }
   return fs.readFileSync(file);
