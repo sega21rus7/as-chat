@@ -72,7 +72,13 @@
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "5.1.4",
-    "node-sass": "^4.14.1"
+    "node-sass": "^4.14.1",
+    "@types/jest": "^26.0.16",
+    "@types/node": "^12.19.9",
+    "@types/react": "^16.14.2",
+    "@types/react-dom": "^16.9.10",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/universal-cookie": "^3.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -84,12 +90,6 @@
     "lint-fix": "eslint . --ext .ts,.tsx --fix"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.16",
-    "@types/node": "^12.19.9",
-    "@types/react": "^16.14.2",
-    "@types/react-dom": "^16.9.10",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/universal-cookie": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "eslint": "^7.15.0"
