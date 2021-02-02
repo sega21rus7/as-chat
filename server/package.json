@@ -7,7 +7,8 @@
     "start": "nodemon",
     "start_prod": "babel-node --extensions \".ts\" src/index --ext .ts",
     "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts, --fix"
+    "lint-fix": "eslint . --ext .ts, --fix",
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",
