@@ -1,7 +1,6 @@
 FROM ubuntu:bionic
 
 ENV DIR=/home/as
-ENV NODE_ENV=production
 
 WORKDIR $DIR
 
@@ -17,9 +16,9 @@ ADD ./server/package.json $DIR/server/package.json
 RUN npm run init
 
 COPY ./client $DIR/client
-RUN npm run build_client
-
 COPY ./server $DIR/server
+
+RUN npm run build_client
 
 CMD ["npm", "run", "server_prod"]
 

@@ -1,14 +1,29 @@
 version: "3"
 
 services:
+  mongodb:
+    image: "mongo"
+    container_name: mongodb
+    restart: always
+    command: --wiredTigerCacheSizeGB 0.5
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=as
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      - MONGODB_DATABASE=admin
+    network_mode: host
+    ports:
+      - 27017:27017
   as:
     build: .
     image: "as-template"
     container_name: as-template
     restart: always
-    labels:
-      org.label-schema.group: "mapcam"
     env_file:
         - ./.env
+    network_mode: host
     ports:
      - "8000:8000"
+    depends_on:
+     - mongodb
+
+  # 192.168.99.100 стандратный ip докера на windows
