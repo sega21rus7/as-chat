@@ -1,17 +1,27 @@
 {
   "compilerOptions": {
+    // Тип кода создаваемого итогового файла
     "target": "es5",
+    // Определяет тип импорта кода в итоговом файле, прописанном в "outFile". Необходимо задавать при использовании опции "outFile".
     "module": "commonjs",
+    // Создавать ли соответствующие source map файлы ".map"?
     "sourceMap": true,
+    // Поместить все скомпилированные файлы в данную папку
     "outDir": "./build",
+    // Включить ли все строгие проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
     "strict": true,
-    "noImplicitAny": true,
+    // // Определить способ поиска модулей в папках
     "moduleResolution": "node",
+    // Путь до базовой папки для поиска не относительных путей до файлов
     "baseUrl": "./src",
+    // // Создать хелперы __importStar и __importDefault для обеспечения совместимости с экосистемой Babel и включить allowSyntheticDefaultImports для совместимости с системой типов.
     "esModuleInterop": true,
+    // Проверять ли типы, заданные во всех файлах описания типов (*.d.ts)?
     "skipLibCheck": true,
+    // Запретить несогласованные ссылки на один и тот же файл?
     "forceConsistentCasingInFileNames": true,
   },
+  // Набор библиотечных файлов полифилов, которые будут включены в итоговый выходной файл.
   "lib": [
     "es2015"
   ],
@@ -22,6 +32,7 @@
     "node_modules",
     "src/client_build"
   ],
+  // сопоставление маршрутов для вычисления по сравнению с параметром baseUrl
   "paths": {
     "tools": [
       "./tools"
