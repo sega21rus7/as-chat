@@ -1,44 +1,59 @@
 {
   "compilerOptions": {
+    // Тип кода создаваемого итогового файла.
     "target": "es5",
+    // Поместить все скомпилированные файлы в данную папку
+    "outDir": "./tsc",
+    // Набор библиотечных файлов полифилов, которые будут включены в итоговый выходной файл
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": "./",
+    // Путь до базовой папки для поиска не относительных путей до файлов
+    "baseUrl": "./src",
+    // Cопоставление маршрутов для вычисления по сравнению с параметром baseUrl
     "paths": {
       "tools": [
-        "./src/tools"
+        "./tools"
       ],
       "tools/*": [
-        "./src/tools/*"
+        "./tools/*"
       ],
       "modules": [
-        "./src/modules"
+        "./modules"
       ],
       "modules/*": [
-        "./src/modules/*"
+        "./modules/*"
       ],
     },
+    // Разрешать компилировать файлы с JavaScript-кодом?
     "allowJs": true,
+    // Проверять типы, заданные во всех файлах описания типов (*.d.ts)?
     "skipLibCheck": true,
+    // Создать хелперы __importStar и __importDefault для обеспечения совместимости с экосистемой Babel и включить allowSyntheticDefaultImports для совместимости с системой типов.
     "esModuleInterop": true,
+    // Разрешить импортировать модули не имеющие внутри себя "import default"?
     "allowSyntheticDefaultImports": true,
+    // Включить ли все строги проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
     "strict": true,
+    // Запретить несогласованные ссылки на один и тот же файл?
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    // Определяет тип импорта кода в итоговом файле, прописанном в "outFile". 
+    // Необходимо задавать при использовании опции "outFile".
+    "module": "commonjs",
+    // Определить способ поиска модулей в папках
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    // Обрабатывать каждый файл, как отдельный изолированный модуль.
     "isolatedModules": true,
+    // Не создавать итоговый файл
     "noEmit": true,
+    // Включать ли поддержку ".tsx" файлов?
     "jsx": "react-jsx"
   },
   "include": [
     "src",
-    "config",
-    "scripts"
   ],
   "exclude": [
     "node_modules"
