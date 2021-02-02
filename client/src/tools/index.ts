@@ -6,7 +6,7 @@ import { IObject, IParams } from "./interfaces";
 export const jsonFetch = async (url: string, data?: Record<string, unknown>, params?: IParams): Promise<IObject | string> => {
   const authHeader = params?.token && { "Authorization": params.token };
   const response = await fetch(url, {
-    method: params && params.method || "POST",
+    method: params && params.method ? params.method : "POST",
     headers: {
       "Content-Type": "application/json",
       ...authHeader,
