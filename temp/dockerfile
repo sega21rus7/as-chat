@@ -1,0 +1,16 @@
+FROM ubuntu:bionic
+
+ENV DIR=/home/as
+
+WORKDIR $DIR
+
+RUN apt-get update
+
+COPY ./app.exe $DIR/app.exe
+COPY ./client_build $DIR/client_build
+
+ENTRYPOINT ["./app.exe"]
+
+# docker build -f ./dockerfile -t temp .
+
+# docker run -p 4444:4444 --rm temp

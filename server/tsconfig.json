@@ -7,10 +7,12 @@
     // Создавать ли соответствующие source map файлы ".map"?
     "sourceMap": true,
     // Поместить все скомпилированные файлы в данную папку
-    "outDir": "./build",
+    "outDir": "./tsc",
     // Включить ли все строгие проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
     "strict": true,
-    // // Определить способ поиска модулей в папках
+    // Удалить все комментарии из итогового файла
+    "removeComments": true,
+    // Определить способ поиска модулей в папках
     "moduleResolution": "node",
     // Путь до базовой папки для поиска не относительных путей до файлов
     "baseUrl": "./src",

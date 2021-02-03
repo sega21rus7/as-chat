@@ -8,9 +8,9 @@ const asyncExec = (cmd, options = {}) => {
   return new Promise((res, rej) =>
     exec(cmd, options, (err, stdout, stderr) => {
       if (err) {
-        rej(new Error(stdout + err));
+        rej(new Error(`${stdout} ${err}`));
       } else {
-        res(stdout + stderr);
+        res(`${stdout} ${stderr}`);
       }
     }));
 };
@@ -23,6 +23,8 @@ const asyncExec = (cmd, options = {}) => {
 
     await fs.promises.rmdir(`${clientPath}/build`, { recursive: true })
     await fs.promises.rmdir(`${serverPath}/build`, { recursive: true })
+    await fs.promises.rmdir(`${serverPath}/tsc`, { recursive: true })
+    await fs.promises.rmdir(`${tempPath}/client_build`, { recursive: true })
     await asyncExec(`cd ${clientPath} && npm run build`);
 
     if (os.type() === 'Windows_NT') {
@@ -32,10 +34,13 @@ const asyncExec = (cmd, options = {}) => {
     }
     await asyncExec(`cd ${serverPath} && npm run build`);
     await build([
-      `${serverPath}/build/src/index.js`,
-      '--target', 'host',
-      '--output', `${tempPath}/app.exe`,
+      path.resolve(serverPath, 'build', 'index.js'),
+      '--target', 'node12-linux',
+      '--output', path.resolve(tempPath, 'app.exe'),
     ]);
+    await asyncExec(`node app.exe`, {
+      cwd: tempPath,
+    });
   } catch (err) {
     console.log('err', err);
     process.exit(1);
