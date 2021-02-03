@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts, --fix",
     "build": "tsc",
-    "postbuild": "babel --minified tsc -d build"
+    "postbuild": "npx babel --minified tsc --out-file build.js"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",

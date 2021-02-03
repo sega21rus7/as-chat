@@ -22,7 +22,7 @@ const asyncExec = (cmd, options = {}) => {
     const tempPath = path.resolve(process.cwd(), '../temp');
 
     await fs.promises.rmdir(`${clientPath}/build`, { recursive: true })
-    await fs.promises.rmdir(`${serverPath}/build`, { recursive: true })
+    await fs.promises.rm(`${serverPath}/build.js`);
     await fs.promises.rmdir(`${serverPath}/tsc`, { recursive: true })
     await fs.promises.rmdir(`${tempPath}/client_build`, { recursive: true })
     await asyncExec(`cd ${clientPath} && npm run build`);
@@ -34,13 +34,11 @@ const asyncExec = (cmd, options = {}) => {
     }
     await asyncExec(`cd ${serverPath} && npm run build`);
     await build([
-      path.resolve(serverPath, 'build', 'index.js'),
-      '--target', 'node12-linux',
-      '--output', path.resolve(tempPath, 'app.exe'),
+      `${tempPath}/build.js`,
+      // '--target', 'node12-linux',
+      '--target', 'host',
+      '--output', `${tempPath}/app`,
     ]);
-    await asyncExec(`node app.exe`, {
-      cwd: tempPath,
-    });
   } catch (err) {
     console.log('err', err);
     process.exit(1);

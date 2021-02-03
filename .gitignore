@@ -1,6 +1,7 @@
 */node_modules
 */package-lock.json
 server/*build
+server/build.js
 server/tsc
 */.eslintcache
 build-exe/app.exe
