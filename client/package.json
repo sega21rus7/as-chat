@@ -91,6 +91,5 @@
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "eslint": "^7.15.0",
-    "run-script-os": "^1.1.5"
   }
 }
