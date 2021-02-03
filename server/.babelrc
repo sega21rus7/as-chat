@@ -5,12 +5,12 @@
       "module-resolver",
       {
         "root": [
-          "src"
+          "."
         ],
         "alias": {
-          "modules": "./modules",
-          "tools": "./tools",
-          "config": "./config"
+          "modules": "./src/modules",
+          "tools": "./src/tools",
+          "config": "./src/config"
         }
       }
     ]
