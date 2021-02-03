@@ -19,6 +19,7 @@ COPY ./client $DIR/client
 COPY ./server $DIR/server
 
 RUN npm run build_client
+RUN mv $DIR/client/build $DIR/server/client_build
 
 CMD ["npm", "run", "server_prod"]
 

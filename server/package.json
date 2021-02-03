@@ -5,10 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "start": "nodemon",
-    "start_prod": "babel-node --extensions \".ts\" src/index --ext .ts",
+    "start_prod": "babel-node --extensions '.ts' src/index --ext .ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts, --fix",
-    "tsc": "tsc"
+    "build": "tsc",
+    "test": "babel-node build/index"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",

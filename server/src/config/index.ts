@@ -13,8 +13,8 @@ export default {
     },
   },
   jwt: {
-    secretOrKey: process.env.jwt_secretOrKey || "jwt",
-    maxAge: process.env.jwt_maxAge || 60 * 60,
-    salt: process.env.jwt_salt || 10,
+    secretOrKey: "jwt",
+    maxAge: 60 * 60,
+    salt: 10,
   },
 };
