@@ -7,7 +7,7 @@
     // Создавать ли соответствующие source map файлы ".map"?
     "sourceMap": true,
     // Поместить все скомпилированные файлы в данную папку
-    "outDir": "./tsc",
+    "outDir": "tsc",
     // Включить ли все строгие проверки типов сразу: noImplicitAny, noImplicitThis, alwaysStrict, strictNullChecks, strictFunctionTypes, strictPropertyInitialization?
     "strict": true,
     // Удалить все комментарии из итогового файла
@@ -15,7 +15,7 @@
     // Определить способ поиска модулей в папках
     "moduleResolution": "node",
     // Путь до базовой папки для поиска не относительных путей до файлов
-    "baseUrl": "./src",
+    "baseUrl": "src",
     // // Создать хелперы __importStar и __importDefault для обеспечения совместимости с экосистемой Babel и включить allowSyntheticDefaultImports для совместимости с системой типов.
     "esModuleInterop": true,
     // Проверять ли типы, заданные во всех файлах описания типов (*.d.ts)?

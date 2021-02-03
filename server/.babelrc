@@ -1,6 +1,4 @@
-import path from 'path';
-
-export default {
+{
   "plugins": [
     "@babel/plugin-transform-modules-commonjs",
     [
@@ -10,9 +8,9 @@ export default {
           "src"
         ],
         "alias": {
-          "modules": path.resolve(process.cwd(), 'modules'),
-          "tools": path.resolve(process.cwd(), 'tools'),
-          "config": path.resolve(process.cwd(), 'config'),
+          "modules": "./modules",
+          "tools": "./tools",
+          "config": "./config"
         }
       }
     ]
