@@ -1,12 +1,18 @@
 import os from 'os';
 import path from 'path';
 import fs from 'fs';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { exec as build } from 'pkg';
 
 const asyncExec = (cmd, options = {}) => {
   return new Promise((res, rej) =>
     exec(cmd, options, (err, stdout, stderr) => {
+      console.log('cmd', cmd);
+      Object.keys(options).length && console.log('options', options);
+      stdout && console.log('stdout', stdout);
+      stderr && console.log('stderr', stderr);
+      console.log('================================================')
+
       if (err) {
         rej(new Error(`${stdout} ${err}`));
       } else {
@@ -21,10 +27,10 @@ const asyncExec = (cmd, options = {}) => {
     const serverPath = path.resolve(process.cwd(), '../server');
     const tempPath = path.resolve(process.cwd(), '../temp');
 
-    await fs.promises.rmdir(`${clientPath}/build`, { recursive: true })
-    await fs.promises.rm(`${serverPath}/build.js`);
-    await fs.promises.rmdir(`${serverPath}/tsc`, { recursive: true })
-    await fs.promises.rmdir(`${tempPath}/client_build`, { recursive: true })
+    await fs.promises.rmdir(`${clientPath}/build`, { recursive: true });
+    await fs.promises.rmdir(`${serverPath}/build`, { recursive: true });
+    await fs.promises.rmdir(`${serverPath}/tsc`, { recursive: true });
+    await fs.promises.rmdir(`${tempPath}/client_build`, { recursive: true });
     await asyncExec(`cd ${clientPath} && npm run build`);
 
     if (os.type() === 'Windows_NT') {
@@ -34,11 +40,36 @@ const asyncExec = (cmd, options = {}) => {
     }
     await asyncExec(`cd ${serverPath} && npm run build`);
     await build([
-      `${tempPath}/build.js`,
+      `${serverPath}/build/src/index.js`,
       // '--target', 'node12-linux',
       '--target', 'host',
       '--output', `${tempPath}/app`,
     ]);
+    let app = spawn(path.resolve(process.cwd(), `${tempPath}/app`), [], {
+      cwd: `${tempPath}`,
+      env: {
+        NODE_ENV: 'production',
+      }
+    });
+    app.logs = [];
+    let onStdout = (data) => {
+      console.log(data.toString());
+    };
+    let onStderr = (data) => {
+      console.log('onStderr', data.toString());
+    };
+    let onExit = (code) => {
+      console.log('exit', code);
+    }
+    app.on('exit', onExit);
+    app.on('error', onExit);
+    if (app.stdout && app.stdout.on) {
+      app.stdout.on('data', onStdout);
+    }
+    if (app.stderr && app.stderr.on) {
+      app.stderr.on('data', onStderr);
+    }
+
   } catch (err) {
     console.log('err', err);
     process.exit(1);

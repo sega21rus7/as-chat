@@ -9,8 +9,7 @@
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts, --fix",
     "build": "tsc",
-    "test": "babel-node tsc/index",
-    "postbuild": "babel --minified tsc -d build"
+    "postbuild": "babel --minified tsc -d build/src"
   },
   "keywords": [],
   "author": "Alexey Sergeev <sega21rus98@mail.ru>",

@@ -21,6 +21,7 @@ app.use("/api/profile", checkJWT(), profileRouter, hanldeUnauthorized);
 
 if (process.env.NODE_ENV === "production") {
   const clientFilesPath = path.resolve(process.cwd(), "client_build");
+  console.log("clientFilesPath", clientFilesPath);
   app.use(express.static(clientFilesPath));
   app.use("/static/", express.static(path.resolve(process.cwd(), "src", "static")));
   app.use("*", (req: express.Request, res: express.Response): void => {
