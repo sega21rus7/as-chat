@@ -6,12 +6,12 @@
   "scripts": {
     "init": "npm run init_client && npm run init_server",
     "build_client": "cd client && npm run build",
+    "build_exe": "cd server && node buildExe",
     "init_client": "cd client && npm i",
     "init_server": "cd server && npm i",
     "client": "cd client && npm run start",
     "server": "cd server && npm run start",
     "server_prod": "cd server && set NODE_ENV=production&&npm run start_prod",
-    "build_exe": "cd build-exe && npm run start",
     "build_container": "docker build -f ./dockerfile -t as-template .",
     "restart_container": "docker-compose -f ./docker-compose.yml down && docker-compose -f ./docker-compose.yml up -d",
     "logs_container": "docker logs -f as-template",
