@@ -1,9 +1,8 @@
 */node_modules
 */package-lock.json
-server/*build
-server/build.js
-server/tsc
+*/build
+*/tsc
 */.eslintcache
-build-exe/app.exe
-temp/app.exe
-temp/client_build
+client_build
+app
+app.zip

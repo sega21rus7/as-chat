@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const { exec, spawn } = require("child_process");
 const build = require("pkg").exec;
+const archiver = require("archiver");
 
 const asyncExec = (cmd, options = {}) => {
   return new Promise((res, rej) =>
@@ -23,55 +24,87 @@ const asyncExec = (cmd, options = {}) => {
     }));
 };
 
-(async () => {
-  try {
-    const clientPath = path.resolve(process.cwd(), "../client");
-    const serverPath = path.resolve(process.cwd(), "./");
-    const tempPath = path.resolve(process.cwd(), "../temp");
+const runApp = appPath => {
+  let app = spawn(path.resolve(process.cwd(), `${appPath}/app`), [], {
+    cwd: `${appPath}`,
+    env: {
+      NODE_ENV: "production",
+    },
+  });
+  let onStdout = data => {
+    console.log(data.toString());
+  };
+  let onStderr = data => {
+    console.log("onStderr", data.toString());
+  };
+  let onExit = code => {
+    console.log("exit", code);
+  };
+  app.on("exit", onExit);
+  app.on("error", onExit);
+  if (app.stdout && app.stdout.on) {
+    app.stdout.on("data", onStdout);
+  }
+  if (app.stderr && app.stderr.on) {
+    app.stderr.on("data", onStderr);
+  }
+};
 
-    await fs.promises.rmdir(`${tempPath}/client_build`, { recursive: true });
-    await asyncExec(`cd ${clientPath} && npm run build`);
+const removeFolders = (root, client, server) => {
+  fs.rmdirSync(`${client}/build`, { recursive: true });
+  fs.rmdirSync(`${server}/build`, { recursive: true });
+  fs.rmdirSync(`${server}/tsc`, { recursive: true });
+  fs.rmdirSync(`${root}/client_build`, { recursive: true });
+};
+
+(async () => {
+  const root = path.resolve(process.cwd(), "../");
+  const client = path.resolve(process.cwd(), "../client");
+  const server = path.resolve(process.cwd(), "./");
+
+  try {
+    await fs.promises.rmdir(`${root}/client_build`, { recursive: true });
+    await asyncExec(`cd ${client} && npm run build`);
 
     if (os.type() === "Windows_NT") {
-      await asyncExec(`move ${clientPath}\\build ${tempPath}\\client_build`);
+      await asyncExec(`move ${client}\\build ${root}\\client_build`);
     } else {
-      await asyncExec(`mv ${clientPath}/build ${tempPath}/client_build`);
+      await asyncExec(`mv ${client}/build ${root}/client_build`);
     }
-    await asyncExec(`cd ${serverPath} && npm run build`);
+    await asyncExec(`cd ${server} && npm run build`);
     await build([
-      `${serverPath}/build/src/index.js`,
-      // '--target', 'node12-linux',
-      "--target", "host",
-      "--output", `${tempPath}/app`,
+      `${server}/build/src/index.js`,
+      "--target", "node12-linux",
+      // "--target", "host",
+      "--output", `${root}/app`,
     ]);
-    let app = spawn(path.resolve(process.cwd(), `${tempPath}/app`), [], {
-      cwd: `${tempPath}`,
-      env: {
-        NODE_ENV: "production",
-      },
+
+    let output = fs.createWriteStream(`${root}/app.zip`);
+    output.on("error", err => {
+      console.log(err);
+      process.exit(1);
     });
-    let onStdout = data => {
-      console.log(data.toString());
-    };
-    let onStderr = data => {
-      console.log("onStderr", data.toString());
-    };
-    let onExit = code => {
-      console.log("exit", code);
-    };
-    app.on("exit", onExit);
-    app.on("error", onExit);
-    if (app.stdout && app.stdout.on) {
-      app.stdout.on("data", onStdout);
-    }
-    if (app.stderr && app.stderr.on) {
-      app.stderr.on("data", onStderr);
-    }
-    await fs.promises.rmdir(`${clientPath}/build`, { recursive: true });
-    await fs.promises.rmdir(`${serverPath}/build`, { recursive: true });
-    await fs.promises.rmdir(`${serverPath}/tsc`, { recursive: true });
+    let archive = archiver("zip", { zlib: { level: 9 } });
+    output.on("close", () => {
+      console.log(`${archive.pointer()} total bytes`);
+      console.log("archiver has been finalized and the output file descriptor has closed.");
+    });
+    archive.on("warning", err => {
+      throw err;
+    });
+    archive.on("error", err => {
+      throw err;
+    });
+    archive.pipe(output);
+    archive.directory(`${root}/client_build`, "client_build");
+    const appFile = path.resolve(root, "app");
+    archive.append(fs.createReadStream(appFile), { name: "app", mode: fs.constants.S_IXOTH });
+    await archive.finalize();
+    removeFolders(root, client, server);
   } catch (err) {
     console.log("err", err);
     process.exit(1);
+  } finally {
+    removeFolders(root, client, server);
   }
 })();
