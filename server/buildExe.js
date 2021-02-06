@@ -55,6 +55,7 @@ const removeFolders = (root, client, server) => {
   fs.rmdirSync(`${server}/build`, { recursive: true });
   fs.rmdirSync(`${server}/tsc`, { recursive: true });
   fs.rmdirSync(`${root}/client_build`, { recursive: true });
+  fs.rmSync(path.resolve(root, "app"));
 };
 
 (async () => {
@@ -63,7 +64,6 @@ const removeFolders = (root, client, server) => {
   const server = path.resolve(process.cwd(), "./");
 
   try {
-    await fs.promises.rmdir(`${root}/client_build`, { recursive: true });
     await asyncExec(`cd ${client} && npm run build`);
 
     if (os.type() === "Windows_NT") {
@@ -100,7 +100,6 @@ const removeFolders = (root, client, server) => {
     const appFile = path.resolve(root, "app");
     archive.append(fs.createReadStream(appFile), { name: "app", mode: fs.constants.S_IXOTH });
     await archive.finalize();
-    removeFolders(root, client, server);
   } catch (err) {
     console.log("err", err);
     process.exit(1);
