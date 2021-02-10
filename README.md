@@ -1,2 +1,1 @@
-1. найти способ не устанавливать devDeps для ts в react
-2. минификация pkg
+https://www.flaticon.com/packs - svg
