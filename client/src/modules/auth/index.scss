@@ -1,0 +1,75 @@
+.auth {
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+}
+.auth-form {
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  &__header {
+    margin: 0 0 50px 0;
+  }
+  &__title {
+    font-size: 28px;
+    line-height: 33px;
+    text-align: center;
+    margin: 0 0 10px 0;
+  } 
+  &__subtitle {
+    text-align: center;
+    opacity: 0.5;
+  }
+  &__input {
+    height: 30px;
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+  &__btn {
+    height: 50px;
+    background: #1890ff;
+    color: white;
+    width: 100%;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+  }
+  &__link {
+    color: grey;
+    text-align: center;
+    display: block;
+    opacity: 0.7;
+  }
+}
+.input {
+  position: relative;
+  &__content {
+    border: 1px solid #d9d9d9;
+    padding: 4px 11px;
+    border-radius: 2px;
+    transition: all 300ms;
+    text-overflow: ellipsis;
+    &:hover {
+      border: 1px solid #1890ff;
+      transition: all 300ms;
+    }
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+  &__password-suffix {
+    position: absolute;
+    background: url('./assets/eye.svg') center no-repeat;
+    top: 5px;
+    right: 11px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    &_strikethrough {
+      background: url('./assets/strikethrough_eye.svg') center no-repeat;
+    }
+  }
+} 

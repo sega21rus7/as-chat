@@ -1,16 +1,5 @@
 #root {
-  height: 100%;
-}
-
-.container {
-  max-width: 1180px;
-  margin: 0 auto;
-}
-.wrapper {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.content {
-  flex: 1 1 auto;
+  height: 100vh;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
 }
