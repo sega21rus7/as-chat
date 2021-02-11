@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useInput } from "tools/helpers/hooks";
+import { useInput } from "tools/hooks";
 import InputError from "./InputError";
 
 const LoginForm: React.FC = () => {

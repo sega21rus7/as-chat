@@ -1,5 +1,5 @@
 import React from "react";
-import { InputType } from "tools/helpers/hooks/useInput";
+import { InputType } from "tools/hooks/useInput";
 
 type PropsType = {
   value: InputType;
