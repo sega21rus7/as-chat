@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-interface IUser extends mongoose.Document {
+interface UserType extends mongoose.Document {
   login: string,
   email: string,
   password: string;
@@ -38,4 +38,4 @@ const userSchema = new Schema({
   },
 });
 
-export default mongoose.model<IUser & Document>("users", userSchema);
+export default mongoose.model<UserType & Document>("users", userSchema);

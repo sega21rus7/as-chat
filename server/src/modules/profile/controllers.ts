@@ -3,7 +3,12 @@ import mongoose from "mongoose";
 import User from "modules/auth/models/User";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
-interface IChangePasswordRequest extends IGetUserInfoRequest {
+interface GetUserInfoRequestType extends express.Request {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  user?: any,
+}
+
+interface ChangePasswordRequestType extends GetUserInfoRequestType {
   body: {
     old_password: string,
     password1: string,
@@ -11,12 +16,7 @@ interface IChangePasswordRequest extends IGetUserInfoRequest {
   }
 }
 
-interface IGetUserInfoRequest extends express.Request {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user?: any,
-}
-
-export const editUser = async (req: IGetUserInfoRequest, res: express.Response): Promise<unknown> => {
+export const editUser = async (req: GetUserInfoRequestType, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     await User.updateOne({ _id }, req.body);
@@ -26,7 +26,7 @@ export const editUser = async (req: IGetUserInfoRequest, res: express.Response):
   }
 };
 
-export const getUserInfo = async (req: IGetUserInfoRequest, res: express.Response): Promise<unknown> => {
+export const getUserInfo = async (req: GetUserInfoRequestType, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     const user = await User.findOne({ _id });
@@ -36,7 +36,7 @@ export const getUserInfo = async (req: IGetUserInfoRequest, res: express.Respons
   }
 };
 
-export const changePassword = async (req: IChangePasswordRequest, res: express.Response): Promise<unknown> => {
+export const changePassword = async (req: ChangePasswordRequestType, res: express.Response): Promise<unknown> => {
   try {
     if (req.body.password1 !== req.body.password2) {
       return res.status(400).end("Пароли должны совпадать!");

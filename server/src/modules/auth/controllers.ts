@@ -4,14 +4,14 @@ import User from "./models/User";
 import config from "config";
 import { handleError, generatePassword, isPasswordsEqual } from "tools";
 
-interface ILoginRequest extends express.Request {
+interface LoginRequestType extends express.Request {
   body: {
     login: string;
     password: string;
   }
 }
 
-interface IRegRequest extends ILoginRequest {
+interface RegRequestType extends LoginRequestType {
   body: {
     login: string;
     password: string;
@@ -22,7 +22,7 @@ interface IRegRequest extends ILoginRequest {
   }
 }
 
-export const login = async (req: ILoginRequest, res: express.Response): Promise<unknown> => {
+export const login = async (req: LoginRequestType, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ login: req.body.login });
     if (!candidate) {
@@ -54,7 +54,7 @@ export const login = async (req: ILoginRequest, res: express.Response): Promise<
   }
 };
 
-export const register = async (req: IRegRequest, res: express.Response): Promise<unknown> => {
+export const register = async (req: RegRequestType, res: express.Response): Promise<unknown> => {
   try {
     let candidate = await User.findOne({ email: req.body.email });
     if (candidate) {
