@@ -10,7 +10,6 @@ export type InputType = {
 }
 
 export default (initialValue = "", validators?: ValidatorsType): InputType => {
-  console.log("!!!!!!!!!!!! USE input", validators);
   const [value, setValue] = useState(initialValue);
   const [isDirty, setIsDirty] = useState(false);
   const error = validators && useInputValidation(value, validators);
