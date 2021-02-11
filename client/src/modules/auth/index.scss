@@ -1,3 +1,38 @@
+.input {
+  position: relative;
+  &__error {
+    color: #ff4d4f;
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+  }
+  &__content {
+    border: 1px solid #d9d9d9;
+    padding: 4px 11px;
+    border-radius: 2px;
+    transition: all 300ms;
+    text-overflow: ellipsis;
+    &:hover {
+      border: 1px solid #1890ff;
+      transition: all 300ms;
+    }
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+  &__password-suffix {
+    position: absolute;
+    background: url('./assets/eye.svg') center no-repeat;
+    top: 5px;
+    right: 11px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    &_strikethrough {
+      background: url('./assets/strikethrough_eye.svg') center no-repeat;
+    }
+  }
+} 
 .auth {
   height: 100%;
   margin: 0 auto;
@@ -27,7 +62,8 @@
   &__input {
     height: 30px;
     width: 100%;
-    margin: 0 0 10px 0;
+    margin: 0 0 20px 0;
+    padding: 4px 34px 4px 11px;
   }
   &__btn {
     height: 50px;
@@ -44,32 +80,3 @@
     opacity: 0.7;
   }
 }
-.input {
-  position: relative;
-  &__content {
-    border: 1px solid #d9d9d9;
-    padding: 4px 11px;
-    border-radius: 2px;
-    transition: all 300ms;
-    text-overflow: ellipsis;
-    &:hover {
-      border: 1px solid #1890ff;
-      transition: all 300ms;
-    }
-    &::placeholder {
-      opacity: 0.5;
-    }
-  }
-  &__password-suffix {
-    position: absolute;
-    background: url('./assets/eye.svg') center no-repeat;
-    top: 5px;
-    right: 11px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    &_strikethrough {
-      background: url('./assets/strikethrough_eye.svg') center no-repeat;
-    }
-  }
-} 

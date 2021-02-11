@@ -1,13 +1,13 @@
 import React from "react";
-import LoginForm from "./LoginForm/index";
+import LoginForm from "./components/LoginForm";
 import "./index.scss";
-import RegForm from "./RegForm";
+import RegForm from "./components/RegForm";
 
-interface IProps {
+type PropsType = {
   isReg?: boolean;
 }
 
-const Auth: React.FC<IProps> = ({ isReg }) => {
+const Auth: React.FC<PropsType> = ({ isReg }) => {
   return (
     <div className="auth">
       {isReg ? <RegForm /> : <LoginForm />}

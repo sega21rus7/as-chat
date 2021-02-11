@@ -1,36 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useInput } from "tools/helpers/hooks";
+import InputError from "./InputError";
 
 const RegForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [repeatPasswordInputType, setRepeatPasswordInputType] = useState("password");
-  const [passwordSuffixClassNames, setPasswordSuffixClassNames] = useState([
-    "input__password-suffix",
-  ]);
-  const [repeatPasswordSuffixClassNames, setRepeatPasswordSuffixClassNames] = useState([
-    "input__password-suffix",
-  ]);
+  const email = useInput("", { isEmpty: true, isEmail: true });
+  const login = useInput("", { isEmpty: true, minLen: 5, maxLen: 15 });
+  const password = useInput("", { isEmpty: true, minLen: 5, isPassword: true });
+  const repeatPassword = useInput("", { isEmpty: true, minLen: 5, isPassword: true });
 
   const switchPasswordVisibility = () => {
     setPasswordInputType(prev => prev === "password" ? "text" : "password");
-    if (passwordSuffixClassNames.length === 1) {
-      setPasswordSuffixClassNames(prev =>
-        [...prev, "input__password-suffix_strikethrough"],
-      );
-    } else {
-      setPasswordSuffixClassNames(prev => [prev[0]]);
-    }
   };
 
   const switchRepeatPasswordVisibility = () => {
     setRepeatPasswordInputType(prev => prev === "password" ? "text" : "password");
-    if (repeatPasswordSuffixClassNames.length === 1) {
-      setRepeatPasswordSuffixClassNames(prev =>
-        [...prev, "input__password-suffix_strikethrough"],
-      );
-    } else {
-      setRepeatPasswordSuffixClassNames(prev => [prev[0]]);
-    }
   };
 
   return (
@@ -43,27 +29,52 @@ const RegForm: React.FC = () => {
         <div className="input">
           <input className="input__content auth-form__input"
             type="text"
+            value={login.value}
+            onChange={login.onChange}
+            onBlur={login.onBlur}
             placeholder="Введите логин" />
+          <InputError value={login} />
         </div>
+
         <div className="input">
           <input className="input__content auth-form__input"
             type="email"
-            placeholder="Введите email" />
+            value={email.value}
+            onChange={email.onChange}
+            onBlur={email.onBlur}
+            placeholder="Введите e-mail" />
+          <InputError value={email} />
         </div>
+
         <div className="input">
           <input className="input__content auth-form__input"
             type={passwordInputType}
             autoComplete="on"
+            value={password.value}
+            onChange={password.onChange}
+            onBlur={password.onBlur}
             placeholder="Придумайте пароль" />
-          <div className={passwordSuffixClassNames.join(" ")}
+          <InputError value={password} />
+          <div
+            className={passwordInputType === "password" ?
+              "input__password-suffix" :
+              "input__password-suffix input__password-suffix_strikethrough"}
             onClick={switchPasswordVisibility}></div>
         </div>
+
         <div className="input">
           <input className="input__content auth-form__input"
             type={repeatPasswordInputType}
             autoComplete="on"
+            value={repeatPassword.value}
+            onChange={repeatPassword.onChange}
+            onBlur={repeatPassword.onBlur}
             placeholder="Повторите пароль" />
-          <div className={repeatPasswordSuffixClassNames.join(" ")}
+          <InputError value={repeatPassword} />
+          <div
+            className={repeatPasswordInputType === "password" ?
+              "input__password-suffix" :
+              "input__password-suffix input__password-suffix_strikethrough"}
             onClick={switchRepeatPasswordVisibility}></div>
         </div>
         <button className="auth-form__btn"

@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useInput } from "tools/helpers/hooks";
+import InputError from "./InputError";
 
 const LoginForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
-  const [passwordSuffixClassNames, setPasswordSuffixClassNames] = useState([
-    "input__password-suffix",
-  ]);
+  const login = useInput("", { isEmpty: true });
+  const password = useInput("", { isEmpty: true });
 
   const switchPasswordVisibility = () => {
     setPasswordInputType(prev => prev === "password" ? "text" : "password");
-    if (passwordSuffixClassNames.length === 1) {
-      setPasswordSuffixClassNames(prev =>
-        [...prev, "input__password-suffix_strikethrough"],
-      );
-    } else {
-      setPasswordSuffixClassNames(prev => [prev[0]]);
-    }
   };
 
   return (
@@ -26,17 +20,32 @@ const LoginForm: React.FC = () => {
       </div>
       <div className="auth-form__content">
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input
+            className="input__content auth-form__input"
             type="text"
-            placeholder="Введите логин/email" />
+            value={login.value}
+            onChange={login.onChange}
+            onBlur={login.onBlur}
+            placeholder="Введите логин/e-mail" />
+          <InputError value={login} />
         </div>
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input
+            className="input__content auth-form__input"
             type={passwordInputType}
             autoComplete="on"
+            value={password.value}
+            onChange={password.onChange}
+            onBlur={password.onBlur}
             placeholder="Введите пароль" />
-          <div className={passwordSuffixClassNames.join(" ")}
-            onClick={switchPasswordVisibility}></div>
+          <InputError value={password} />
+          <div
+            className={passwordInputType === "password" ?
+              "input__password-suffix" :
+              "input__password-suffix input__password-suffix_strikethrough"}
+            onClick={switchPasswordVisibility}>
+
+          </div>
         </div>
         <button className="auth-form__btn"
           type="submit">Войти в аккаунт</button>

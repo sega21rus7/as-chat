@@ -1,17 +1,17 @@
-export interface IParams {
+export type ParamsType = {
   method?: string;
   token?: string;
 }
 
-export interface IObject {
+export type ObjectType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any | any[];
 }
 
-export interface IKeyStringValueString {
+export type KeyValueType = {
   [key: string]: string
 }
-export interface IUser {
+export type UserType = {
   key: string;
   email: string;
   login: string;
