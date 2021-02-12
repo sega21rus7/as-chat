@@ -1,0 +1,3 @@
+[submodule "server/as-server"]
+	path = server/as-server
+	url = https://github.com/sega21rus7/as-server
