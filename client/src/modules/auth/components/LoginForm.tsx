@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useInput } from "tools/hooks";
-import InputError from "./InputError";
 
 const LoginForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
-  const login = useInput("", { isEmpty: true });
-  const password = useInput("", { isEmpty: true });
 
   const switchPasswordVisibility = () => {
     setPasswordInputType(prev => prev === "password" ? "text" : "password");
@@ -23,22 +19,14 @@ const LoginForm: React.FC = () => {
           <input
             className="input__content auth-form__input"
             type="text"
-            value={login.value}
-            onChange={login.onChange}
-            onBlur={login.onBlur}
             placeholder="Введите логин/e-mail" />
-          <InputError value={login} />
         </div>
         <div className="input">
           <input
             className="input__content auth-form__input"
             type={passwordInputType}
             autoComplete="on"
-            value={password.value}
-            onChange={password.onChange}
-            onBlur={password.onBlur}
             placeholder="Введите пароль" />
-          <InputError value={password} />
           <div
             className={passwordInputType === "password" ?
               "input__password-suffix" :

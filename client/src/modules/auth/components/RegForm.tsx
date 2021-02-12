@@ -1,15 +1,41 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useInput } from "tools/hooks";
-import InputError from "./InputError";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+interface FormValuesType {
+  email: string,
+  login: string,
+  password: string,
+  repeatPassword: string,
+}
+
+const requireMes = "Это обязательное поле";
+
+const validationSchema = yup.object({
+  login: yup.string().required(requireMes),
+  email: yup.string().required(requireMes).email("Неверной формат e-mail"),
+  password: yup.string().required(requireMes),
+  repeatPassword: yup.string().required(requireMes),
+});
 
 const RegForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [repeatPasswordInputType, setRepeatPasswordInputType] = useState("password");
-  const email = useInput("", { isEmpty: true, isEmail: true });
-  const login = useInput("", { isEmpty: true, minLen: 5, maxLen: 15 });
-  const password = useInput("", { isEmpty: true, minLen: 5, isPassword: true });
-  const repeatPassword = useInput("", { isEmpty: true, minLen: 5, isPassword: true });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      login: "",
+      password: "",
+      repeatPassword: "",
+    },
+    onSubmit: values => handleSubmit(values),
+    validationSchema,
+  });
+
+  const handleSubmit = (values: FormValuesType) => {
+    console.log("handleSubmit", values);
+  };
 
   const switchPasswordVisibility = () => {
     setPasswordInputType(prev => prev === "password" ? "text" : "password");
@@ -20,7 +46,7 @@ const RegForm: React.FC = () => {
   };
 
   return (
-    <form className="auth-form">
+    <form noValidate className="auth-form" onSubmit={formik.handleSubmit}>
       <div className="auth-form__header">
         <h1 className="auth-form__title">Регистрация</h1>
         <p className="auth-form__subtitle">Пожалуйста зарегистрируйтесь</p>
@@ -29,32 +55,35 @@ const RegForm: React.FC = () => {
         <div className="input">
           <input className="input__content auth-form__input"
             type="text"
-            value={login.value}
-            onChange={login.onChange}
-            onBlur={login.onBlur}
-            placeholder="Введите логин" />
-          <InputError value={login} />
+            name="login"
+            onChange={formik.handleChange}
+            value={formik.values.login}
+            placeholder="Введите логин"
+          />
+          <div className="input__error">{formik.errors.login}</div>
         </div>
 
         <div className="input">
           <input className="input__content auth-form__input"
             type="email"
-            value={email.value}
-            onChange={email.onChange}
-            onBlur={email.onBlur}
-            placeholder="Введите e-mail" />
-          <InputError value={email} />
+            name="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            placeholder="Введите e-mail"
+          />
+          <div className="input__error">{formik.errors.email}</div>
         </div>
 
         <div className="input">
           <input className="input__content auth-form__input"
             type={passwordInputType}
             autoComplete="on"
-            value={password.value}
-            onChange={password.onChange}
-            onBlur={password.onBlur}
-            placeholder="Придумайте пароль" />
-          <InputError value={password} />
+            name="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            placeholder="Придумайте пароль"
+          />
+          <div className="input__error">{formik.errors.password}</div>
           <div
             className={passwordInputType === "password" ?
               "input__password-suffix" :
@@ -66,11 +95,12 @@ const RegForm: React.FC = () => {
           <input className="input__content auth-form__input"
             type={repeatPasswordInputType}
             autoComplete="on"
-            value={repeatPassword.value}
-            onChange={repeatPassword.onChange}
-            onBlur={repeatPassword.onBlur}
-            placeholder="Повторите пароль" />
-          <InputError value={repeatPassword} />
+            name="repeatPassword"
+            onChange={formik.handleChange}
+            value={formik.values.repeatPassword}
+            placeholder="Повторите пароль"
+          />
+          <div className="input__error">{formik.errors.repeatPassword}</div>
           <div
             className={repeatPasswordInputType === "password" ?
               "input__password-suffix" :
