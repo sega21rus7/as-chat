@@ -15,7 +15,7 @@
     // Определить способ поиска модулей в папках
     "moduleResolution": "node",
     // Путь до базовой папки для поиска не относительных путей до файлов
-    "baseUrl": ".",
+    "baseUrl": "src",
     // // Создать хелперы __importStar и __importDefault для обеспечения совместимости с экосистемой Babel и включить allowSyntheticDefaultImports для совместимости с системой типов.
     "esModuleInterop": true,
     // Проверять ли типы, заданные во всех файлах описания типов (*.d.ts)?
@@ -36,25 +36,19 @@
   // сопоставление маршрутов для вычисления по сравнению с параметром baseUrl
   "paths": {
     "tools": [
-      "./src/tools"
+      "./tools"
     ],
     "tools/*": [
-      "./src/tools/*"
+      "./tools/*"
     ],
     "modules": [
-      "./src/modules"
+      "./modules"
     ],
     "modules/*": [
-      "./src/modules/*"
+      "./modules/*"
     ],
     "config": [
-      "./src/config"
-    ],
-    "as-server": [
-      "./as-server/src"
-    ],
-    "as-server/*": [
-      "./as-server/src/*"
+      "./config"
     ],
   },
 }

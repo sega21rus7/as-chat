@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import User from "as-server/src/modules/auth/models/User";
-import { handleError, generatePassword, isPasswordsEqual } from "as-server/src/tools";
+import User from "modules/auth/models/User";
+import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
 
 interface GetUserInfoRequestType extends express.Request {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
