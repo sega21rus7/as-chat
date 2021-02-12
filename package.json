@@ -1,5 +1,5 @@
 {
-  "name": "as-template",
+  "name": "as-chat",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,16 +12,16 @@
     "client": "cd client && npm run start",
     "server": "cd server && npm run start",
     "server_prod": "cd server && set NODE_ENV=production&&npm run start_prod",
-    "build_container": "docker build -f ./dockerfile -t as-template .",
+    "build_container": "docker build -f ./dockerfile -t as-chat .",
     "restart_container": "docker-compose -f ./docker-compose.yml down && docker-compose -f ./docker-compose.yml up -d",
-    "logs_container": "docker logs -f as-template",
+    "logs_container": "docker logs -f as-chat",
     "stop_container": "docker-compose -f ./docker-compose.yml down",
-    "build_exe_container": "docker build -f ./dockerfile.exe -t as-template-exe .",
+    "build_exe_container": "docker build -f ./dockerfile.exe -t as-chat-exe .",
     "restart_exe_container": "docker-compose -f ./docker-compose.exe.yml down && docker-compose -f ./docker-compose.exe.yml up -d",
-    "logs_exe_container": "docker logs -f as-template-exe",
+    "logs_exe_container": "docker logs -f as-chat-exe",
     "stop_exe_container": "docker-compose -f ./docker-compose.exe.yml down"
   },
   "keywords": [],
-  "author": "Alexey Sergeev <sega21rus98@mail.ru>",
+  "author": "",
   "license": "ISC"
 }

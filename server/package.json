@@ -12,7 +12,7 @@
     "postbuild": "babel --minified tsc -d build/src"
   },
   "keywords": [],
-  "author": "Alexey Sergeev <sega21rus98@mail.ru>",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.12.10",

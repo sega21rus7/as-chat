@@ -15,8 +15,8 @@ services:
       - 27017:27017
   as:
     build: .
-    image: "as-template-exe"
-    container_name: as-template-exe
+    image: "as-chat-exe"
+    container_name: as-chat-exe
     restart: always
     env_file:
         - ./.env
