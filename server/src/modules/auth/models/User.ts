@@ -2,10 +2,14 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-interface UserType extends mongoose.Document {
+export interface UserType extends mongoose.Document {
   login: string,
   email: string,
   password: string;
+  lastName?: string;
+  firstName?: string;
+  middleName?: string;
+  regDate: string;
 }
 
 const userSchema = new Schema({

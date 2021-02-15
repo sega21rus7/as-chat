@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { login as loginUser } from "store/auth/actionCreators";
 
 interface FormValuesType {
   login: string,
@@ -17,6 +19,8 @@ const validationSchema = yup.object({
 
 const LoginForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       login: "",
@@ -27,7 +31,8 @@ const LoginForm: React.FC = () => {
   });
 
   const handleSubmit = (values: FormValuesType) => {
-    console.log("handleSubmit", values);
+    const { login, password } = values;
+    dispatch(loginUser(login, password));
   };
 
   const switchPasswordVisibility = () => {
@@ -73,7 +78,7 @@ const LoginForm: React.FC = () => {
         </div>
         <button className="auth-form__btn"
           type="submit">Войти в аккаунт</button>
-        <Link to="/reg" className="auth-form__link">Еще не зарегистрированы?</Link>
+        <Link to="/registration" className="auth-form__link">Еще не зарегистрированы?</Link>
       </div>
     </form>
   );

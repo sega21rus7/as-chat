@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "./models/User";
 import config from "config";
 import { handleError, generatePassword, isPasswordsEqual } from "tools";
+import { UserType } from "./models/User";
 
 interface LoginRequestType extends express.Request {
   body: {
@@ -14,13 +15,31 @@ interface LoginRequestType extends express.Request {
 interface RegRequestType extends LoginRequestType {
   body: {
     login: string;
-    password: string;
     email: string;
+    password: string;
+    repeatPassword: string;
     lastName: string;
     firstName: string;
     middleName: string;
   }
 }
+
+const generateTokenAndWriteToCookie = (user: UserType, response: express.Response) => {
+  // генерируем токен
+  const token = jwt.sign({
+    _id: user._id,
+    email: user.email,
+    login: user.login,
+  }, config.jwt.secretOrKey, {
+    expiresIn: config.jwt.maxAge, // час
+  });
+  response.cookie("jwt", token, {
+    maxAge: config.jwt.maxAge * 1000,
+    secure: false,
+    httpOnly: false,
+  });
+  return token;
+};
 
 export const login = async (req: LoginRequestType, res: express.Response): Promise<unknown> => {
   try {
@@ -35,20 +54,8 @@ export const login = async (req: LoginRequestType, res: express.Response): Promi
     if (!passwordsEquals) {
       return res.status(401).end("Неверный пароль.");
     }
-    // генерируем токен
-    const token = jwt.sign({
-      _id: candidate._id,
-      email: candidate.email,
-      login: candidate.login,
-    }, config.jwt.secretOrKey, {
-      expiresIn: config.jwt.maxAge, // час
-    });
-    res.cookie("jwt", token, {
-      maxAge: config.jwt.maxAge * 1000,
-      secure: false,
-      httpOnly: false,
-    });
-    return res.status(200).end();
+    generateTokenAndWriteToCookie(candidate, res);
+    return res.status(200).json({ user: candidate });
   } catch (err) {
     handleError(res, err);
   }
@@ -56,6 +63,9 @@ export const login = async (req: LoginRequestType, res: express.Response): Promi
 
 export const register = async (req: RegRequestType, res: express.Response): Promise<unknown> => {
   try {
+    if (req.body.password !== req.body.repeatPassword) {
+      throw new Error("Пароли должны совпадать");
+    }
     let candidate = await User.findOne({ email: req.body.email });
     if (candidate) {
       return res.status(400).end("Пользователь c таким email уже зарегистрирован.");
@@ -71,7 +81,8 @@ export const register = async (req: RegRequestType, res: express.Response): Prom
       regDate: new Date(),
     });
     await user.save();
-    return res.status(201).end();
+    generateTokenAndWriteToCookie(user, res);
+    return res.status(201).json({ user });
   } catch (err) {
     handleError(res, err);
   }

@@ -4,14 +4,11 @@ import Cookies from "universal-cookie";
 
 export const jsonFetch = async (url: string, data?: Record<string, unknown>, params?: {
   method?: string;
-  token?: string;
 }): Promise<any> => {
-  const authHeader = params?.token && { "Authorization": params.token };
   const response = await fetch(url, {
     method: params && params.method ? params.method : "POST",
     headers: {
       "Content-Type": "application/json",
-      ...authHeader,
     },
     body: data && JSON.stringify(data),
   });
@@ -47,8 +44,8 @@ export const removeToken = (): void => {
   cookies.remove("jwt");
 };
 
-export const isAuth = (): boolean => {
+export const getToken = (): string => {
   const cookies = new Cookies();
-  return cookies.get("jwt");
+  return cookies.get("jwt") || "";
 };
 

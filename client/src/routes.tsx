@@ -1,13 +1,14 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "modules/auth";
 
 const BaseRouter: React.FC = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/auth" render={() => <Auth />} />
-        <Route exact path="/reg" render={() => <Auth isReg={true} />} />
+        <Route exact path="/login" render={() => <Auth />} />
+        <Route exact path="/registration" render={() => <Auth isReg={true} />} />
+        <Redirect to="/login" />
       </Switch>
     </React.Fragment>
   );

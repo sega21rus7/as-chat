@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { register } from "store/auth/actionCreators";
 
 interface FormValuesType {
   email: string,
@@ -13,15 +15,30 @@ interface FormValuesType {
 const requireMes = "Это обязательное поле";
 
 const validationSchema = yup.object({
-  login: yup.string().required(requireMes),
-  email: yup.string().required(requireMes).email("Неверной формат e-mail"),
-  password: yup.string().required(requireMes),
-  repeatPassword: yup.string().required(requireMes),
+  login: yup
+    .string()
+    .required(requireMes)
+    .min(3, "Минимальная длина логина 3 символа"),
+  email: yup
+    .string()
+    .required(requireMes)
+    .email("Неверной формат e-mail"),
+  password: yup
+    .string()
+    .required(requireMes)
+    .min(5, "Минимальная длина пароля 5 символов"),
+  repeatPassword: yup
+    .string()
+    .required(requireMes)
+    .min(5, "Минимальная длина пароля 5 символов")
+    .oneOf([yup.ref("password"), null], "Пароли должны совпадать"),
 });
 
 const RegForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [repeatPasswordInputType, setRepeatPasswordInputType] = useState("password");
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -34,7 +51,8 @@ const RegForm: React.FC = () => {
   });
 
   const handleSubmit = (values: FormValuesType) => {
-    console.log("handleSubmit", values);
+    const { email, login, password, repeatPassword } = values;
+    dispatch(register(email, login, password, repeatPassword));
   };
 
   const switchPasswordVisibility = () => {
@@ -109,7 +127,7 @@ const RegForm: React.FC = () => {
         </div>
         <button className="auth-form__btn"
           type="submit">Зарегистрироваться</button>
-        <Link to="/auth" className="auth-form__link">Уже зарегистрированы?</Link>
+        <Link to="/login" className="auth-form__link">Уже зарегистрированы?</Link>
       </div>
     </form>
   );
