@@ -35,11 +35,15 @@ const DialogList: React.FC = () => {
       hadRead: true,
     },
   ];
+  console.log(items);
 
   return (
+
     <div className="dialog-list">
       {
-        items.map(item => <DialogListItem
+        items.sort((a, b) => {
+          return new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1;
+        }).map(item => <DialogListItem
           key={item.user._id}
           user={item.user}
           message={item.message}
