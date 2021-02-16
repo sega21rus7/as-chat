@@ -8,7 +8,7 @@ const BaseRouter: React.FC = () => {
     <React.Fragment>
       <Switch>
         <Route exact path="/login" render={() => <Auth />} />
-        <Route exact path="/registration" render={() => <Auth isReg={true} />} />
+        <Route exact path="/registration" render={() => <Auth isReg />} />
         <Route exact path="/im" component={Chat} />
         <Redirect to="/im" />
       </Switch>
