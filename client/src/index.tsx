@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "store";
-import App from "./App";
+import App from "./App/App";
 import reportWebVitals from "./reportWebVitals";
-import "./style.scss";
+import "style/index.scss";
 
 const store = createStore(rootReducer,
   compose(
