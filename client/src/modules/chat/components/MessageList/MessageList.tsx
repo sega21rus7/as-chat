@@ -1,6 +1,6 @@
 import React from "react";
 import "./message_list.scss";
-import Message from "../Message/Message";
+import Message from "./Message/Message";
 import avatar from "../assets/img/avatar.jpg";
 
 const MessageList: React.FC = () => {

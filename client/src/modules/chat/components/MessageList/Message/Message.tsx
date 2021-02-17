@@ -3,7 +3,7 @@ import React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ruLocale from "date-fns/locale/ru";
 import "./message.scss";
-import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
+import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 
 interface PropsType {
   text: string;

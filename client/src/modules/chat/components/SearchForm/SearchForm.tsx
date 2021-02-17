@@ -7,19 +7,12 @@ interface FormValuesType {
   title: string,
 }
 
-const validationSchema = yup.object({
-  title: yup
-    .string()
-    .required("Это обязательное поле"),
-});
-
 const SearchForm: React.FC = () => {
   const formik = useFormik({
     initialValues: {
       title: "",
     },
     onSubmit: values => handleSubmit(values),
-    validationSchema,
   });
 
   const handleSubmit = (values: FormValuesType) => {

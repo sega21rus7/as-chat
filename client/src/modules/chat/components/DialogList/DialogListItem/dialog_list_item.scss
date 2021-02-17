@@ -5,16 +5,11 @@
   margin: 0 0 10px 0;
   &__avatar-wrapper {
     display: flex;
-    flex-direction: column-reverse;
+    align-items: center;
     margin: 0 10px 0 0;
-    padding: 0 0 22px 0;
   }
   &__avatar {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0 10px 0 0;
     img {
       width: 40px;
       height: 40px;

@@ -1,5 +1,5 @@
 import React from "react";
-import DialogListItem from "../DialogListItem/DialogListItem";
+import DialogListItem from "./DialogListItem/DialogListItem";
 import "./dialog_list.scss";
 import avatar from "../assets/img/avatar.jpg";
 import dialogListIcon from "./assets/svg/dialog_list.svg";
@@ -40,14 +40,6 @@ const DialogList: React.FC = () => {
 
   return (
     <div className="dialog-list">
-      <div className="dialog-list__header">
-        <div className="dialog-list__icon">
-          <img src={dialogListIcon} alt="" />
-        </div>
-        <div className="dialog-list__title">
-          Список диалогов
-        </div>
-      </div>
       <SearchForm />
       {
         items.sort((a, b) => {
