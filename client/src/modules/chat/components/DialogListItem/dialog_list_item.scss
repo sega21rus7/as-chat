@@ -28,13 +28,13 @@
     }
   }
   &__online {
-    width: 5px;
-    height: 5px;
-    background: #32CD32;
+    width: 7px;
+    height: 7px;
+    background: $lime;
     border-radius: 50%;
     position: absolute;
-    bottom: 3px;
-    right: 4px;
+    bottom: 2px;
+    right: 3px;
   }
   &__content {
     display: flex;

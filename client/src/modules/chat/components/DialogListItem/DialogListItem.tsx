@@ -1,5 +1,5 @@
 import React from "react";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import format from "date-fns/format";
 import ruLocale from "date-fns/locale/ru";
 import "./dialog_list_item.scss";
 import MessageStatusIcon from "../MessageStatusIcon/MessageStatusIcon";
@@ -16,7 +16,7 @@ interface PropsType {
     text: string;
     count?: number;
   },
-  date: Date | number;
+  date: Date;
   hadRead?: boolean;
 }
 
@@ -35,7 +35,10 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) =
             {`${user.firstName} ${user.secondName}`}
           </div>
           <div className="dialog-list-item__date">
-            {formatDistanceToNow(date, { addSuffix: true, locale: ruLocale })}
+            {format(date,
+              date.getDate() === new Date().getDate() ? "p" : "P",
+              { locale: ruLocale })
+            }
           </div>
         </div>
         <div className="dialog-list-item__footer">

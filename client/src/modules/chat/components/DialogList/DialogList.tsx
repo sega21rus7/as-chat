@@ -1,13 +1,15 @@
 import React from "react";
 import DialogListItem from "../DialogListItem/DialogListItem";
 import "./dialog_list.scss";
-import avatar from "../../assets/img/avatar.jpg";
+import avatar from "../assets/img/avatar.jpg";
+import dialogListIcon from "./assets/svg/dialog_list.svg";
+import SearchForm from "../SearchForm/SearchForm";
 
 const DialogList: React.FC = () => {
   const items = [
     {
       user: {
-        _id: new Date(2021, 1, 16, 10).toString(),
+        _id: new Date(2021, 1, 15, 10).toString(),
         firstName: "Вася",
         secondName: "Петров",
         avatar: avatar,
@@ -17,7 +19,7 @@ const DialogList: React.FC = () => {
         text: "Здарова бро!",
         count: 500,
       },
-      date: new Date(2021, 1, 16, 10),
+      date: new Date(2021, 1, 15, 10),
       hadRead: true,
     },
     {
@@ -35,11 +37,18 @@ const DialogList: React.FC = () => {
       hadRead: true,
     },
   ];
-  console.log(items);
 
   return (
-
     <div className="dialog-list">
+      <div className="dialog-list__header">
+        <div className="dialog-list__icon">
+          <img src={dialogListIcon} alt="" />
+        </div>
+        <div className="dialog-list__title">
+          Список диалогов
+        </div>
+      </div>
+      <SearchForm />
       {
         items.sort((a, b) => {
           return new Date(a.date).getTime() < new Date(b.date).getTime() ? 1 : -1;

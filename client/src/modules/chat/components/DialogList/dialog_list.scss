@@ -1,3 +1,17 @@
 .dialog-list {
-  width: 500px;
+  flex: 0 0 300px;
+  margin: 0 50px 0 0;
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 10px 0;
+  }
+  &__icon {
+    width: 14px;
+    height: 14px;
+    margin: 0 5px 0 0;
+  }
+  &__title {
+    font-style: italic;
+  }
 }

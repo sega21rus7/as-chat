@@ -71,7 +71,7 @@ const RegForm: React.FC = () => {
       </div>
       <div className="auth-form__content">
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input className="auth-form__input input__content"
             type="text"
             name="login"
             onChange={formik.handleChange}
@@ -82,7 +82,7 @@ const RegForm: React.FC = () => {
         </div>
 
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input className="auth-form__input input__content"
             type="email"
             name="email"
             onChange={formik.handleChange}
@@ -93,7 +93,7 @@ const RegForm: React.FC = () => {
         </div>
 
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input className="auth-form__input input__content"
             type={passwordInputType}
             autoComplete="on"
             name="password"
@@ -104,13 +104,13 @@ const RegForm: React.FC = () => {
           <div className="input__error">{formik.errors.password}</div>
           <div
             className={passwordInputType === "password" ?
-              "input__password-suffix" :
-              "input__password-suffix input__password-suffix_strikethrough"}
+              "auth-form-suffix" :
+              "auth-form__password-suffix auth-form__password-suffix_strikethrough"}
             onClick={switchPasswordVisibility}></div>
         </div>
 
         <div className="input">
-          <input className="input__content auth-form__input"
+          <input className="auth-form__input input__content"
             type={repeatPasswordInputType}
             autoComplete="on"
             name="repeatPassword"
@@ -121,8 +121,8 @@ const RegForm: React.FC = () => {
           <div className="input__error">{formik.errors.repeatPassword}</div>
           <div
             className={repeatPasswordInputType === "password" ?
-              "input__password-suffix" :
-              "input__password-suffix input__password-suffix_strikethrough"}
+              "auth-input__password-suffix" :
+              "auth-input__password-suffix auth-input__password-suffix_strikethrough"}
             onClick={switchRepeatPasswordVisibility}></div>
         </div>
         <button className="auth-form__btn"

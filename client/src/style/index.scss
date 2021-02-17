@@ -1,7 +1,33 @@
 @import './zero.scss';
+@import './variables.scss';
 
 #root {
   height: 100vh;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
 }
+
+.input {
+  position: relative;
+  &__error {
+    color: #ff4d4f;
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+  }
+  &__content {
+    border: 1px solid #d9d9d9;
+    margin: 0 0 20px 0;
+    height: 30px;
+    border-radius: 2px;
+    transition: all 300ms;
+    text-overflow: ellipsis;
+    &:hover {
+      border: 1px solid $blue;
+      transition: all 300ms;
+    }
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+} 
