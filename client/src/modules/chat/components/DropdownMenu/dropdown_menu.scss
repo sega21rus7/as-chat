@@ -10,13 +10,14 @@
   background: $whitesmoke;
   box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
   transform: translateX(-100%);
-  transition: all 0.5s;
+  transition: all 0.3s;
   &_active {
     transform: translateX(0);
   }
   &__body {
     padding: 20px;
     height: 100%;
+    transition: all 0.4s;
   }
   &__list {
     margin: 20px;
