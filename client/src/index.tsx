@@ -9,12 +9,10 @@ import App from "./App/App";
 import reportWebVitals from "./reportWebVitals";
 import "style/index.scss";
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
+  composeEnhancers(applyMiddleware(thunk)),
 );
 
 ReactDOM.render(
