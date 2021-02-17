@@ -1,3 +1,6 @@
 .chat {
-  display: flex;
+  &__body {
+    display: flex;
+    height: 100vh;
+  }
 }

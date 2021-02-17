@@ -1,0 +1,30 @@
+@import '~style/variables';
+
+.dropdown-menu {
+  left: 0;
+  top: 0;
+  height: 100vh;
+  position: fixed;
+  width: 30vw;
+  z-index: 999;
+  background: $whitesmoke;
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  &__body {
+    padding: 20px;
+    height: 100%;
+  }
+  &__list {
+    margin: 20px;
+    li {
+      margin: 0 0 10px 0;
+      cursor: pointer;
+    }
+  }
+  &__blur {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: rgba(0,0,0,.3);
+    left: 30vw;
+  }
+}

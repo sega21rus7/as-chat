@@ -5,6 +5,17 @@
   height: 100vh;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
+  position: relative;
+}
+
+.page {
+  margin: 10px;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 10px;
 }
 
 .input {
@@ -17,7 +28,6 @@
   }
   &__content {
     border: 1px solid #d9d9d9;
-    margin: 0 0 20px 0;
     height: 30px;
     border-radius: 2px;
     transition: all 300ms;
