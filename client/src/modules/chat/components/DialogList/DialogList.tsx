@@ -2,7 +2,6 @@ import React from "react";
 import DialogListItem from "./DialogListItem/DialogListItem";
 import "./dialog_list.scss";
 import avatar from "../assets/img/avatar.jpg";
-import dialogListIcon from "./assets/svg/dialog_list.svg";
 import SearchForm from "../SearchForm/SearchForm";
 
 const DialogList: React.FC = () => {

@@ -1,6 +1,5 @@
 import React from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import "./search_form.scss";
 
 interface FormValuesType {
@@ -21,7 +20,7 @@ const SearchForm: React.FC = () => {
 
   return (
     <form noValidate className="search-form" onSubmit={formik.handleSubmit}>
-      <div className="input">
+      <div className="search-form__input-wrapper input">
         <input
           className="search-form__input input__content"
           type="text"

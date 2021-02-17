@@ -70,8 +70,8 @@ const LoginForm: React.FC = () => {
           <div className="input__error">{formik.errors.password}</div>
           <div
             className={passwordInputType === "password" ?
-              "input__password-suffix" :
-              "input__password-suffix input__password-suffix_strikethrough"}
+              "auth-form__password-suffix" :
+              "auth-form__password-suffix auth-form__password-suffix_strikethrough"}
             onClick={switchPasswordVisibility}>
 
           </div>

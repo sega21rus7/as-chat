@@ -104,7 +104,7 @@ const RegForm: React.FC = () => {
           <div className="input__error">{formik.errors.password}</div>
           <div
             className={passwordInputType === "password" ?
-              "auth-form-suffix" :
+              "auth-form__password-suffix" :
               "auth-form__password-suffix auth-form__password-suffix_strikethrough"}
             onClick={switchPasswordVisibility}></div>
         </div>
@@ -121,8 +121,8 @@ const RegForm: React.FC = () => {
           <div className="input__error">{formik.errors.repeatPassword}</div>
           <div
             className={repeatPasswordInputType === "password" ?
-              "auth-input__password-suffix" :
-              "auth-input__password-suffix auth-input__password-suffix_strikethrough"}
+              "auth-form__password-suffix" :
+              "auth-form__password-suffix auth-form__password-suffix_strikethrough"}
             onClick={switchRepeatPasswordVisibility}></div>
         </div>
         <button className="auth-form__btn"

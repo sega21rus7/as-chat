@@ -2,6 +2,7 @@ import React from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
 import avatar from "../assets/img/avatar.jpg";
+import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 
 const MessageList: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const MessageList: React.FC = () => {
         my
         hadRead
       />
+      <CreateMessageForm />
     </div>
   );
 };
