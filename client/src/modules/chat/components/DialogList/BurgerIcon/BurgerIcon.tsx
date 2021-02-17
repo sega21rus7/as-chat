@@ -1,18 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import "./burger.scss";
+import "./burger_icon.scss";
 import { openDropdownMenu } from "store/dropdownMenu/actionCreators";
 
-const Menu: React.FC = () => {
+const BurgerIcon: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="burger" onClick={() => dispatch(openDropdownMenu())}>
-      <div className="burger__body">
+    <div className="burger-icon" onClick={() => dispatch(openDropdownMenu())}>
+      <div className="burger-icon__body">
         <span />
       </div>
     </div >
   );
 };
 
-export default Menu;
+export default BurgerIcon;

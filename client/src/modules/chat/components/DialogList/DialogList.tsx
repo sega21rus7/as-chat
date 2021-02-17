@@ -3,7 +3,7 @@ import DialogListItem from "./DialogListItem/DialogListItem";
 import "./dialog_list.scss";
 import avatar from "../assets/img/avatar.jpg";
 import SearchForm from "../SearchForm/SearchForm";
-import Burger from "./Burger/Burger";
+import BurgerIcon from "./BurgerIcon/BurgerIcon";
 
 const DialogList: React.FC = () => {
   const items = [
@@ -41,7 +41,7 @@ const DialogList: React.FC = () => {
   return (
     <div className="dialog-list">
       <div className="dialog-list__header">
-        <Burger />
+        <BurgerIcon />
         <SearchForm />
       </div>
       {
