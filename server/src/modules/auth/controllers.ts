@@ -18,9 +18,9 @@ interface RegRequestType extends LoginRequestType {
     email: string;
     password: string;
     repeatPassword: string;
-    lastName: string;
-    firstName: string;
-    middleName: string;
+    lastName?: string;
+    firstName?: string;
+    middleName?: string;
   }
 }
 

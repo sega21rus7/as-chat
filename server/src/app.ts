@@ -1,23 +1,19 @@
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
-import passport from "passport";
-import passportMiddleware, { hanldeUnauthorized } from "./middlewares/passport";
-import { checkJWT } from "./tools";
 import authRouter from "modules/auth/routes";
 import profileRouter from "modules/profile/routes";
+import authMiddleware from "middlewares/auth";
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-passportMiddleware(passport);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 app.use(require("cors")());
 
 app.use("/api/auth", authRouter);
-app.use("/api/profile", checkJWT(), profileRouter, hanldeUnauthorized);
+app.use("/api/profile", authMiddleware, profileRouter);
 
 if (process.env.NODE_ENV === "production") {
   const clientFilesPath = path.resolve(process.cwd(), "client_build");

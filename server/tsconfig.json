@@ -41,14 +41,14 @@
     "tools/*": [
       "./tools/*"
     ],
-    "modules": [
-      "./modules"
-    ],
     "modules/*": [
       "./modules/*"
     ],
     "config": [
       "./config"
     ],
+    "middlewares/*": [
+      "./middlewares/*"
+    ]
   },
 }

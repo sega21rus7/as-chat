@@ -10,7 +10,8 @@
         "alias": {
           "modules": "./src/modules",
           "tools": "./src/tools",
-          "config": "./src/config"
+          "config": "./src/config",
+          "middlewares": "./src/middlewares"
         }
       }
     ]
