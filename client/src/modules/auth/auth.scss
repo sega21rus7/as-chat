@@ -8,12 +8,9 @@
   align-items: center;
   max-width: 400px;
 }
-.auth-form {
-  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-  width: 100%;
-  padding: 20px;
-  margin: 0 auto;
-  &__password-suffix {
+.password-input {
+  position: relative;
+   &__suffix {
     position: absolute;
     background: url('./assets/svg/eye.svg') center no-repeat;
     top: 5px;
@@ -25,8 +22,29 @@
       background: url('./assets/svg/strikethrough_eye.svg') center no-repeat;
     }
   }
+}
+.auth-input {
+  position: relative;
+  margin: 0 0 25px 0;
+  &__body {
+    width: 100%;
+    padding: 4px 11px;
+    height: 30px;
+  }
+  &__error {
+    color: #ff4d4f;
+    position: absolute;
+    top: 37px;
+    font-size: 12px;
+  }
+}
+.auth-form {
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
   &__header {
-    margin: 0 0 50px 0;
+    margin: 0 0 25px 0;
   }
   &__title {
     font-size: 28px;
@@ -37,11 +55,6 @@
   &__subtitle {
     text-align: center;
     opacity: 0.5;
-  }
-  &__input {
-    width: 100%;
-    padding: 4px 11px;
-    margin: 0 0 20px 0;
   }
   &__btn {
     height: 50px;

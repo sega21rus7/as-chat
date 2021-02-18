@@ -20,16 +20,15 @@ const SearchForm: React.FC = () => {
 
   return (
     <form noValidate className="search-form" onSubmit={formik.handleSubmit}>
-      <div className="search-form__input-wrapper input">
+      <div className="search-form__input input search-form-input">
         <input
-          className="search-form__input input__content"
+          className="search-form-input__body"
           type="text"
           name="title"
           onChange={formik.handleChange}
           value={formik.values.title}
           placeholder="Поиск среди контактов"
         />
-        <div className="input__error">{formik.errors.title}</div>
       </div>
     </form>
   );

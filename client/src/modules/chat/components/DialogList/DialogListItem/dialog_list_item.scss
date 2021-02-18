@@ -1,14 +1,9 @@
 @import '~style/variables';
 
-.dialog-list-item {
+.dialog-list-item-avatar {
   display: flex;
-  margin: 0 0 10px 0;
-  &__avatar-wrapper {
-    display: flex;
-    align-items: center;
-    margin: 0 10px 0 0;
-  }
-  &__avatar {
+  align-items: center;
+  &__body {
     position: relative;
     img {
       display: block;
@@ -17,6 +12,14 @@
       height: 40px;
       border-radius: 50%;
     }
+  }
+}
+
+.dialog-list-item {
+  display: flex;
+  margin: 0 0 10px 0;
+  &__avatar {
+    margin: 0 10px 0 0;
   }
   &__status {
     img {

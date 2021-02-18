@@ -46,20 +46,22 @@ const LoginForm: React.FC = () => {
         <p className="auth-form__subtitle">Пожалуйста войдите в свой аккаунт</p>
       </div>
       <div className="auth-form__content">
-        <div className="input">
+
+        <div className="auth-form__input auth-input">
           <input
-            className="input__content auth-form__input"
+            className="input auth-input__body"
             type="text"
             name="login"
             onChange={formik.handleChange}
             value={formik.values.login}
             placeholder="Введите логин/e-mail"
           />
-          <div className="input__error">{formik.errors.login}</div>
+          <div className="auth-input__error">{formik.errors.login}</div>
         </div>
-        <div className="input">
+
+        <div className="auth-form__input auth-input password-input">
           <input
-            className="input__content auth-form__input"
+            className="input auth-input__body"
             type={passwordInputType}
             autoComplete="on"
             name="password"
@@ -67,13 +69,12 @@ const LoginForm: React.FC = () => {
             value={formik.values.password}
             placeholder="Введите пароль"
           />
-          <div className="input__error">{formik.errors.password}</div>
+          <div className="auth-input__error">{formik.errors.password}</div>
           <div
             className={passwordInputType === "password" ?
-              "auth-form__password-suffix" :
-              "auth-form__password-suffix auth-form__password-suffix_strikethrough"}
+              "password-input__suffix" :
+              "password-input__suffix password-input__suffix_strikethrough"}
             onClick={switchPasswordVisibility}>
-
           </div>
         </div>
         <button className="auth-form__btn"

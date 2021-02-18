@@ -23,8 +23,8 @@ interface PropsType {
 const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) => {
   return (
     <div className="dialog-list-item">
-      <div className="dialog-list-item__avatar-wrapper">
-        <div className="dialog-list-item__avatar">
+      <div className="dialog-list-item-avatar dialog-list-item__avatar">
+        <div className="dialog-list-item-avatar__body">
           <img src={user.avatar} alt="" />
           {user.online && <div className="dialog-list-item__online" />}
         </div>

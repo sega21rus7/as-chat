@@ -1,20 +1,21 @@
 .search-form {
   flex: 1 0 auto;
-  &__input {
-    width: 100%;
-    padding: 4px;
-    position: relative;
+}
+.search-form-input {
+  position: relative;
+  &::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: url('./assets/svg/search.svg');
+    position: absolute;
+    top: 7.5px;
+    right: 5px;
+    opacity: 0.4; 
   }
-  &__input-wrapper {
-    &::after {
-      content: '';
-      width: 15px;
-      height: 15px;
-      background: url('./assets/svg/search.svg');
-      position: absolute;
-      top: 7.5px;
-      right: 5px;
-      opacity: 0.4; 
-    }
+  &__body {
+    width: 100%;
+    padding: 4px 25px 4px 4px;
+    height: 30px;
   }
 }
