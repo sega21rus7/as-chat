@@ -35,6 +35,55 @@ const MessageList: React.FC<PropsType> = ({ user }) => {
           my
           hadRead
         />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
+        <Message
+          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
+          date={1613463236787}
+          user={user}
+          my
+          hadRead
+        />
         <CreateMessageForm />
       </div>
     </div>
