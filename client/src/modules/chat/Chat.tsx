@@ -8,7 +8,7 @@ const Chat: React.FC = () => {
   const user = {
     _id: new Date(2021, 1, 15, 10).toString(),
     firstName: "Вася",
-    secondName: "Петров",
+    lastName: "Петров",
     login: "Vasya",
     online: false,
   };

@@ -13,7 +13,7 @@ const MessageList: React.FC<PropsType> = ({ user }) => {
     <div className="message-list">
       <div className="message-list__header">
         <div className="message-list__title">
-          {`${user.firstName} ${user.secondName}`}
+          {`${user.firstName} ${user.lastName}`}
         </div>
         <div className="message-list__subtitle">
           <div className="message-list__online message-online-icon">

@@ -37,7 +37,7 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) =
       <div className="dialog-list-item__content">
         <div className="dialog-list-item__header">
           <div className="dialog-list-item__companion">
-            {`${user.firstName} ${user.secondName}`}
+            {`${user.firstName} ${user.lastName}`}
           </div>
           <div className="dialog-list-item__date">
             {format(date,
