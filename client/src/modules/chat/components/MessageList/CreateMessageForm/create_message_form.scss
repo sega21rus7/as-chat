@@ -1,7 +1,21 @@
+.create-message-form-input {
+  padding: 4px 8px;
+  height: 40px;
+  width: 100%;
+}
+
 .create-message-form {
+  display: flex;
   &__input {
-    width: 100%;
-    padding: 4px 8px;
-    height: 40px;
+    flex: 1 0 auto;
+    margin: 0 5px 0 0;
+  }
+  &__button {
+    padding: 0 5px 0 0;
+    background: transparent;
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
 }

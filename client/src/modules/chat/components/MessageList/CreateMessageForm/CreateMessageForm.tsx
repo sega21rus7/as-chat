@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import React from "react";
 import "./create_message_form.scss";
+import image from "./assets/svg/send.svg";
 
 interface FormValuesType {
   message: string,
@@ -20,9 +21,9 @@ const CreateMessageForm: React.FC = () => {
 
   return (
     <form noValidate className="create-message-form" onSubmit={formik.handleSubmit}>
-      <div className="input">
+      <div className="create-message-form__input">
         <input
-          className="create-message-form__input input__content"
+          className="input create-message-form-input"
           type="text"
           name="message"
           onChange={formik.handleChange}
@@ -31,6 +32,9 @@ const CreateMessageForm: React.FC = () => {
         />
         <div className="input__error">{formik.errors.message}</div>
       </div>
+      <button className="create-message-form__button" type="submit">
+        <img src={image} alt="" />
+      </button>
     </form>
   );
 };
