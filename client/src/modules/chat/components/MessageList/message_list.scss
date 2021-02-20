@@ -1,6 +1,12 @@
 @import '~style/variables';
 
 .message-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 10px 0;
+  &__header {
+    flex: 1 1 auto;
+  }
   &__title {
     font-weight: bold;
     text-align: center;
@@ -15,15 +21,16 @@
       margin: 0 0 0 2px;
     }
   }
-  &__online-wrapper {
-    display: flex;
+}
+
+.message-online-icon {
+  display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-  &__online {
-    width: 7px;
-    height: 7px;
-    background: $lime;
+  &__body {
+    width: 5px;
+    height: 5px;
+    background: $online;
     border-radius: 50%;
   }
 }

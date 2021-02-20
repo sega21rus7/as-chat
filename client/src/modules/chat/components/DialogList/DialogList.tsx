@@ -37,6 +37,276 @@ const DialogList: React.FC = () => {
       date: new Date(2021, 1, 16, 12),
       hadRead: true,
     },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
+    {
+      user: {
+        _id: new Date(2021, 1, 16, 12).toString(),
+        firstName: "Карен",
+        secondName: "Книголюбов",
+        login: "dumbassov",
+        avatar: avatar,
+        online: true,
+      },
+      message: {
+        text: "Вчера прочитал Шерлока!",
+      },
+      date: new Date(2021, 1, 16, 12),
+      hadRead: true,
+    },
   ];
 
   return (

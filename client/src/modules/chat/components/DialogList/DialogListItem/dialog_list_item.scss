@@ -29,6 +29,7 @@
 }
 
 .dialog-list-item {
+  cursor: pointer;
   display: flex;
   margin: 0 0 10px 0;
   &__avatar {
@@ -43,7 +44,7 @@
   &__online {
     width: 7px;
     height: 7px;
-    background: $lime;
+    background: $online;
     border-radius: 50%;
     position: absolute;
     bottom: 2px;
@@ -77,10 +78,10 @@
     align-items: center;
   }
   &__count {
-    border: 1px solid $silver;
+    border: 1px solid silver;
     border-radius: 50%;
     padding: 4px;
-    background: $silver;
+    background: silver;
     color: white;
   }
 }
