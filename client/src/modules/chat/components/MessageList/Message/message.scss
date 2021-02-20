@@ -1,5 +1,29 @@
 @import '~style/variables';
 
+.message-avatar {
+  img {
+    display: block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  &__circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__letter {
+    color: white;
+    font-size: 25px;
+  }
+}
+
 .message {
   $self: &;
   &_my {
@@ -30,14 +54,6 @@
     flex-direction: column-reverse;
     margin: 0 10px 0 0;
     padding: 0 0 22px 0;
-    img {
-      display: block;
-      overflow: hidden;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
   }
   &__date {
     font-size: 12px;

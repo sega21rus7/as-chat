@@ -1,14 +1,18 @@
 import React from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
-import avatar from "../assets/img/avatar.jpg";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
+import { UserType } from "modules/chat/interfaces";
 
-const MessageList: React.FC = () => {
+interface PropsType {
+  user: UserType,
+}
+
+const MessageList: React.FC<PropsType> = ({ user }) => {
   return (
     <div className="message-list">
       <div className="message-list__title">
-        Тест Тестов
+        {`${user.firstName} ${user.secondName}`}
       </div>
       <div className="message-list__subtitle">
         <div className="message-list__online-wrapper">
@@ -19,12 +23,12 @@ const MessageList: React.FC = () => {
       <Message
         text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
         date={1613459614439}
-        avatar={avatar}
+        user={user}
       />
       <Message
         text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
         date={1613463236787}
-        avatar={avatar}
+        user={user}
         my
         hadRead
       />

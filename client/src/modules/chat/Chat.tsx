@@ -5,6 +5,14 @@ import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import MessageList from "./components/MessageList/MessageList";
 
 const Chat: React.FC = () => {
+  const user = {
+    _id: new Date(2021, 1, 15, 10).toString(),
+    firstName: "Вася",
+    secondName: "Петров",
+    login: "Vasya",
+    online: false,
+  };
+
   return (
     <div className="page">
       <div className="chat">
@@ -12,7 +20,7 @@ const Chat: React.FC = () => {
           <div className="chat__body">
             <DropdownMenu />
             <DialogList />
-            <MessageList />
+            <MessageList user={user} />
           </div>
         </div>
       </div>

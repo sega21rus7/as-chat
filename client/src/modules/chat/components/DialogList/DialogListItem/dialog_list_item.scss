@@ -3,6 +3,19 @@
 .dialog-list-item-avatar {
   display: flex;
   align-items: center;
+  &__circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__letter {
+    color: white;
+    font-size: 25px;
+  }
   &__body {
     position: relative;
     img {

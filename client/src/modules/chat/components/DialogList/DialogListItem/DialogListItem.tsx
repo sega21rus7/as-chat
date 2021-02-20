@@ -1,17 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import format from "date-fns/format";
 import ruLocale from "date-fns/locale/ru";
 import "./dialog_list_item.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
+import { UserType } from "modules/chat/interfaces";
 
 interface PropsType {
-  user: {
-    _id: string;
-    firstName: string;
-    secondName: string;
-    avatar: string;
-    online: boolean;
-  },
+  user: UserType,
   message: {
     text: string;
     count?: number;
@@ -21,11 +16,21 @@ interface PropsType {
 }
 
 const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) => {
+  const getFirstLetter = useCallback(() => {
+    return user.firstName ? user.firstName[0].toUpperCase() : user.login[0].toUpperCase();
+  }, [user.firstName, user.login]);
+
   return (
     <div className="dialog-list-item">
       <div className="dialog-list-item-avatar dialog-list-item__avatar">
         <div className="dialog-list-item-avatar__body">
-          <img src={user.avatar} alt="" />
+          {
+            user.avatar ?
+              <img src={user.avatar} alt="" /> :
+              <div className="dialog-list-item-avatar__circle">
+                <div className="dialog-list-item-avatar__letter">{getFirstLetter()}</div>
+              </div>
+          }
           {user.online && <div className="dialog-list-item__online" />}
         </div>
       </div>
