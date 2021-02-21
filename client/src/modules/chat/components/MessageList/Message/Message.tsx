@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useCallback } from "react";
+import React from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ruLocale from "date-fns/locale/ru";
 import "./message.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import { UserType } from "modules/chat/interfaces";
+import Avatar from "../../Avatar/Avatar";
 
 interface PropsType {
   text: string;
@@ -15,22 +16,13 @@ interface PropsType {
 }
 
 const Message: React.FC<PropsType> = ({ text, date, user, my, hadRead }) => {
-  const getFirstLetter = useCallback(() => {
-    return user.firstName ? user.firstName[0].toUpperCase() : user.login[0].toUpperCase();
-  }, [user.firstName, user.login]);
-
   return (
     <div className={my ? "message message_my" : "message"}>
       {!my &&
-        <div className="message__avatar message-avatar">
-          {
-            user.avatar ?
-              <img src={user.avatar} alt="" /> :
-              <div className="message-avatar__circle">
-                <div className="message-avatar__letter">{getFirstLetter()}</div>
-              </div>
-          }
-        </div>
+        <Avatar
+          additionalClassNames={["message__avatar"]}
+          user={user}
+        />
       }
       <div className="message__content">
         <div className="message__bubble">

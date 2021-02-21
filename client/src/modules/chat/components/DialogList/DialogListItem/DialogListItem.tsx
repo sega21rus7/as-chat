@@ -1,9 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 import format from "date-fns/format";
 import ruLocale from "date-fns/locale/ru";
 import "./dialog_list_item.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import { UserType } from "modules/chat/interfaces";
+import Avatar from "../../Avatar/Avatar";
 
 interface PropsType {
   user: UserType,
@@ -16,23 +17,15 @@ interface PropsType {
 }
 
 const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) => {
-  const getFirstLetter = useCallback(() => {
-    return user.firstName ? user.firstName[0].toUpperCase() : user.login[0].toUpperCase();
-  }, [user.firstName, user.login]);
 
   return (
     <div className="dialog-list-item">
       <div className="dialog-list-item-avatar dialog-list-item__avatar">
-        <div className="dialog-list-item-avatar__body">
-          {
-            user.avatar ?
-              <img src={user.avatar} alt="" /> :
-              <div className="dialog-list-item-avatar__circle">
-                <div className="dialog-list-item-avatar__letter">{getFirstLetter()}</div>
-              </div>
-          }
-          {user.online && <div className="dialog-list-item__online" />}
-        </div>
+        <Avatar
+          additionalClassNames={["dialog-list-item-avatar__body"]}
+          user={user}
+          additionalJSX={user.online ? <div className="dialog-list-item__online" /> : undefined}
+        />
       </div>
       <div className="dialog-list-item__content">
         <div className="dialog-list-item__header">
