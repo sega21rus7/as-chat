@@ -1,9 +1,11 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import User from "./models/User";
+import Role from "./models/Role";
 import config from "config";
 import { handleError, generatePassword, isPasswordsEqual } from "tools";
 import { UserType } from "./models/User";
+import { UserRoles } from "./models/Role";
 
 interface LoginRequestType extends express.Request {
   body: {
@@ -30,6 +32,7 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
     _id: user._id,
     email: user.email,
     login: user.login,
+    roles: user.roles,
   }, config.jwt.secretOrKey, {
     expiresIn: config.jwt.maxAge, // час
   });
@@ -74,11 +77,16 @@ export const register = async (req: RegRequestType, res: express.Response): Prom
     if (candidate) {
       return res.status(400).end("Пользователь c таким логином уже зарегистрирован.");
     }
+    let role = await Role.findOne({ name: UserRoles.user });
+    if (!role) {
+      role = await Role.create({ name: UserRoles.user });
+    }
     const user = new User({
       email: req.body.email,
       login: req.body.login,
       password: generatePassword(req.body.password),
       regDate: new Date(),
+      roles: [role.name],
     });
     await user.save();
     generateTokenAndWriteToCookie(user, res);

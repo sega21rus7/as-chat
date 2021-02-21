@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
+import { Schema, Document, model } from "mongoose";
+import { UserRoles } from "./Role";
 
-const Schema = mongoose.Schema;
-
-export interface UserType extends mongoose.Document {
+export interface UserType extends Document {
   login: string,
   email: string,
   password: string;
@@ -10,6 +9,7 @@ export interface UserType extends mongoose.Document {
   firstName?: string;
   middleName?: string;
   regDate: string;
+  roles: Array<UserRoles>;
 }
 
 const userSchema = new Schema({
@@ -40,6 +40,11 @@ const userSchema = new Schema({
     type: Date,
     required: true,
   },
+  roles: [
+    {
+      type: String,
+      ref: "Role",
+    }],
 });
 
-export default mongoose.model<UserType & Document>("users", userSchema);
+export default model<UserType & Document>("users", userSchema);
