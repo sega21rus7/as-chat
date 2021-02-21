@@ -46,12 +46,16 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
 
 export const login = async (req: LoginRequestType, res: express.Response): Promise<unknown> => {
   try {
+    if (!req.body.password || !req.body.login) {
+      throw new Error("Отсутствуют обязательные поля!");
+    }
+
     let candidate = await User.findOne({ login: req.body.login });
     if (!candidate) {
       candidate = await User.findOne({ email: req.body.login });
     }
     if (!candidate) {
-      return res.status(404).end("Пользователь не найден.");
+      return res.status(404).end("Пользователь с такими данными не найден.");
     }
     const passwordsEquals = isPasswordsEqual(req.body.password, candidate.password);
     if (!passwordsEquals) {
@@ -66,6 +70,16 @@ export const login = async (req: LoginRequestType, res: express.Response): Promi
 
 export const register = async (req: RegRequestType, res: express.Response): Promise<unknown> => {
   try {
+    if (!req.body.password || !req.body.login || !req.body.repeatPassword || !req.body.email) {
+      throw new Error("Отсутствуют обязательные поля!");
+    }
+    if (req.body.login.length < 3) {
+      throw new Error("Минимальная длина логина 3 символа!");
+    }
+    if (req.body.password.length < 5 || req.body.repeatPassword.length < 5) {
+      throw new Error("Минимальная длина пароля 5 символов!");
+    }
+
     if (req.body.password !== req.body.repeatPassword) {
       throw new Error("Пароли должны совпадать");
     }
