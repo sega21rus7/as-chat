@@ -12,7 +12,6 @@ const DialogList: React.FC = () => {
         _id: new Date(2021, 1, 15, 10).toString(),
         firstName: "Вася",
         lastName: "Петров",
-        online: false,
         login: "vasya",
       },
       message: {
@@ -29,7 +28,6 @@ const DialogList: React.FC = () => {
         lastName: "Книголюбов",
         login: "dumbassov",
         avatar: avatar,
-        online: true,
       },
       message: {
         text: "Вчера прочитал Шерлока!",

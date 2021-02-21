@@ -3,7 +3,9 @@ import { StateType, CommonActionType, ActionTypes } from "./interfaces";
 
 const initialState: StateType = {
   user: {
-    login: "",
+    login: "alexey",
+    firstName: "Алексей",
+    lastName: "Медведев",
     email: "",
     regDate: "",
     _id: "",

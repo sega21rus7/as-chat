@@ -3,10 +3,15 @@ import { useDispatch } from "react-redux";
 import "./burger_menu.scss";
 import { closeMenu } from "store/burgerMenu/actionCreators";
 import { useSelector } from "tools/hooks";
+import Avatar from "../Avatar/Avatar";
+import moonSvg from "./assets/svg/moon.svg";
+import settingsSvg from "./assets/svg/settings.svg";
+import teamSvg from "./assets/svg/team.svg";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
   const active = useSelector(state => state.burgerMenu.active);
+  const user = useSelector(state => state.auth.user);
 
   return (
     <div
@@ -15,14 +20,30 @@ const BurgerMenu: React.FC = () => {
     >
       {active && <div className="burger-menu__shade" />}
       <div className="burger-menu__body" onClick={e => e.stopPropagation()}>
-        <div className="burger-menu__title">
-          Алексей Медведев
+        <div className="burger-menu__header">
+          <div className="burger-menu__avatar">
+            <Avatar user={user} />
+          </div>
+          <div className="burger-menu__title">
+            {`${user.firstName} ${user.lastName}`}
+          </div>
         </div>
-        <hr />
-        <ul className="burger-menu__list">
-          <li>Профиль</li>
-          <li>Сменить пароль</li>
-        </ul>
+        <div className="burger-menu__content">
+          <div className="burger-menu__list">
+            <li>
+              <img src={teamSvg} alt="" />
+              Создать чат
+            </li>
+            <li>
+              <img src={settingsSvg} alt="" />
+              Настройки
+            </li>
+            <li>
+              <img src={moonSvg} alt="" />
+              Ночной режим
+            </li>
+          </div>
+        </div>
       </div>
     </div>
   );

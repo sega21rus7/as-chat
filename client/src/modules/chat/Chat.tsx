@@ -10,7 +10,6 @@ const Chat: React.FC = () => {
     firstName: "Вася",
     lastName: "Петров",
     login: "Vasya",
-    online: false,
   };
 
   return (

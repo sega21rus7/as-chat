@@ -24,7 +24,7 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) =
         <Avatar
           additionalClassNames={["dialog-list-item-avatar__body"]}
           user={user}
-          additionalJSX={user.online ? <div className="dialog-list-item__online" /> : undefined}
+          additionalJSX={<div className="dialog-list-item__online" />}
         />
       </div>
       <div className="dialog-list-item__content">

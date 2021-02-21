@@ -5,5 +5,4 @@ export interface UserType {
   middleName?: string;
   login: string;
   avatar?: string;
-  online: boolean;
 }

@@ -3,15 +3,20 @@ import React, { useCallback } from "react";
 import "./avatar.scss";
 
 interface PropsType {
-  additionalClassNames: string[];
+  additionalClassNames?: string[];
   user: UserType;
   additionalJSX?: JSX.Element,
 }
 
 const Avatar: React.FC<PropsType> = ({ user, additionalClassNames, additionalJSX }) => {
-  const classNames = ["avatar", ...additionalClassNames];
+  const classNames = additionalClassNames ? ["avatar", ...additionalClassNames] : ["avatar"];
   const getFirstLetter = useCallback(() => {
-    return user.firstName ? user.firstName[0].toUpperCase() : user.login[0].toUpperCase();
+    if (user.firstName && user.firstName[0]) {
+      return user.firstName[0].toUpperCase();
+    }
+    if (user.login && user.login[0]) {
+      return user.login[0].toUpperCase();
+    }
   }, [user.firstName, user.login]);
 
   return (
