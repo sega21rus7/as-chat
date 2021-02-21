@@ -12,7 +12,6 @@ interface UserType {
   lastName?: string;
   firstName?: string;
   middleName?: string;
-  regDate: string;
 }
 
 export interface StateType {

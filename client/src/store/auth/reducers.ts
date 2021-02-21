@@ -7,7 +7,6 @@ const initialState: StateType = {
     firstName: "Алексей",
     lastName: "Медведев",
     email: "",
-    regDate: "",
     _id: "",
   },
   error: "",
@@ -20,7 +19,6 @@ const authReducer = (state = initialState, action: CommonActionType): StateType 
         ...state, error: "", user: {
           login: "",
           email: "",
-          regDate: "",
           _id: "",
         },
       };

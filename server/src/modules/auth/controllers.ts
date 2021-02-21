@@ -99,7 +99,6 @@ export const register = async (req: RegRequestType, res: express.Response): Prom
       email: req.body.email,
       login: req.body.login,
       password: generatePassword(req.body.password),
-      regDate: new Date(),
       roles: [role.name],
     });
     await user.save();

@@ -8,8 +8,9 @@ export interface UserType extends Document {
   lastName?: string;
   firstName?: string;
   middleName?: string;
-  regDate: string;
   roles: Array<UserRoles>;
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 const userSchema = new Schema({
@@ -36,15 +37,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  regDate: {
-    type: Date,
-    required: true,
-  },
   roles: [
     {
       type: String,
       ref: "Role",
     }],
-});
+}, { timestamps: true });
 
-export default model<UserType & Document>("users", userSchema);
+export default model<UserType & Document>("User", userSchema);

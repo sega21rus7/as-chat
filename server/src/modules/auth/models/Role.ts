@@ -15,6 +15,6 @@ const roleSchema = new Schema({
     default: "user",
     unique: true,
   },
-});
+}, { timestamps: true });
 
-export default model<RoleType & Document>("roles", roleSchema);
+export default model<RoleType & Document>("Role", roleSchema);
