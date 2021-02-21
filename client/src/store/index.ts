@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth/reducers";
-import dropdownMenuReducer from "./dropdownMenu/reducers";
+import burgerMenuReducer from "./burgerMenu/reducers";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  dropdownMenu: dropdownMenuReducer,
+  burgerMenu: burgerMenuReducer,
 });
 
 export default rootReducer;

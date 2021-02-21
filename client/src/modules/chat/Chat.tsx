@@ -1,7 +1,7 @@
 import React from "react";
 import "./chat.scss";
 import DialogList from "./components/DialogList/DialogList";
-import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
+import BurgerMenu from "./components/BurgerMenu/BurgerMenu";
 import MessageList from "./components/MessageList/MessageList";
 
 const Chat: React.FC = () => {
@@ -18,7 +18,7 @@ const Chat: React.FC = () => {
       <div className="chat">
         <div className="container">
           <div className="chat__body">
-            <DropdownMenu />
+            <BurgerMenu />
             <DialogList />
             <MessageList user={user} />
           </div>

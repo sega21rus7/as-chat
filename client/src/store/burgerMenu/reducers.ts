@@ -5,15 +5,15 @@ const initialState: StateType = {
   active: false,
 };
 
-const dropdownMenuReducer = (state = initialState, action: CommonActionType): StateType => {
+const burgerMenuReducer = (state = initialState, action: CommonActionType): StateType => {
   switch (action.type) {
-    case ActionTypes.OPEN_DROPDOWN_MENU:
+    case ActionTypes.OPEN:
       return { active: true };
-    case ActionTypes.CLOSE_DROPDOWN_MENU:
+    case ActionTypes.CLOSE:
       return { active: false };
     default:
       return state;
   }
 };
 
-export default dropdownMenuReducer;
+export default burgerMenuReducer;
