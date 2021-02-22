@@ -6,6 +6,7 @@ import {
   FetchDialogsSuccessActionType,
   CommonActionType,
   ItemType,
+  SetCurrentDialogActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
 
@@ -19,6 +20,10 @@ const failFetchDialogs = (error: string): FetchDialogsFailtActionType => {
 
 const successFetchDialogs = (items: ItemType[]): FetchDialogsSuccessActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_SUCCESS, payload: { items } };
+};
+
+export const setCurrentDialog = (dialog: ItemType): SetCurrentDialogActionType => {
+  return { type: ActionTypes.SET_CURRENT_DIALOG, payload: { dialog } };
 };
 
 export const fetchDialogs = () => {

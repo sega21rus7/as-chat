@@ -14,7 +14,6 @@ const DialogList: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchDialogs());
-    console.log(dialogs);
   }, []);
 
   return (
@@ -27,11 +26,8 @@ const DialogList: React.FC = () => {
         dialogs.sort((a, b) => {
           return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
         }).map(item => <DialogListItem
-          key={item.companion._id}
-          user={item.author}
-          message={item.messages[0]}
-          date={item.updatedAt}
-          hasRead={item.messages[0].hasRead}
+          key={item._id}
+          dialog={item}
         />)
       }
     </div>

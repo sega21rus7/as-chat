@@ -5,14 +5,6 @@ import BurgerMenu from "./components/BurgerMenu/BurgerMenu";
 import MessageList from "./components/MessageList/MessageList";
 
 const Chat: React.FC = () => {
-  const user = {
-    _id: new Date(2021, 1, 15, 10).toString(),
-    login: "Vasya",
-    email: "vasya@mail.ru",
-    roles: ["lox"],
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
 
   return (
     <div className="page">
@@ -21,7 +13,7 @@ const Chat: React.FC = () => {
           <div className="chat__body">
             <BurgerMenu />
             <DialogList />
-            <MessageList user={user} />
+            <MessageList />
           </div>
         </div>
       </div>

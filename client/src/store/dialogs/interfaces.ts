@@ -4,6 +4,7 @@ export enum ActionTypes {
   FETCH_DIALOGS_START = "DIALOGS:FETCH_DIALOGS_START",
   FETCH_DIALOGS_FAIL = "DIALOGS:FETCH_DIALOGS_FAIL",
   FETCH_DIALOGS_SUCCESS = "DIALOGS:FETCH_DIALOGS_SUCCESS",
+  SET_CURRENT_DIALOG = "DIALOGS:SET_CURRENT_DIALOG"
 }
 
 interface MessageType {
@@ -25,6 +26,14 @@ export interface ItemType {
 export interface StateType {
   items: ItemType[];
   error: string;
+  currentDialog: ItemType | null;
+}
+
+export interface SetCurrentDialogActionType {
+  type: ActionTypes.SET_CURRENT_DIALOG;
+  payload: {
+    dialog: ItemType;
+  }
 }
 
 export interface FetchDialogsStartActionType {
@@ -48,4 +57,5 @@ export interface FetchDialogsSuccessActionType {
 export type CommonActionType =
   FetchDialogsStartActionType |
   FetchDialogsSuccessActionType |
-  FetchDialogsFailtActionType;
+  FetchDialogsFailtActionType |
+  SetCurrentDialogActionType;
