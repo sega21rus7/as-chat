@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 import { UserType } from "tools/interfaces";
+import { useDispatch } from "react-redux";
+import { fetchMessages } from "store/messages/actionCreators";
+import { useSelector } from "tools/hooks";
+import { getFullName } from "tools";
 
 interface PropsType {
   user: UserType,
 }
 
 const MessageList: React.FC<PropsType> = ({ user }) => {
+  const dispatch = useDispatch();
+  const messages = useSelector(state => state.messages.items);
+
+  useEffect(() => {
+    dispatch(fetchMessages("6033956a5ad7591abc285984"));
+  });
+
   return (
     <div className="message-list">
       <div className="message-list__header">
         <div className="message-list__title">
-          {`${user.firstName} ${user.lastName}`}
+          {getFullName(user)}
         </div>
         <div className="message-list__subtitle">
           <div className="message-list__online message-online-icon">
@@ -23,67 +34,13 @@ const MessageList: React.FC<PropsType> = ({ user }) => {
         </div>
       </div>
       <div className="message-list__body">
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis aliquid ex, sed odit cum quia, esse hic illo ullam reprehenderit blanditiis est quidem! Voluptas reiciendis assumenda quod, iure, tenetur rem provident eum eligendi deleniti exercitationem neque! At est ratione mollitia unde praesentium, ducimus maxime eum, iste laudantium impedit cumque perspiciatis eveniet fugit illo magni temporibus vitae error. Quisquam tempora esse rerum odit inventore pariatur at! Laboriosam sit minus nam asperiores eligendi, obcaecati nesciunt, ipsa ex, quae provident minima? Nesciunt saepe repellendus quisquam pariatur ut dignissimos ab tempore officia doloremque blanditiis expedita recusandae omnis illo, maiores error! Laborum qui iusto ipsum!"
-          date={1613459614439}
-          user={user}
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
+        {messages.map(m => <Message
+          text={m.text}
+          date={m.updatedAt}
+          user={m.author}
           my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
-        <Message
-          text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum hic inventore rem perspiciatis perferendis quo placeat, consequuntur, consectetur aspernatur, ullam ipsum. Et porro quo error est iure, itaque voluptate quaerat."
-          date={1613463236787}
-          user={user}
-          my
-          hadRead
-        />
+          hasRead={m.hasRead}
+        />)}
         <CreateMessageForm />
       </div>
     </div>

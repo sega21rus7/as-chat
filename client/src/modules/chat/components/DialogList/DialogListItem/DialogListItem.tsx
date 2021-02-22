@@ -5,6 +5,7 @@ import "./dialog_list_item.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import { UserType } from "tools/interfaces";
 import Avatar from "../../Avatar/Avatar";
+import { getFullName } from "tools";
 
 interface PropsType {
   user: UserType,
@@ -17,15 +18,6 @@ interface PropsType {
 }
 
 const DialogListItem: React.FC<PropsType> = ({ user, message, date, hasRead }) => {
-  const getFullName = () => {
-    // {`${user.firstName} ${user.lastName}`}
-    let res = "";
-    if (user.firstName || user.lastName) {
-      res = `${user.firstName || ""} ${user.lastName || ""}`;
-    }
-    return res || user.login;
-  };
-
   return (
     <div className="dialog-list-item">
       <div className="dialog-list-item-avatar dialog-list-item__avatar">
@@ -38,7 +30,7 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hasRead }) =
       <div className="dialog-list-item__content">
         <div className="dialog-list-item__header">
           <div className="dialog-list-item__companion">
-            {getFullName()}
+            {getFullName(user)}
           </div>
           <div className="dialog-list-item__date">
             {format(new Date(date),

@@ -9,13 +9,13 @@ import Avatar from "../../Avatar/Avatar";
 
 interface PropsType {
   text: string;
-  date: number | Date;
+  date: Date;
   user: UserType,
   my?: boolean;
-  hadRead?: boolean;
+  hasRead?: boolean;
 }
 
-const Message: React.FC<PropsType> = ({ text, date, user, my, hadRead }) => {
+const Message: React.FC<PropsType> = ({ text, date, user, my, hasRead }) => {
   return (
     <div className={my ? "message message_my" : "message"}>
       {!my &&
@@ -32,11 +32,11 @@ const Message: React.FC<PropsType> = ({ text, date, user, my, hadRead }) => {
         </div>
         <div className="message__footer">
           <span className="message__date">
-            {formatDistanceToNow(date, { addSuffix: true, locale: ruLocale })}
+            {formatDistanceToNow(new Date(date), { addSuffix: true, locale: ruLocale })}
           </span>
           {my &&
             <span className="message__status">
-              <MessageStatusIcon hasRead={hadRead} />
+              <MessageStatusIcon hasRead={hasRead} />
             </span>
           }
         </div>
