@@ -14,14 +14,6 @@ const initialState: StateType = {
 
 const authReducer = (state = initialState, action: CommonActionType): StateType => {
   switch (action.type) {
-    case ActionTypes.AUTH_START:
-      return {
-        ...state, error: "", user: {
-          login: "",
-          email: "",
-          _id: "",
-        },
-      };
     case ActionTypes.REGISTRATION_SUCCESS:
       return { ...state, user: action.payload.user };
     case ActionTypes.LOGIN_SUCCESS:

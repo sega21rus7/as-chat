@@ -5,7 +5,7 @@ export enum ActionTypes {
   LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS"
 }
 
-interface UserType {
+export interface UserType {
   _id: string;
   email: string;
   login: string;
