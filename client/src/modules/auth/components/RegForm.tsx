@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -38,6 +38,7 @@ const RegForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const [repeatPasswordInputType, setRepeatPasswordInputType] = useState("password");
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {
@@ -53,6 +54,7 @@ const RegForm: React.FC = () => {
   const handleSubmit = (values: FormValuesType) => {
     const { email, login, password, repeatPassword } = values;
     dispatch(register(email, login, password, repeatPassword));
+    history.push("/im");
   };
 
   const switchPasswordVisibility = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -20,6 +20,7 @@ const validationSchema = yup.object({
 const LoginForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {
@@ -33,6 +34,7 @@ const LoginForm: React.FC = () => {
   const handleSubmit = (values: FormValuesType) => {
     const { login, password } = values;
     dispatch(loginUser(login, password));
+    history.push("/im");
   };
 
   const switchPasswordVisibility = () => {
