@@ -52,7 +52,10 @@ export const getDialogs = async (req: express.Request, res: express.Response): P
         { author: mongoose.Types.ObjectId(userID) },
         { companion: mongoose.Types.ObjectId(userID) },
       ],
-    });
+    })
+      .populate({ path: "author", select: "_id email login" })
+      .populate({ path: "companion", select: "_id email login" })
+      .populate({ path: "lastMessage", select: "_id hasRead author text createdAt" });
     return res.status(200).json({ dialogs });
   } catch (err) {
     handleError(res, err);
