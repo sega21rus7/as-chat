@@ -3,9 +3,9 @@ import bodyParser from "body-parser";
 import path from "path";
 import authRouter from "modules/auth/routes";
 import profileRouter from "modules/profile/routes";
+import messagesRouter from "modules/chat/messages/routes";
+import dialogsRouter from "modules/chat/dialogs/routes";
 import authMiddleware from "middlewares/auth";
-import roleMiddleware from "middlewares/role";
-import { UserRoles } from "modules/auth/models/Role";
 
 const app = express();
 
@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 app.use(require("cors")());
 
 app.use("/api/auth", authRouter);
-app.use("/api/profile", authMiddleware, roleMiddleware(UserRoles.admin), profileRouter);
+app.use("/api/profile", authMiddleware, profileRouter);
+app.use("/api/chat/messages", messagesRouter);
+app.use("/api/chat/dialogs", dialogsRouter);
 
 if (process.env.NODE_ENV === "production") {
   const clientFilesPath = path.resolve(process.cwd(), "client_build");
