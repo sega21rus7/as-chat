@@ -18,6 +18,20 @@ interface CreateRequestType extends express.Request {
   }
 }
 
+export const getMessages = async (req: express.Request, res: express.Response): Promise<unknown> => {
+  try {
+    if (!req.params.dialogID) {
+      throw new Error("ID диалога не может быть пустым!");
+    }
+    const messages = await Dialog.findOne({ _id: mongoose.Types.ObjectId(req.params.dialogID) })
+      .select("messages -_id")
+      .populate("messages");
+    return res.status(200).json(messages);
+  } catch (err) {
+    handleError(res, err);
+  }
+};
+
 export const createMessage = async (req: CreateRequestType, res: express.Response): Promise<unknown> => {
   try {
     if (!req.body.text) {
