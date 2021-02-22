@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import express from "express";
 import { handleError } from "tools";
 import Message from "./models/Message";
@@ -23,10 +24,12 @@ export const getMessages = async (req: express.Request, res: express.Response): 
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");
     }
-    const messages = await Dialog.findOne({ _id: mongoose.Types.ObjectId(req.params.dialogID) })
-      .select("messages -_id")
-      .populate("messages");
-    return res.status(200).json(messages);
+    // @ts-expect-error
+    const messages = await Message.find({
+      dialog: mongoose.Types.ObjectId(req.params.dialogID),
+    }).sort({ updatedAt: -1 })
+      .populate("author");
+    return res.status(200).json({ messages });
   } catch (err) {
     handleError(res, err);
   }
