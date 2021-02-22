@@ -1,13 +1,9 @@
+import { UserType } from "tools/interfaces";
+
 export enum ActionTypes {
   FETCH_DIALOGS_START = "DIALOGS:FETCH_DIALOGS_START",
   FETCH_DIALOGS_FAIL = "DIALOGS:FETCH_DIALOGS_FAIL",
   FETCH_DIALOGS_SUCCESS = "DIALOGS:FETCH_DIALOGS_SUCCESS",
-}
-
-interface UserType {
-  _id: string;
-  email: string;
-  login: string;
 }
 
 interface MessageType {

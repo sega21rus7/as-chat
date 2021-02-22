@@ -1,4 +1,5 @@
 import { jsonFetch } from "tools";
+import { UserType } from "tools/interfaces";
 import {
   ActionTypes,
   AuthStartActionType,
@@ -6,7 +7,6 @@ import {
   RegistrationSuccessActionType,
   LoginSuccessActionType,
   CommonActionType,
-  UserType,
 } from "./interfaces";
 import { Dispatch } from "react";
 

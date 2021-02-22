@@ -4,7 +4,7 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ruLocale from "date-fns/locale/ru";
 import "./message.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
-import { UserType } from "modules/chat/interfaces";
+import { UserType } from "tools/interfaces";
 import Avatar from "../../Avatar/Avatar";
 
 interface PropsType {

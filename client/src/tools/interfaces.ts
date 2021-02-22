@@ -1,8 +1,12 @@
 export interface UserType {
-  _id: string;
+  roles: string[];
+  _id?: string;
+  email: string;
+  login: string;
+  createdAt: Date;
+  updatedAt: Date;
   firstName?: string;
   lastName?: string;
   middleName?: string;
-  login: string;
   avatar?: string;
 }

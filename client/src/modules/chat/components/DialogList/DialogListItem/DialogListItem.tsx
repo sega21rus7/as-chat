@@ -3,7 +3,7 @@ import format from "date-fns/format";
 import ruLocale from "date-fns/locale/ru";
 import "./dialog_list_item.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
-import { UserType } from "modules/chat/interfaces";
+import { UserType } from "tools/interfaces";
 import Avatar from "../../Avatar/Avatar";
 
 interface PropsType {

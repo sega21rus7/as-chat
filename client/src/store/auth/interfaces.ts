@@ -1,17 +1,10 @@
+import { UserType } from "tools/interfaces";
+
 export enum ActionTypes {
   AUTH_START = "AUTH:AUTH_START",
   AUTH_FAIL = "AUTH:AUTH_FAIL",
   REGISTRATION_SUCCESS = "AUTH:REGISTRATION_SUCCESS",
   LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS"
-}
-
-export interface UserType {
-  _id: string;
-  email: string;
-  login: string;
-  lastName?: string;
-  firstName?: string;
-  middleName?: string;
 }
 
 export interface StateType {

@@ -7,9 +7,11 @@ import MessageList from "./components/MessageList/MessageList";
 const Chat: React.FC = () => {
   const user = {
     _id: new Date(2021, 1, 15, 10).toString(),
-    firstName: "Вася",
-    lastName: "Петров",
     login: "Vasya",
+    email: "vasya@mail.ru",
+    roles: ["lox"],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   return (

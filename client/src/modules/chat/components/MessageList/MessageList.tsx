@@ -2,7 +2,7 @@ import React from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
-import { UserType } from "modules/chat/interfaces";
+import { UserType } from "tools/interfaces";
 
 interface PropsType {
   user: UserType,
