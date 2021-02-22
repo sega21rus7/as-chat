@@ -37,7 +37,7 @@ export const createMessage = async (req: CreateRequestType, res: express.Respons
     await message.save();
     await Dialog.updateOne(
       { _id: mongoose.Types.ObjectId(req.body.dialog) },
-      { lastMessage: message._id },
+      { $push: { messages: message._id } }
     );
     return res.status(201).json({ message });
   } catch (err) {
@@ -70,6 +70,14 @@ export const deleteMessage = async (req: express.Request, res: express.Response)
       throw new Error("ID сообщения не может быть пустым!");
     }
     const message = await Message.findOneAndDelete({ _id: mongoose.Types.ObjectId(req.params.id) });
+    if (!message) {
+      throw new Error("Сообщение не существует!");
+    }
+    // при удалении сообщения надо удалять его ид также и из диалога
+    await Dialog.updateOne(
+      { _id: message.dialog },
+      { $pull: { messages: mongoose.Types.ObjectId(req.params.id) } }
+    );
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);

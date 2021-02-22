@@ -35,8 +35,12 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
       dialog: dialog._id,
     });
     await message.save();
-    await dialog.updateOne({ $set: { lastMessage: message._id } });
-    return res.status(201).json({ dialog });
+    const dialogWithMessage = await Dialog.findOneAndUpdate(
+      { _id: dialog._id },
+      { messages: [message._id] },
+      { new: true }
+    );
+    return res.status(201).json({ dialogWithMessage });
   } catch (err) {
     handleError(res, err);
   }
@@ -53,9 +57,9 @@ export const getDialogs = async (req: express.Request, res: express.Response): P
         { companion: mongoose.Types.ObjectId(userID) },
       ],
     })
+      .slice("messages", -1)
       .populate({ path: "author", select: "_id email login" })
-      .populate({ path: "companion", select: "_id email login" })
-      .populate({ path: "lastMessage", select: "_id hasRead author text createdAt" });
+      .populate({ path: "companion", select: "_id email login" });
     return res.status(200).json({ dialogs });
   } catch (err) {
     handleError(res, err);
