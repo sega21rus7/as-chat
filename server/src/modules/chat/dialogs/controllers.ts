@@ -55,6 +55,7 @@ export const getDialogs = async (req: express.Request, res: express.Response): P
       ],
     })
       .slice("messages", -1)
+      .populate("messages")
       .populate({ path: "author", select: "_id email login" })
       .populate({ path: "companion", select: "_id email login" });
     return res.status(200).json({ dialogs });
