@@ -16,8 +16,8 @@ app.use(require("cors")());
 
 app.use("/api/auth", authRouter);
 app.use("/api/profile", authMiddleware, profileRouter);
-app.use("/api/chat/messages", messagesRouter);
-app.use("/api/chat/dialogs", dialogsRouter);
+app.use("/api/chat/messages", authMiddleware, messagesRouter);
+app.use("/api/chat/dialogs", authMiddleware, dialogsRouter);
 
 if (process.env.NODE_ENV === "production") {
   const clientFilesPath = path.resolve(process.cwd(), "client_build");
