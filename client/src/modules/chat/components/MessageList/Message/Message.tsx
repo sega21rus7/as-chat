@@ -36,7 +36,7 @@ const Message: React.FC<PropsType> = ({ text, date, user, my, hadRead }) => {
           </span>
           {my &&
             <span className="message__status">
-              <MessageStatusIcon hadRead={hadRead} />
+              <MessageStatusIcon hasRead={hadRead} />
             </span>
           }
         </div>

@@ -13,10 +13,18 @@ interface PropsType {
     count?: number;
   },
   date: Date;
-  hadRead?: boolean;
+  hasRead?: boolean;
 }
 
-const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) => {
+const DialogListItem: React.FC<PropsType> = ({ user, message, date, hasRead }) => {
+  const getFullName = () => {
+    // {`${user.firstName} ${user.lastName}`}
+    let res = "";
+    if (user.firstName || user.lastName) {
+      res = `${user.firstName || ""} ${user.lastName || ""}`;
+    }
+    return res || user.login;
+  };
 
   return (
     <div className="dialog-list-item">
@@ -30,11 +38,11 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) =
       <div className="dialog-list-item__content">
         <div className="dialog-list-item__header">
           <div className="dialog-list-item__companion">
-            {`${user.firstName} ${user.lastName}`}
+            {getFullName()}
           </div>
           <div className="dialog-list-item__date">
-            {format(date,
-              date.getDate() === new Date().getDate() ? "p" : "P",
+            {format(new Date(date),
+              new Date(date).getDate() === new Date().getDate() ? "p" : "P",
               { locale: ruLocale })
             }
           </div>
@@ -50,7 +58,7 @@ const DialogListItem: React.FC<PropsType> = ({ user, message, date, hadRead }) =
               </div>
               :
               <div className="dialog-list-item__status">
-                <MessageStatusIcon hadRead={hadRead} />
+                <MessageStatusIcon hasRead={hasRead} />
               </div>
           }
         </div>
