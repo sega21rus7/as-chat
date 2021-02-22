@@ -38,7 +38,7 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
       { messages: [message._id] },
       { new: true }
     );
-    return res.status(201).json({ dialogWithMessage });
+    return res.status(201).json({ dialog: dialogWithMessage });
   } catch (err) {
     handleError(res, err);
   }
