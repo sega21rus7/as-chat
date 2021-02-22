@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.get("/:userID", getController);
+router.get("/", getController);
 router.post("/", createController);
 router.delete("/:dialogID", deleteController);
 
