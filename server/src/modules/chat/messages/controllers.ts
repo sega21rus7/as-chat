@@ -13,7 +13,6 @@ interface EditRequestType extends express.Request {
 
 interface CreateRequestType extends express.Request {
   body: {
-    author: string;
     text: string;
     dialog: string;
   }
@@ -27,8 +26,7 @@ export const createMessage = async (req: CreateRequestType, res: express.Respons
     if (!req.body.dialog) {
       throw new Error("Не указан диалог!");
     }
-    // const userID = (req.user as UserType)._id;
-    const userID = mongoose.Types.ObjectId(req.body.author);
+    const userID = (req.user as UserType)._id;
     const message = new Message({
       author: userID,
       text: req.body.text,

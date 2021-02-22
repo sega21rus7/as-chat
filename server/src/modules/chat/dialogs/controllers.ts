@@ -9,15 +9,13 @@ import Dialog from "./models/Dialog";
 interface CreateRequestType extends express.Request {
   body: {
     companion: string;
-    author: string;
     messageText: string;
   }
 }
 
 export const createDialog = async (req: CreateRequestType, res: express.Response): Promise<unknown> => {
   try {
-    const userID = req.body.author;
-    // const userID = (req.user as UserType)._id;
+    const userID = (req.user as UserType)._id;
     if (!req.body.companion) {
       throw new Error("Отсутствует собеседник для диалога!");
     }
@@ -48,8 +46,7 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
 
 export const getDialogs = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
-    // const userID = (req.user as UserType)._id;
-    const userID = req.params.userID;
+    const userID = (req.user as UserType)._id;
     const dialogs = await Dialog.find({
       // @ts-expect-error
       $or: [
