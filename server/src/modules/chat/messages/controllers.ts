@@ -27,7 +27,7 @@ export const getMessages = async (req: express.Request, res: express.Response): 
     // @ts-expect-error
     const messages = await Message.find({
       dialog: mongoose.Types.ObjectId(req.params.dialogID),
-    }).sort({ updatedAt: -1 })
+    }).sort({ updatedAt: 1 })
       .populate("author");
     return res.status(200).json({ messages });
   } catch (err) {

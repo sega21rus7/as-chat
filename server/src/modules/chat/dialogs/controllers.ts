@@ -47,13 +47,8 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
 export const getDialogs = async (req: express.Request, res: express.Response): Promise<unknown> => {
   try {
     const userID = (req.user as UserType)._id;
-    const dialogs = await Dialog.find({
-      // @ts-expect-error
-      $or: [
-        { author: mongoose.Types.ObjectId(userID) },
-        { companion: mongoose.Types.ObjectId(userID) },
-      ],
-    })
+    // @ts-expect-error
+    const dialogs = await Dialog.find({ author: mongoose.Types.ObjectId(userID) })
       .slice("messages", -1)
       .populate(["messages", "author", "companion"]);
     return res.status(200).json({ dialogs });
