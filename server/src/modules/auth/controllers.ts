@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import User from "./models/User";
 import Role from "./models/Role";
@@ -42,6 +43,16 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
     httpOnly: false,
   });
   return token;
+};
+
+export const getUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
+  try {
+    const userID = (req.user as UserType)._id;
+    const user = await User.findOne({ _id: mongoose.Types.ObjectId(userID) });
+    return res.status(200).json({ user });
+  } catch (err) {
+    handleError(res, err);
+  }
 };
 
 export const login = async (req: LoginRequestType, res: express.Response): Promise<unknown> => {
