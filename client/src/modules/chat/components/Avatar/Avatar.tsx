@@ -22,7 +22,7 @@ const Avatar: React.FC<PropsType> = ({ user, additionalClassNames, additionalJSX
   return (
     <div className={classNames.join(" ")}>
       {
-        user.avatar ?
+        user && user.avatar ?
           <img src={user.avatar} alt="" /> :
           <div className="avatar__circle">
             <div className="avatar__letter">{getFirstLetter()}</div>

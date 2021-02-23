@@ -10,7 +10,7 @@ import {
 } from "./interfaces";
 import { Dispatch } from "react";
 
-const startAuth = (): AuthStartActionType => {
+export const startAuth = (): AuthStartActionType => {
   return { type: ActionTypes.AUTH_START };
 };
 

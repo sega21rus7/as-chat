@@ -8,7 +8,7 @@ export enum ActionTypes {
 }
 
 export interface StateType {
-  user: UserType;
+  user: UserType | null;
   error: string;
 }
 

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { register } from "store/auth/actionCreators";
+import { useSelector } from "tools/hooks";
 
 interface FormValuesType {
   email: string,
@@ -39,6 +40,7 @@ const RegForm: React.FC = () => {
   const [repeatPasswordInputType, setRepeatPasswordInputType] = useState("password");
   const dispatch = useDispatch();
   const history = useHistory();
+  const error = useSelector(state => state.auth.error);
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +56,9 @@ const RegForm: React.FC = () => {
   const handleSubmit = (values: FormValuesType) => {
     const { email, login, password, repeatPassword } = values;
     dispatch(register(email, login, password, repeatPassword));
-    history.push("/im");
+    if (!error) {
+      history.push("/im");
+    }
   };
 
   const switchPasswordVisibility = () => {

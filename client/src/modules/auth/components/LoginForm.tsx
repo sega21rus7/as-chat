@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { login as loginUser } from "store/auth/actionCreators";
+import { useSelector } from "tools/hooks";
 
 interface FormValuesType {
   login: string,
@@ -20,6 +21,7 @@ const validationSchema = yup.object({
 const LoginForm: React.FC = () => {
   const [passwordInputType, setPasswordInputType] = useState("password");
   const dispatch = useDispatch();
+  const error = useSelector(state => state.auth.error);
   const history = useHistory();
 
   const formik = useFormik({
@@ -34,7 +36,9 @@ const LoginForm: React.FC = () => {
   const handleSubmit = (values: FormValuesType) => {
     const { login, password } = values;
     dispatch(loginUser(login, password));
-    history.push("/im");
+    if (!error) {
+      history.push("/im");
+    }
   };
 
   const switchPasswordVisibility = () => {

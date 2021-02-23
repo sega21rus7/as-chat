@@ -7,6 +7,7 @@ import Avatar from "../Avatar/Avatar";
 import moonSvg from "./assets/svg/moon.svg";
 import settingsSvg from "./assets/svg/settings.svg";
 import teamSvg from "./assets/svg/team.svg";
+import { getFullName } from "tools";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,10 @@ const BurgerMenu: React.FC = () => {
       <div className="burger-menu__body" onClick={e => e.stopPropagation()}>
         <div className="burger-menu__header">
           <div className="burger-menu__avatar">
-            <Avatar user={user} />
+            {user && <Avatar user={user} />}
           </div>
           <div className="burger-menu__title">
-            {`${user.firstName} ${user.lastName}`}
+            {user && getFullName(user)}
           </div>
         </div>
         <div className="burger-menu__content">

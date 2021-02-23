@@ -2,11 +2,10 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "modules/auth/Auth";
 import Chat from "modules/chat/Chat";
-import { getToken } from "tools";
+import { useSelector } from "tools/hooks";
 
 const BaseRouter: React.FC = () => {
-  const isAuth = !!getToken();
-
+  const isAuth = useSelector(state => !!state.auth.user?._id);
   if (isAuth) {
     return (
       <Switch>
