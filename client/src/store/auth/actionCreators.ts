@@ -63,3 +63,15 @@ export const login = (login: string, password: string) => {
   };
 };
 
+export const fetchUser = () => {
+  return async (dispatch: Dispatch<LoginSuccessActionType>): Promise<void> => {
+    try {
+      const { user } = await jsonFetch("/api/auth/getUser");
+      dispatch(loginSuccess(user));
+      // eslint-disable-next-line no-empty
+    } catch (err) {
+
+    }
+  };
+};
+
