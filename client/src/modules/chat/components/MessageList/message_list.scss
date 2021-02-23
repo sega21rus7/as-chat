@@ -1,10 +1,27 @@
 @import '~style/variables';
 
+.no-dialog {
+  &__body {
+    border: 1px solid $lightblue;
+    border-radius: 10px;
+    padding: 5px;
+    background: $lightblue;
+    color: white;
+  }
+}
+
 .message-list {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   margin: 0 0 10px 0;
   overflow: auto;
+  &__no-dialog {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &__header {
     flex: 1 1 auto;
   }

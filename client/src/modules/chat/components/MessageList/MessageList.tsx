@@ -17,6 +17,20 @@ const MessageList: React.FC = () => {
     dialog && dialog._id && dispatch(fetchMessages(dialog._id));
   }, [dialog]);
 
+  if (!messages.length) {
+    return (
+      <div className="message-list">
+        <div className="message-list__no-dialog no-dialog">
+          <div className="no-dialog__body">
+            <div className="no-dialog__text">
+              Выберите, кому хотели бы написать
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="message-list">
       <div className="message-list__header">
