@@ -1,6 +1,10 @@
-import config from "./config";
-import app from "./app";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import mongoose from "mongoose";
+import express from "express";
+import { createServer } from "http";
+import config from "./config";
+import initializeApp from "./core/app";
+import createSocket from "./core/socket";
 
 (async () => {
   try {
@@ -12,7 +16,12 @@ import mongoose from "mongoose";
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    const server = app.listen(config.port, () => {
+    const app = express();
+    const http = createServer(app);
+    const io = createSocket(http);
+    initializeApp(app, io);
+
+    const server = http.listen(config.port, () => {
       console.log(`Сервер был запущен по адресу http://${config.host}:${config.port}`);
     });
     server.on("error", err => {
