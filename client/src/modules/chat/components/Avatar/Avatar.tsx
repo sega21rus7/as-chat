@@ -10,14 +10,14 @@ interface PropsType {
 
 const Avatar: React.FC<PropsType> = ({ user, additionalClassNames, additionalJSX }) => {
   const classNames = additionalClassNames ? ["avatar", ...additionalClassNames] : ["avatar"];
-  const getFirstLetter = useCallback(() => {
+  const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
       return user.firstName[0].toUpperCase();
     }
     if (user.login && user.login[0]) {
       return user.login[0].toUpperCase();
     }
-  }, [user.firstName, user.login]);
+  };
 
   return (
     <div className={classNames.join(" ")}>
