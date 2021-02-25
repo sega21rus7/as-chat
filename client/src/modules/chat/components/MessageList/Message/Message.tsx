@@ -6,16 +6,19 @@ import "./message.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import { UserType } from "tools/interfaces";
 import Avatar from "../../Avatar/Avatar";
+import { useSelector } from "tools/hooks";
 
 interface PropsType {
   text: string;
   date: Date;
   user: UserType,
-  my?: boolean;
   hasRead?: boolean;
 }
 
-const Message: React.FC<PropsType> = ({ text, date, user, my, hasRead }) => {
+const Message: React.FC<PropsType> = ({ text, date, user, hasRead }) => {
+  const userID = useSelector(state => state.auth.user?._id);
+  const my = userID === user._id;
+
   return (
     <div className={my ? "message message_my" : "message"}>
       {!my &&

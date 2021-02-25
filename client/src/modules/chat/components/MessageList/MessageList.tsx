@@ -50,7 +50,6 @@ const MessageList: React.FC = () => {
           text={m.text}
           date={m.updatedAt}
           user={m.author}
-          my
           hasRead={m.hasRead}
         />)}
         <CreateMessageForm />
