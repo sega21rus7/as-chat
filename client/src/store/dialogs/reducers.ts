@@ -15,6 +15,8 @@ const dialogsReducer = (state = initialState, action: CommonActionType): StateTy
       return { ...state, items: action.payload.items };
     case ActionTypes.SET_CURRENT_DIALOG:
       return { ...state, currentDialog: action.payload.dialog };
+    case ActionTypes.ADD_DIALOG:
+      return { ...state, items: [...state.items, action.payload.item] };
     default:
       return state;
   }

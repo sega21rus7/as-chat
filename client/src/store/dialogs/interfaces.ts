@@ -1,38 +1,23 @@
-import { UserType } from "tools/interfaces";
+import { DialogType } from "tools/interfaces";
 
 export enum ActionTypes {
   FETCH_DIALOGS_START = "DIALOGS:FETCH_DIALOGS_START",
   FETCH_DIALOGS_FAIL = "DIALOGS:FETCH_DIALOGS_FAIL",
   FETCH_DIALOGS_SUCCESS = "DIALOGS:FETCH_DIALOGS_SUCCESS",
-  SET_CURRENT_DIALOG = "DIALOGS:SET_CURRENT_DIALOG"
-}
-
-interface MessageType {
-  hasRead: boolean;
-  _id: string;
-  author: string;
-  text: string;
-  updatedAt: Date;
-}
-
-export interface ItemType {
-  messages: MessageType[],
-  _id: string;
-  author: UserType;
-  companion: UserType;
-  updatedAt: Date;
+  SET_CURRENT_DIALOG = "DIALOGS:SET_CURRENT_DIALOG",
+  ADD_DIALOG = "DIALOGS:ADD_DIALOG",
 }
 
 export interface StateType {
-  items: ItemType[];
+  items: DialogType[];
   error: string;
-  currentDialog: ItemType | null;
+  currentDialog: DialogType | null;
 }
 
 export interface SetCurrentDialogActionType {
   type: ActionTypes.SET_CURRENT_DIALOG;
   payload: {
-    dialog: ItemType;
+    dialog: DialogType;
   }
 }
 
@@ -47,10 +32,17 @@ export interface FetchDialogsFailtActionType {
   }
 }
 
+export interface AddDialogActionType {
+  type: ActionTypes.ADD_DIALOG,
+  payload: {
+    item: DialogType,
+  }
+}
+
 export interface FetchDialogsSuccessActionType {
   type: ActionTypes.FETCH_DIALOGS_SUCCESS;
   payload: {
-    items: ItemType[];
+    items: DialogType[];
   }
 }
 
@@ -58,4 +50,5 @@ export type CommonActionType =
   FetchDialogsStartActionType |
   FetchDialogsSuccessActionType |
   FetchDialogsFailtActionType |
-  SetCurrentDialogActionType;
+  SetCurrentDialogActionType |
+  AddDialogActionType;

@@ -7,7 +7,8 @@ import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getFullName } from "tools";
 import { setCurrentDialog } from "store/dialogs/actionCreators";
-import { ItemType as DialogType } from "store/dialogs/interfaces";
+import { DialogType } from "tools/interfaces";
+import { useSelector } from "tools/hooks";
 
 interface PropsType {
   dialog: DialogType;
@@ -15,13 +16,19 @@ interface PropsType {
 
 const DialogListItem: React.FC<PropsType> = ({ dialog }) => {
   const dispatch = useDispatch();
+  const userID = useSelector(state => state.auth.user?._id);
+  const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
 
   const handleClick = () => {
     dispatch(setCurrentDialog(dialog));
   };
 
   return (
-    <div className="dialog-list-item" onClick={handleClick}>
+    <div
+      className={currentDialogID === dialog._id ?
+        "dialog-list-item dialog-list-item_selected" :
+        "dialog-list-item"}
+      onClick={handleClick}>
       <div className="dialog-list-item-avatar dialog-list-item__avatar">
         <Avatar
           additionalClassNames={["dialog-list-item-avatar__body"]}
@@ -32,7 +39,7 @@ const DialogListItem: React.FC<PropsType> = ({ dialog }) => {
       <div className="dialog-list-item__content">
         <div className="dialog-list-item__header">
           <div className="dialog-list-item__companion">
-            {getFullName(dialog.companion)}
+            {getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
           </div>
           <div className="dialog-list-item__date">
             {format(new Date(dialog.updatedAt),

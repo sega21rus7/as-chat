@@ -1,4 +1,4 @@
-import { UserType } from "tools/interfaces";
+import { MessageType } from "tools/interfaces";
 
 export enum ActionTypes {
   FETCH_Messages_START = "MESSAGES:FETCH_MESSAGES_START",
@@ -6,17 +6,8 @@ export enum ActionTypes {
   FETCH_Messages_SUCCESS = "MESSAGES:FETCH_MESSAGES_SUCCESS",
 }
 
-export interface ItemType {
-  hasRead: boolean;
-  _id: string;
-  author: UserType;
-  text: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 export interface StateType {
-  items: ItemType[];
+  items: MessageType[];
   error: string;
 }
 
@@ -34,7 +25,7 @@ export interface FetchMessagesFailtActionType {
 export interface FetchMessagesSuccessActionType {
   type: ActionTypes.FETCH_Messages_SUCCESS;
   payload: {
-    items: ItemType[];
+    items: MessageType[];
   }
 }
 

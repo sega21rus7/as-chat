@@ -10,3 +10,18 @@ export interface UserType {
   middleName?: string;
   avatar?: string;
 }
+export interface MessageType {
+  hasRead: boolean;
+  _id: string;
+  author: UserType;
+  text: string;
+  updatedAt: Date;
+}
+
+export interface DialogType {
+  messages: MessageType[],
+  _id: string;
+  author: UserType;
+  companion: UserType;
+  updatedAt: Date;
+}

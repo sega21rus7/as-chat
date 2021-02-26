@@ -12,6 +12,11 @@
   cursor: pointer;
   display: flex;
   margin: 0 0 10px 0;
+  padding: 5px;
+  &_selected {
+    background: #7fc7ff;
+    // background: $lightblue;
+  }
   &__avatar {
     margin: 0 10px 0 0;
   }

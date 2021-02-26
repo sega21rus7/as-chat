@@ -5,9 +5,10 @@ import {
   FetchDialogsFailtActionType,
   FetchDialogsSuccessActionType,
   CommonActionType,
-  ItemType,
   SetCurrentDialogActionType,
+  AddDialogActionType,
 } from "./interfaces";
+import { DialogType } from "tools/interfaces";
 import { Dispatch } from "react";
 
 const startFetchDialogs = (): FetchDialogsStartActionType => {
@@ -18,11 +19,11 @@ const failFetchDialogs = (error: string): FetchDialogsFailtActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_FAIL, payload: { error } };
 };
 
-const successFetchDialogs = (items: ItemType[]): FetchDialogsSuccessActionType => {
+const successFetchDialogs = (items: DialogType[]): FetchDialogsSuccessActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_SUCCESS, payload: { items } };
 };
 
-export const setCurrentDialog = (dialog: ItemType): SetCurrentDialogActionType => {
+export const setCurrentDialog = (dialog: DialogType): SetCurrentDialogActionType => {
   return { type: ActionTypes.SET_CURRENT_DIALOG, payload: { dialog } };
 };
 
@@ -36,4 +37,8 @@ export const fetchDialogs = () => {
       dispatch(failFetchDialogs(err.message || err));
     }
   };
+};
+
+export const addDialog = (item: DialogType): AddDialogActionType => {
+  return { type: ActionTypes.ADD_DIALOG, payload: { item } };
 };
