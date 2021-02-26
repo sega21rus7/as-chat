@@ -9,13 +9,19 @@
 }
 
 .dialog-list-item {
+  $self: &;
   cursor: pointer;
   display: flex;
   margin: 0 0 10px 0;
-  padding: 5px;
+  padding: 10px 5px;
   &_selected {
-    background: #7fc7ff;
-    // background: $lightblue;
+    background: $lightblue;
+    #{$self}__companion, #{$self}__message, #{$self}__date {
+      color: white;
+    }
+    #{$self}__message, #{$self}__date {
+      opacity: 1;
+    }
   }
   &__avatar {
     margin: 0 10px 0 0;
