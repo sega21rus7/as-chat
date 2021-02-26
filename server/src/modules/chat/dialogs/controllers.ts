@@ -39,6 +39,15 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
       { messages: [message._id] },
       { new: true }
     );
+    req.io?.emit("DIALOG_CREATED", {
+      dialog: await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
+        .slice("messages", -1)
+        .populate(["author", "companion"])
+        .populate({
+          path: "messages",
+          populate: "author",
+        }),
+    });
     return res.status(201).json({ dialog: dialogWithMessage });
   } catch (err) {
     handleError(res, err);
@@ -48,8 +57,16 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
 export const getDialogs = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const userID = (req.user as UserType)._id;
-    // @ts-expect-error
-    const dialogs = await Dialog.find({ author: mongoose.Types.ObjectId(userID) })
+    const dialogs = await Dialog.find(
+      {
+        // @ts-ignore
+        $or: [
+          { author: mongoose.Types.ObjectId(userID) },
+          { companion: mongoose.Types.ObjectId(userID) },
+        ],
+      },
+      // { author: mongoose.Types.ObjectId(userID) }
+    )
       .slice("messages", -1)
       .populate(["messages", "author", "companion"]);
     return res.status(200).json({ dialogs });
