@@ -2,13 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import User from "modules/auth/models/User";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
+import { CustomRequest } from "tools/interfaces";
 
-interface GetUserInfoRequestType extends express.Request {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  user?: any,
-}
-
-interface ChangePasswordRequestType extends GetUserInfoRequestType {
+interface ChangePasswordRequestType extends CustomRequest {
   body: {
     old_password: string,
     password1: string,
@@ -16,7 +12,7 @@ interface ChangePasswordRequestType extends GetUserInfoRequestType {
   }
 }
 
-export const editUser = async (req: GetUserInfoRequestType, res: express.Response): Promise<unknown> => {
+export const editUser = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     await User.updateOne({ _id }, req.body);
@@ -26,7 +22,7 @@ export const editUser = async (req: GetUserInfoRequestType, res: express.Respons
   }
 };
 
-export const getUserInfo = async (req: GetUserInfoRequestType, res: express.Response): Promise<unknown> => {
+export const getUserInfo = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     const user = await User.findOne({ _id });

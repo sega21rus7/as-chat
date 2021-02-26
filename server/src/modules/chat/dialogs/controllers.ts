@@ -5,8 +5,9 @@ import { UserType } from "modules/auth/models/User";
 import { handleError } from "tools";
 import Message from "../messages/models/Message";
 import Dialog from "./models/Dialog";
+import { CustomRequest } from "tools/interfaces";
 
-interface CreateRequestType extends express.Request {
+interface CreateRequestType extends CustomRequest {
   body: {
     companion: string;
     messageText: string;
@@ -44,7 +45,7 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
   }
 };
 
-export const getDialogs = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const getDialogs = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const userID = (req.user as UserType)._id;
     // @ts-expect-error
@@ -57,7 +58,7 @@ export const getDialogs = async (req: express.Request, res: express.Response): P
   }
 };
 
-export const deleteDialog = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const deleteDialog = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");

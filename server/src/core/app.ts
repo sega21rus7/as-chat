@@ -6,7 +6,7 @@ import authRouter from "modules/auth/routes";
 import profileRouter from "modules/profile/routes";
 import messagesRouter from "modules/chat/messages/routes";
 import dialogsRouter from "modules/chat/dialogs/routes";
-import authMiddleware from "middlewares/auth";
+import { authMiddleware, socketMiddleware } from "middlewares";
 
 const initializeApp = (app: express.Express, io: socketIO.Server): void => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,8 +16,8 @@ const initializeApp = (app: express.Express, io: socketIO.Server): void => {
 
   app.use("/api/auth", authRouter);
   app.use("/api/profile", authMiddleware, profileRouter);
-  app.use("/api/chat/messages", authMiddleware, messagesRouter);
-  app.use("/api/chat/dialogs", authMiddleware, dialogsRouter);
+  app.use("/api/chat/messages", authMiddleware, socketMiddleware(io), messagesRouter);
+  app.use("/api/chat/dialogs", authMiddleware, socketMiddleware(io), dialogsRouter);
 
   if (process.env.NODE_ENV === "production") {
     const clientFilesPath = path.resolve(process.cwd(), "client_build");

@@ -5,21 +5,22 @@ import Message from "./models/Message";
 import { UserType } from "modules/auth/models/User";
 import mongoose from "mongoose";
 import Dialog from "../dialogs/models/Dialog";
+import { CustomRequest } from "tools/interfaces";
 
-interface EditRequestType extends express.Request {
+interface EditRequestType extends CustomRequest {
   body: {
     text: string;
   }
 }
 
-interface CreateRequestType extends express.Request {
+interface CreateRequestType extends EditRequestType {
   body: {
     text: string;
     dialog: string;
   }
 }
 
-export const getMessages = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const getMessages = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");
@@ -79,7 +80,7 @@ export const editMessage = async (req: EditRequestType, res: express.Response): 
   }
 };
 
-export const deleteMessage = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const deleteMessage = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.id) {
       throw new Error("ID сообщения не может быть пустым!");

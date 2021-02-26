@@ -7,8 +7,9 @@ import config from "config";
 import { handleError, generatePassword, isPasswordsEqual } from "tools";
 import { UserType } from "./models/User";
 import { UserRoles } from "./models/Role";
+import { CustomRequest } from "tools/interfaces";
 
-interface LoginRequestType extends express.Request {
+interface LoginRequestType extends CustomRequest {
   body: {
     login: string;
     password: string;
@@ -45,7 +46,7 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
   return token;
 };
 
-export const getUser = async (req: express.Request, res: express.Response): Promise<unknown> => {
+export const getUser = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const userID = (req.user as UserType)._id;
     const user = await User.findOne({ _id: mongoose.Types.ObjectId(userID) });
