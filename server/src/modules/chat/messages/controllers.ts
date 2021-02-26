@@ -28,7 +28,7 @@ export const getMessages = async (req: CustomRequest, res: express.Response): Pr
     // @ts-expect-error
     const messages = await Message.find({
       dialog: mongoose.Types.ObjectId(req.params.dialogID),
-    }).sort({ updatedAt: 1 });
+    }).sort({ updatedAt: 1 }).populate("author");
     return res.status(200).json({ messages });
   } catch (err) {
     handleError(res, err);
@@ -54,8 +54,9 @@ export const createMessage = async (req: CreateRequestType, res: express.Respons
       { _id: mongoose.Types.ObjectId(req.body.dialog) },
       { $push: { messages: message._id } }
     );
-    req.io?.emit("MESSAGE_CREATED", { message });
-    return res.status(201).json({ message });
+    const populated = await message.populate("author").execPopulate();
+    req.io?.emit("MESSAGE_CREATED", populated);
+    return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);
   }
