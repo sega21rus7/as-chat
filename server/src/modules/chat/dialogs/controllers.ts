@@ -39,15 +39,14 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
       { messages: [message._id] },
       { new: true }
     );
-    req.io?.emit("DIALOG_CREATED", {
-      dialog: await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
-        .slice("messages", -1)
-        .populate(["author", "companion"])
-        .populate({
-          path: "messages",
-          populate: "author",
-        }),
-    });
+    const ioDialog = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
+      .slice("messages", -1)
+      .populate(["author", "companion"])
+      .populate({
+        path: "messages",
+        populate: "author",
+      });
+    req.io?.emit("DIALOG_CREATED", ioDialog);
     return res.status(201).json({ dialog: dialogWithMessage });
   } catch (err) {
     handleError(res, err);
