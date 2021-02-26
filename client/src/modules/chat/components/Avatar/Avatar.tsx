@@ -1,5 +1,5 @@
 import { UserType } from "tools/interfaces";
-import React, { useCallback } from "react";
+import React from "react";
 import "./avatar.scss";
 
 interface PropsType {
