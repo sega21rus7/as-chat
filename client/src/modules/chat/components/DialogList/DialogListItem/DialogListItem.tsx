@@ -32,7 +32,7 @@ const DialogListItem: React.FC<PropsType> = ({ dialog }) => {
       <div className="dialog-list-item-avatar dialog-list-item__avatar">
         <Avatar
           additionalClassNames={["dialog-list-item-avatar__body"]}
-          user={dialog.companion}
+          user={userID === dialog.author._id ? dialog.companion : dialog.author}
           additionalJSX={<div className="dialog-list-item__online" />}
         />
       </div>

@@ -6,7 +6,7 @@ import socket from "core/socket";
 import SearchForm from "./SearchForm/SearchForm";
 import BurgerIcon from "./BurgerIcon/BurgerIcon";
 import { useDispatch } from "react-redux";
-import { fetchDialogs } from "store/dialogs/actionCreators";
+import { addDialog, fetchDialogs } from "store/dialogs/actionCreators";
 import { useSelector } from "tools/hooks";
 import { DialogType } from "tools/interfaces";
 
@@ -18,7 +18,7 @@ const DialogList: React.FC = () => {
     dispatch(fetchDialogs());
     socket.on("DIALOG_CREATED", (dialog: DialogType) => {
       console.log("Создан диалог", dialog);
-      dispatch(fetchDialogs());
+      dispatch(addDialog(dialog));
     });
   }, []);
 
