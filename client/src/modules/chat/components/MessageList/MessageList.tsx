@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
@@ -15,10 +15,19 @@ const MessageList: React.FC = () => {
   const messages = useSelector(state => state.messages.items);
   const dialog = useSelector(state => state.dialogs.currentDialog);
   const userID = useSelector(state => state.auth.user?._id);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    listRef.current?.scrollTo(0, listRef.current?.scrollHeight);
+  });
 
   useEffect(() => {
-    dialog && dispatch(fetchMessages(dialog._id));
-    dialog && socket.on("MESSAGE_CREATED", (message: MessageType) => {
+    if (!dialog) {
+      return;
+    }
+
+    dispatch(fetchMessages(dialog._id));
+    socket.on("MESSAGE_CREATED", (message: MessageType) => {
       if (message.dialog === dialog._id && message.author._id !== userID) {
         dispatch(addMessage(message));
       }
@@ -40,7 +49,7 @@ const MessageList: React.FC = () => {
   }
 
   return (
-    <div className="message-list">
+    <div className="message-list" ref={listRef}>
       <div className="message-list__header">
         <div className="message-list__title">
           {dialog &&

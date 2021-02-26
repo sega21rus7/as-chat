@@ -1,7 +1,7 @@
 .dialog-list {
   flex: 0 0 300px;
   margin: 0 30px 0 0;
-  overflow: auto;
+  overflow-y: auto;
   &__header {
     display: flex;
     margin: 0 0 20px 0;
