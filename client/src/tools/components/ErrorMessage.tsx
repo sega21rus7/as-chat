@@ -11,7 +11,6 @@ interface PropsType {
 
 const ErrorMessage: React.FC<PropsType> = ({ error }) => {
   const dispatch = useDispatch();
-  console.log("error", error);
 
   useEffect(() => {
     error && setTimeout(() => {

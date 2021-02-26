@@ -5,7 +5,6 @@ import image from "./assets/svg/send.svg";
 import { useDispatch } from "react-redux";
 import { postMessage } from "store/messages/actionCreators";
 import { useSelector } from "tools/hooks";
-import ErrorMessage from "tools/components/ErrorMessage";
 
 interface FormValuesType {
   message: string,
