@@ -11,20 +11,20 @@ import { useSelector } from "tools/hooks";
 interface PropsType {
   text: string;
   date: Date;
-  user: UserType,
+  author: UserType,
   hasRead?: boolean;
 }
 
-const Message: React.FC<PropsType> = ({ text, date, user, hasRead }) => {
+const Message: React.FC<PropsType> = ({ text, date, author, hasRead }) => {
   const userID = useSelector(state => state.auth.user?._id);
-  const my = userID === user._id;
+  const my = userID === author._id;
 
   return (
     <div className={my ? "message message_my" : "message"}>
       {!my &&
         <Avatar
           additionalClassNames={["message__avatar"]}
-          user={user}
+          user={author}
         />
       }
       <div className="message__content">

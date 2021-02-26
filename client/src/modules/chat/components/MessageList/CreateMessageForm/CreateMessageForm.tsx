@@ -2,6 +2,9 @@ import { useFormik } from "formik";
 import React from "react";
 import "./create_message_form.scss";
 import image from "./assets/svg/send.svg";
+import { useDispatch } from "react-redux";
+import { postMessage } from "store/messages/actionCreators";
+import { useSelector } from "tools/hooks";
 
 interface FormValuesType {
   message: string,
@@ -14,9 +17,12 @@ const CreateMessageForm: React.FC = () => {
     },
     onSubmit: values => handleSubmit(values),
   });
+  const dispatch = useDispatch();
+  const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
 
   const handleSubmit = (values: FormValuesType) => {
-    console.log("values", values);
+    currentDialogID && dispatch(postMessage(currentDialogID, values.message));
+    formik.resetForm();
   };
 
   return (

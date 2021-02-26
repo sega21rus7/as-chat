@@ -17,7 +17,6 @@ const DialogList: React.FC = () => {
   useEffect(() => {
     dispatch(fetchDialogs());
     socket.on("DIALOG_CREATED", (dialog: DialogType) => {
-      console.log("Создан диалог", dialog);
       dispatch(addDialog(dialog));
     });
   }, []);

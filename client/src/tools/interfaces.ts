@@ -16,6 +16,7 @@ export interface MessageType {
   author: UserType;
   text: string;
   updatedAt: Date;
+  dialog: string;
 }
 
 export interface DialogType {

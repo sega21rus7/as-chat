@@ -1,6 +1,6 @@
 @import '~style/variables';
 
-.no-dialog {
+.no-message {
   &__body {
     border: 1px solid $lightblue;
     border-radius: 10px;
@@ -16,7 +16,7 @@
   flex-direction: column;
   margin: 0 0 10px 0;
   overflow: auto;
-  &__no-dialog {
+  &__no {
     height: 100%;
     display: flex;
     justify-content: center;
