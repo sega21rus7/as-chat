@@ -69,6 +69,7 @@ const MessageList: React.FC = () => {
           date={m.updatedAt}
           author={m.author}
           hasRead={m.hasRead}
+          className="message-list__item"
         />)}
         <CreateMessageForm />
       </div>

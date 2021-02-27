@@ -6,4 +6,13 @@
     display: flex;
     margin: 0 0 20px 0;
   }
+  &__burger-icon {
+    margin: 0 10px 0 0;
+  }
+  &__search-form {
+    flex: 1 0 auto;
+  }
+  &__create-dialog-icon {
+    margin: 0 0 0 10px;
+  }
 }

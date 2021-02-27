@@ -16,6 +16,9 @@
   flex-direction: column;
   margin: 0 0 10px 0;
   overflow-y: auto;
+  &__item {
+    margin: 0 0 10px 0;
+  }
   &__no {
     height: 100%;
     display: flex;
@@ -23,7 +26,8 @@
     align-items: center;
   }
   &__header {
-    flex: 1 1 auto;
+    position: sticky;
+    top: 0;
   }
   &__title {
     font-weight: bold;

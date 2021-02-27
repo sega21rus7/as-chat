@@ -1,13 +1,17 @@
 import React from "react";
 import "./search_form.scss";
 
-const SearchForm: React.FC = () => {
+interface PropsType {
+  className: string;
+}
+
+const SearchForm: React.FC<PropsType> = ({ className }) => {
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   return (
-    <form noValidate className="search-form" onSubmit={submit}>
+    <form noValidate className={["search-form", className].join(" ")} onSubmit={submit}>
       <div className="input search-form-input">
         <input
           className="search-form-input__body"

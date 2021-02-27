@@ -13,14 +13,20 @@ interface PropsType {
   date: Date;
   author: UserType,
   hasRead?: boolean;
+  className: string;
 }
 
-const Message: React.FC<PropsType> = ({ text, date, author, hasRead }) => {
+const Message: React.FC<PropsType> = ({ text, date, author, hasRead, className }) => {
   const userID = useSelector(state => state.auth.user?._id);
   const my = userID === author._id;
 
   return (
-    <div className={my ? "message message_my" : "message"}>
+    <div className=
+      {my ?
+        ["message", "message_my", className].join(" ") :
+        ["message", className].join(" ")
+      }
+    >
       {!my &&
         <Avatar
           additionalClassNames={["message__avatar"]}

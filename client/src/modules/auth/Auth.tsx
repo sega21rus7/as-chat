@@ -4,7 +4,7 @@ import LoginForm from "./components/LoginForm";
 import RegForm from "./components/RegForm";
 import { useSelector } from "tools/hooks";
 
-import ErrorMessage from "tools/components/ErrorMessage";
+import ErrorMessage from "tools/components/ErrorMessage/ErrorMessage";
 
 type PropsType = {
   isReg?: boolean;

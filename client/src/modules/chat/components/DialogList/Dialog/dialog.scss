@@ -1,6 +1,6 @@
 @import '~style/variables';
 
-.dialog-list-item-avatar {
+.dialog-avatar {
   display: flex;
   align-items: center;
   &__body {
@@ -8,7 +8,7 @@
   }
 }
 
-.dialog-list-item {
+.dialog {
   $self: &;
   cursor: pointer;
   display: flex;
