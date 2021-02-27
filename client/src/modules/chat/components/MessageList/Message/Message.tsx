@@ -35,9 +35,9 @@ const Message: React.FC<PropsType> = ({ text, date, author, hasRead, className }
       }
       <div className="message__content">
         <div className="message__bubble">
-          <div className="message__text">
+          <p className="message__text">
             {text}
-          </div>
+          </p>
         </div>
         <div className="message__footer">
           <span className="message__date">
