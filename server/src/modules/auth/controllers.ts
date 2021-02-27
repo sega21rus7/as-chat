@@ -48,7 +48,8 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
 
 export const getAllUsers = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
-    const users = await User.find();
+    const userID = req.user?._id;
+    const users = await User.find({ _id: { $nin: [mongoose.Types.ObjectId(userID)] } });
     return res.status(200).json({ users });
   } catch (err) {
     handleError(res, err);
