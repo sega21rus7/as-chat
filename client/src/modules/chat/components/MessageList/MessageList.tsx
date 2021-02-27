@@ -21,17 +21,21 @@ const MessageList: React.FC = () => {
     listRef.current?.scrollTo(0, listRef.current?.scrollHeight);
   });
 
+  const listenMessage = (message: MessageType) => {
+    if (message.dialog === dialog?._id && message.author._id !== userID) {
+      dispatch(addMessage(message));
+    }
+  };
+
   useEffect(() => {
     if (!dialog) {
       return;
     }
-
     dispatch(fetchMessages(dialog._id));
-    socket.on("MESSAGE_CREATED", (message: MessageType) => {
-      if (message.dialog === dialog._id && message.author._id !== userID) {
-        dispatch(addMessage(message));
-      }
-    });
+    socket.on("MESSAGE_CREATED", listenMessage);
+    return () => {
+      socket.removeListener("MESSAGE_CREATED", listenMessage);
+    };
   }, [dialog?._id]);
 
   if (!messages.length) {

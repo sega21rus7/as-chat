@@ -6,12 +6,15 @@ export enum ActionTypes {
   FETCH_DIALOGS_SUCCESS = "DIALOGS:FETCH_DIALOGS_SUCCESS",
   SET_CURRENT_DIALOG = "DIALOGS:SET_CURRENT_DIALOG",
   ADD_DIALOG = "DIALOGS:ADD_DIALOG",
+  POST_DIALOG_START = "DIALOGS:POST_DIALOG_START",
+  POST_DIALOG_FAIL = "DIALOGS:POST_DIALOG_FAIL",
 }
 
 export interface StateType {
   items: DialogType[];
-  error: string;
+  fetchDialogsError: string;
   currentDialog: DialogType | null;
+  postDialogError: string;
 }
 
 export interface SetCurrentDialogActionType {
@@ -46,9 +49,22 @@ export interface FetchDialogsSuccessActionType {
   }
 }
 
+export interface PostDialogStartActionType {
+  type: ActionTypes.POST_DIALOG_START,
+}
+
+export interface PostDialogFailActionType {
+  type: ActionTypes.POST_DIALOG_FAIL,
+  payload: {
+    error: string;
+  }
+}
+
 export type CommonActionType =
   FetchDialogsStartActionType |
   FetchDialogsSuccessActionType |
   FetchDialogsFailtActionType |
   SetCurrentDialogActionType |
-  AddDialogActionType;
+  AddDialogActionType |
+  PostDialogFailActionType |
+  PostDialogStartActionType;

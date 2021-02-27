@@ -16,13 +16,21 @@ import CreateDialog from "./CreateDialog/CreateDialog";
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
   const dialogs = useSelector(state => state.dialogs.items);
+  const userID = useSelector(state => state.auth.user?._id);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
+
+  const listenDialog = (dialog: DialogType) => {
+    if (dialog.author._id !== userID) {
+      dispatch(addDialog(dialog));
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchDialogs());
-    socket.on("DIALOG_CREATED", (dialog: DialogType) => {
-      dispatch(addDialog(dialog));
-    });
+    socket.on("DIALOG_CREATED", listenDialog);
+    return () => {
+      socket.removeListener("DIALOG_CREATED", listenDialog);
+    };
   }, []);
 
   const openCreatePopup = () => {
@@ -53,7 +61,7 @@ const DialogList: React.FC = () => {
       }
       {createPopupVisible && <Popup
         hide={closeCreatePopup}
-        component={<CreateDialog />}
+        component={<CreateDialog hide={closeCreatePopup} />}
       />}
     </div>
   );

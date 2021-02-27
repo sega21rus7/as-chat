@@ -1,19 +1,55 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import "./create_dialog.scss";
+import * as yup from "yup";
+import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "store/createDialog/actionCreators";
+import { fetchUsers } from "store/createDialogUsers/actionCreators";
+import { getFullName } from "tools";
 import ErrorAlert from "tools/components/ErrorAlert/ErrorAlert";
 import { useSelector } from "tools/hooks";
-import "./create_dialog.scss";
+import Avatar from "../../Avatar/Avatar";
+import { postDialog } from "store/dialogs/actionCreators";
 
-const CreateDialog: React.FC = () => {
+interface PropsType {
+  hide(): void;
+}
+interface FormValuesType {
+  message: string;
+}
+
+const validationSchema = yup.object({
+  message: yup.string().required("Это обязательное поле"),
+});
+
+const CreateDialog: React.FC<PropsType> = ({ hide }) => {
+  const [selectedUserID, setSelectedUserID] = useState("");
   const dispatch = useDispatch();
-  const users = useSelector(state => state.createDialog.users);
-  const error = useSelector(state => state.createDialog.error);
+  const users = useSelector(state => state.createDialogUsers.users);
+  const fetchUsersError = useSelector(state => state.createDialogUsers.error);
+  const postDialogError = useSelector(state => state.dialogs.postDialogError);
+
+  const formik = useFormik({
+    initialValues: {
+      message: "",
+    },
+    onSubmit: values => handleSubmit(values),
+    validationSchema,
+  });
+
+  const handleSubmit = (values: FormValuesType) => {
+    const { message } = values;
+    dispatch(postDialog(selectedUserID, message));
+    hide();
+  };
 
   useEffect(() => {
-    !users && dispatch(fetchUsers());
+    dispatch(fetchUsers());
   }, []);
+
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedUserID(e.target.value);
+  };
 
   return (
     <div className="create-dialog">
@@ -32,15 +68,43 @@ const CreateDialog: React.FC = () => {
       </div>
       <div className="create-dialog__user-list user-list">
         <div className="user-list__title">Список всех пользователей:</div>
-        {error ?
-          <ErrorAlert text={error} /> :
-          <div className="user-list__list">
-            <li className="user-list__item user-item">
-              <img src="" alt="" className="user-item__avatar" />
-              <div className="user-item__name"></div>
-            </li>
-          </div>}
+        {fetchUsersError ?
+          <ErrorAlert text={fetchUsersError} /> :
+          <div className="user-list__items">
+            {users?.map(user =>
+              <li
+                className="user-list__item user-item"
+                key={user._id}
+              >
+                <div className="user-item__body">
+                  <div className="user-item__avatar">
+                    <Avatar user={user} />
+                  </div>
+                  <div className="user-item__name">{getFullName(user)}</div>
+                </div>
+                <input
+                  type="radio"
+                  value={user._id}
+                  checked={user._id === selectedUserID}
+                  onChange={handleRadioChange}
+                />
+              </li>,
+            )}
+          </div>
+        }
       </div>
+      <form className="create-dialog__form" noValidate onSubmit={formik.handleSubmit}>
+        <input
+          type="text"
+          name="message"
+          onChange={formik.handleChange}
+          value={formik.values.message}
+          className="input create-dialog__input"
+          placeholder="Введите сообщение..."
+        />
+        <div className="auth-input__error">{formik.errors.message || postDialogError}</div>
+        <button type="submit" className="create-dialog__button">Отправить</button>
+      </form>
     </div>
   );
 };

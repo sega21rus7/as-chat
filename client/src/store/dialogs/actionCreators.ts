@@ -7,6 +7,8 @@ import {
   CommonActionType,
   SetCurrentDialogActionType,
   AddDialogActionType,
+  PostDialogFailActionType,
+  PostDialogStartActionType,
 } from "./interfaces";
 import { DialogType } from "tools/interfaces";
 import { Dispatch } from "react";
@@ -41,4 +43,27 @@ export const fetchDialogs = () => {
 
 export const addDialog = (item: DialogType): AddDialogActionType => {
   return { type: ActionTypes.ADD_DIALOG, payload: { item } };
+};
+
+const startPostDialog = (): PostDialogStartActionType => {
+  return { type: ActionTypes.POST_DIALOG_START };
+};
+
+const failPostDialog = (error: string): PostDialogFailActionType => {
+  return { type: ActionTypes.POST_DIALOG_FAIL, payload: { error } };
+};
+
+export const postDialog = (companion: string, messageText: string) => {
+  return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
+    try {
+      dispatch(startPostDialog());
+      const { dialog } = await jsonFetch("/api/chat/dialogs", {
+        companion,
+        messageText,
+      });
+      dispatch(addDialog(dialog));
+    } catch (err) {
+      dispatch(failPostDialog(err.message || err));
+    }
+  };
 };
