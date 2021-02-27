@@ -46,6 +46,15 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
   return token;
 };
 
+export const getAllUsers = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+  try {
+    const users = await User.find();
+    return res.status(200).json({ users });
+  } catch (err) {
+    handleError(res, err);
+  }
+};
+
 export const getUser = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
   try {
     const userID = (req.user as UserType)._id;
