@@ -29,7 +29,7 @@ const Message: React.FC<PropsType> = ({ text, date, author, hasRead, className }
     >
       {!my &&
         <Avatar
-          additionalClassNames={["message__avatar"]}
+          // additionalClassNames={["message__avatar"]}
           user={author}
         />
       }

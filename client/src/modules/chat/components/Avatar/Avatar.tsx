@@ -3,13 +3,11 @@ import React from "react";
 import "./avatar.scss";
 
 interface PropsType {
-  additionalClassNames?: string[];
   user: UserType;
-  additionalJSX?: JSX.Element,
+  online?: boolean,
 }
 
-const Avatar: React.FC<PropsType> = ({ user, additionalClassNames, additionalJSX }) => {
-  const classNames = additionalClassNames ? ["avatar", ...additionalClassNames] : ["avatar"];
+const Avatar: React.FC<PropsType> = ({ user, online }) => {
   const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
       return user.firstName[0].toUpperCase();
@@ -20,15 +18,15 @@ const Avatar: React.FC<PropsType> = ({ user, additionalClassNames, additionalJSX
   };
 
   return (
-    <div className={classNames.join(" ")}>
+    <div className="avatar">
       {
         user && user.avatar ?
-          <img src={user.avatar} alt="" /> :
+          <img className="avatar__image" src={user.avatar} alt="" /> :
           <div className="avatar__circle">
             <div className="avatar__letter">{getFirstLetter()}</div>
           </div>
       }
-      {additionalJSX}
+      {online && <div className="avatar__online" />}
     </div>
   );
 };

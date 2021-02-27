@@ -32,11 +32,10 @@ const DialogListItem: React.FC<PropsType> = ({ item, className }) => {
           ["dialog", className].join(" ")
       }
       onClick={handleClick}>
-      <div className="dialog-avatar dialog__avatar">
+      <div className="dialog__avatar">
         <Avatar
-          additionalClassNames={["dialog-avatar__body"]}
           user={userID === item.author._id ? item.companion : item.author}
-          additionalJSX={<div className="dialog__online" />}
+          online
         />
       </div>
       <div className="dialog__content">

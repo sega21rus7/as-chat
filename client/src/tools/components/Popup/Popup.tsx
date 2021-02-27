@@ -4,9 +4,10 @@ import closeIcon from "./assets/svg/close.svg";
 
 interface PropsType {
   hide(): void;
+  component: JSX.Element;
 }
 
-const Popup: React.FC<PropsType> = ({ hide }) => {
+const Popup: React.FC<PropsType> = ({ hide, component }) => {
   return (
     <div className="popup" onClick={hide}>
       <div className="popup__body">
@@ -22,10 +23,7 @@ const Popup: React.FC<PropsType> = ({ hide }) => {
             className="popup__close"
             onClick={hide}
           />
-          <div className="popup__title">Тест</div>
-          <div className="popup__text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae sint dolores. Ea praesentium eaque iusto cumque. Reiciendis tempora molestiae quod impedit debitis quisquam et quaerat. Voluptas cupiditate aspernatur modi.
-          </div>
+          {component}
         </div>
       </div>
     </div>

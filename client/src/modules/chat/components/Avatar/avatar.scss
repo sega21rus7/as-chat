@@ -1,7 +1,8 @@
 @import '~style/variables';
 
 .avatar {
-  img {
+  position: relative;
+  &__image {
     display: block;
     overflow: hidden;
     width: 40px;
@@ -20,5 +21,14 @@
   &__letter {
     color: white;
     font-size: 25px;
+  }
+  &__online {
+    width: 7px;
+    height: 7px;
+    background: $online;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 2px;
+    right: 3px;
   }
 }

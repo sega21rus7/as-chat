@@ -1,13 +1,5 @@
 @import '~style/variables';
 
-.dialog-avatar {
-  display: flex;
-  align-items: center;
-  &__body {
-    position: relative;
-  }
-}
-
 .dialog {
   $self: &;
   cursor: pointer;
@@ -25,21 +17,14 @@
   }
   &__avatar {
     margin: 0 10px 0 0;
+    display: flex;
+    align-items: center;
   }
   &__status {
     img {
       width: 19px;
       height: 13px;
     }
-  }
-  &__online {
-    width: 7px;
-    height: 7px;
-    background: $online;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 2px;
-    right: 3px;
   }
   &__content {
     display: flex;
@@ -67,6 +52,7 @@
     opacity: 0.7;
     display: flex;
     align-items: center;
+    text-overflow: ellipsis;
   }
   &__count {
     border: 1px solid silver;

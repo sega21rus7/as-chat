@@ -11,6 +11,7 @@ import { useSelector } from "tools/hooks";
 import { DialogType } from "tools/interfaces";
 import CreateDialogIcon from "./CreateDialogIcon/CreateDialogIcon";
 import Popup from "tools/components/Popup/Popup";
+import CreateDialog from "./CreateDialog/CreateDialog";
 
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,7 +51,10 @@ const DialogList: React.FC = () => {
           item={item}
         />)
       }
-      {createPopupVisible && <Popup hide={closeCreatePopup} />}
+      {createPopupVisible && <Popup
+        hide={closeCreatePopup}
+        component={<CreateDialog />}
+      />}
     </div>
   );
 };
