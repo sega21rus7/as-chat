@@ -6,7 +6,6 @@ import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "store/createDialogUsers/actionCreators";
 import { getFullName } from "tools";
-import ErrorAlert from "tools/components/ErrorAlert/ErrorAlert";
 import { useSelector } from "tools/hooks";
 import Avatar from "../../Avatar/Avatar";
 import { postDialog } from "store/dialogs/actionCreators";
@@ -26,8 +25,6 @@ const CreateDialog: React.FC<PropsType> = ({ hide }) => {
   const [selectedUserID, setSelectedUserID] = useState("");
   const dispatch = useDispatch();
   const users = useSelector(state => state.createDialogUsers.users);
-  const fetchUsersError = useSelector(state => state.createDialogUsers.error);
-  const postDialogError = useSelector(state => state.dialogs.postDialogError);
 
   const formik = useFormik({
     initialValues: {
@@ -68,30 +65,26 @@ const CreateDialog: React.FC<PropsType> = ({ hide }) => {
       </div>
       <div className="create-dialog__user-list user-list">
         <div className="user-list__title">Список всех пользователей:</div>
-        {fetchUsersError ?
-          <ErrorAlert text={fetchUsersError} /> :
-          <div className="user-list__items">
-            {users?.map(user =>
-              <li
-                className="user-list__item user-item"
-                key={user._id}
-              >
-                <div className="user-item__body">
-                  <div className="user-item__avatar">
-                    <Avatar user={user} />
-                  </div>
-                  <div className="user-item__name">{getFullName(user)}</div>
+        <div className="user-list__items">
+          {users?.map(user =>
+            <li
+              className="user-list__item user-item"
+              key={user._id}
+            >
+              <div className="user-item__body">
+                <div className="user-item__avatar">
+                  <Avatar user={user} />
                 </div>
-                <input
-                  type="radio"
-                  value={user._id}
-                  checked={user._id === selectedUserID}
-                  onChange={handleRadioChange}
-                />
-              </li>,
-            )}
-          </div>
-        }
+                <div className="user-item__name">{getFullName(user)}</div>
+              </div>
+              <input
+                type="radio"
+                value={user._id}
+                checked={user._id === selectedUserID}
+                onChange={handleRadioChange}
+              />
+            </li>)}
+        </div>
       </div>
       <form className="create-dialog__form" noValidate onSubmit={formik.handleSubmit}>
         <input
@@ -102,10 +95,10 @@ const CreateDialog: React.FC<PropsType> = ({ hide }) => {
           className="input create-dialog__input"
           placeholder="Введите сообщение..."
         />
-        <div className="auth-input__error">{formik.errors.message || postDialogError}</div>
+        <div className="auth-input__error">{formik.errors.message}</div>
         <button type="submit" className="create-dialog__button">Отправить</button>
       </form>
-    </div>
+    </div >
   );
 };
 

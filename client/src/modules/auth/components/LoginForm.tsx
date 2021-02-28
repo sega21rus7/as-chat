@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { Form, Input, Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { login as loginUser } from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
@@ -13,25 +12,10 @@ interface FormValuesType {
 
 const requireMes = "Это обязательное поле";
 
-const validationSchema = yup.object({
-  login: yup.string().required(requireMes),
-  password: yup.string().required(requireMes),
-});
-
 const LoginForm: React.FC = () => {
-  const [passwordInputType, setPasswordInputType] = useState("password");
   const dispatch = useDispatch();
   const error = useSelector(state => state.auth.error);
   const history = useHistory();
-
-  const formik = useFormik({
-    initialValues: {
-      login: "",
-      password: "",
-    },
-    onSubmit: values => handleSubmit(values),
-    validationSchema,
-  });
 
   const handleSubmit = (values: FormValuesType) => {
     const { login, password } = values;
@@ -41,53 +25,36 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  const switchPasswordVisibility = () => {
-    setPasswordInputType(prev => prev === "password" ? "text" : "password");
-  };
-
   return (
-    <form noValidate className="auth-form" onSubmit={formik.handleSubmit}>
-      <div className="auth-form__header">
-        <h1 className="auth-form__title">Авторизация</h1>
-        <p className="auth-form__subtitle">Пожалуйста войдите в свой аккаунт</p>
+    <div className="auth-card">
+      <div className="auth-card__header">
+        <h1 className="auth-card__title">Авторизация</h1>
+        <p className="auth-card__subtitle">Пожалуйста войдите в свой аккаунт</p>
       </div>
-      <div className="auth-form__content">
+      <Form
+        onFinish={handleSubmit}
+      >
+        <Form.Item
+          name="login"
+          rules={[{ required: true, message: requireMes }]}
+        >
+          <Input placeholder="Введите логин/e-mail" />
+        </Form.Item>
 
-        <div className="auth-form__input auth-input">
-          <input
-            className="input auth-input__body"
-            type="text"
-            name="login"
-            onChange={formik.handleChange}
-            value={formik.values.login}
-            placeholder="Введите логин/e-mail"
-          />
-          <div className="auth-input__error">{formik.errors.login}</div>
-        </div>
-
-        <div className="auth-form__input auth-input password-input">
-          <input
-            className="input auth-input__body"
-            type={passwordInputType}
-            autoComplete="on"
-            name="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-            placeholder="Введите пароль"
-          />
-          <div className="auth-input__error">{formik.errors.password}</div>
-          <div
-            className={passwordInputType === "password" ?
-              "password-input__suffix" :
-              "password-input__suffix password-input__suffix_strikethrough"}
-            onClick={switchPasswordVisibility}>
-          </div>
-        </div>
-        <button className="auth-form__btn"
-          type="submit">Войти в аккаунт</button>
-        <Link to="/registration" className="auth-form__link">Еще не зарегистрированы?</Link>
-      </div>
-    </form>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: requireMes }]}
+        >
+          <Input.Password placeholder="Введите пароль" />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            Войти в аккаунт
+          </Button>
+        </Form.Item>
+      </Form>
+      <Link to="/registration" className="auth-card__link">Еще не зарегистрированы?</Link>
+    </div>
   );
 };
 

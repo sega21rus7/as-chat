@@ -9,6 +9,7 @@ import {
   CommonActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
+import { message } from "antd";
 
 export const startAuth = (): AuthStartActionType => {
   return { type: ActionTypes.AUTH_START };
@@ -44,6 +45,7 @@ export const register = (login: string, email: string, password: string, repeatP
       });
       dispatch(regSuccess(user));
     } catch (err) {
+      message.error(err.message || err);
       dispatch(failAuth(err.message || err));
     }
   };
@@ -58,6 +60,7 @@ export const login = (login: string, password: string) => {
       });
       dispatch(loginSuccess(user));
     } catch (err) {
+      message.error(err.message || err);
       dispatch(failAuth(err.message || err));
     }
   };
