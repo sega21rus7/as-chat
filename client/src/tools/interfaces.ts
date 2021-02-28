@@ -1,6 +1,6 @@
 export interface UserType {
   roles: string[];
-  _id?: string;
+  _id: string;
   email: string;
   login: string;
   createdAt: Date;
