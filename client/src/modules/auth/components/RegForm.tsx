@@ -34,6 +34,7 @@ const RegForm: React.FC = () => {
         <p className="auth-card__subtitle">Пожалуйста зарегистрируйтесь</p>
       </div>
       <Form
+        className="auth-form"
         onFinish={handleSubmit}
       >
         <Form.Item
@@ -85,7 +86,7 @@ const RegForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+          <Button type="primary" htmlType="submit">
             Зарегистрироваться
           </Button>
         </Form.Item>

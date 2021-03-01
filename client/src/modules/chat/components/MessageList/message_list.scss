@@ -47,6 +47,17 @@
       margin: 0 0 0 2px;
     }
   }
+  &__body {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  &__items {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 }
 
 .message-online-icon {

@@ -9,9 +9,8 @@ import { useDispatch } from "react-redux";
 import { addDialog, fetchDialogs } from "store/dialogs/actionCreators";
 import { useSelector } from "tools/hooks";
 import { DialogType } from "tools/interfaces";
-import CreateDialogIcon from "./CreateDialogIcon/CreateDialogIcon";
-import Popup from "tools/components/Popup/Popup";
-import CreateDialog from "./CreateDialog/CreateDialog";
+import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
+import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,12 +42,9 @@ const DialogList: React.FC = () => {
   return (
     <div className="dialog-list">
       <div className="dialog-list__header">
-        <BurgerIcon className="dialog-list__burger-icon" />
-        <SearchForm className="dialog-list__search-form" />
-        <CreateDialogIcon
-          className="dialog-list__create-dialog-icon"
-          openCreatePopup={openCreatePopup}
-        />
+        <BurgerIcon />
+        <SearchForm />
+        <CreateDialogButton openCreatePopup={openCreatePopup} />
       </div>
       {
         dialogs.sort((a, b) => {
@@ -59,10 +55,7 @@ const DialogList: React.FC = () => {
           item={item}
         />)
       }
-      {createPopupVisible && <Popup
-        hide={closeCreatePopup}
-        component={<CreateDialog hide={closeCreatePopup} />}
-      />}
+      <CreateDialogPopup visible={createPopupVisible} hide={closeCreatePopup} />
     </div>
   );
 };

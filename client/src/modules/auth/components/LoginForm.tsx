@@ -32,6 +32,7 @@ const LoginForm: React.FC = () => {
         <p className="auth-card__subtitle">Пожалуйста войдите в свой аккаунт</p>
       </div>
       <Form
+        className="auth-form"
         onFinish={handleSubmit}
       >
         <Form.Item
@@ -48,7 +49,7 @@ const LoginForm: React.FC = () => {
           <Input.Password placeholder="Введите пароль" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+          <Button type="primary" htmlType="submit">
             Войти в аккаунт
           </Button>
         </Form.Item>

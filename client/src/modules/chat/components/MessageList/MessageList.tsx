@@ -67,14 +67,16 @@ const MessageList: React.FC = () => {
         </div>
       </div>
       <div className="message-list__body">
-        {messages.map(m => <Message
-          key={m._id}
-          text={m.text}
-          date={m.updatedAt}
-          author={m.author}
-          hasRead={m.hasRead}
-          className="message-list__item"
-        />)}
+        <div className="message-list__items">
+          {messages.map(m => <Message
+            key={m._id}
+            text={m.text}
+            date={m.updatedAt}
+            author={m.author}
+            hasRead={m.hasRead}
+            className="message-list__item"
+          />)}
+        </div>
         <CreateMessageForm />
       </div>
     </div>

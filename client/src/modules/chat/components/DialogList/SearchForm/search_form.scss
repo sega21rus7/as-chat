@@ -1,18 +1,3 @@
-.search-form-input {
-  position: relative;
-  &::after {
-    content: '';
-    width: 15px;
-    height: 15px;
-    background: url('./assets/svg/search.svg');
-    position: absolute;
-    top: 7.5px;
-    right: 5px;
-    opacity: 0.4; 
-  }
-  &__body {
-    width: 100%;
-    padding: 4px 25px 4px 8px;
-    height: 30px;
-  }
+.search-input {
+  margin: 0 10px 0 0;
 }

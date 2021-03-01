@@ -1,18 +1,17 @@
-.create-message-form-input {
-  padding: 4px 8px;
-  height: 40px;
-  width: 100%;
-}
-
 .create-message-form {
   display: flex;
-  &__input {
-    flex: 1 0 auto;
-    margin: 0 5px 0 0;
+  .ant-row {
+    margin: 0;
   }
-  &__button {
-    padding: 0 5px 0 0;
-    background: transparent;
+  .ant-btn {
+    border: 0;
+    padding: 0;
+  }
+  .ant-form-item:first-child {
+    margin: 0 10px 0 0;
+    flex: 1 0 auto;
+  }
+  &__submit {
     img {
       height: 30px;
       width: 30px;
