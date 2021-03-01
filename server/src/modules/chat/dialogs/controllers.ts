@@ -20,7 +20,7 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
     if (!req.body.companion) {
       throw new Error("Отсутствует собеседник для диалога!");
     }
-    if (!req.body.messageText) {
+    if (!req.body.messageText && !req.body.messageText.trim()) {
       throw new Error("Сообщение не может быть пустым!");
     }
     const dialog = new Dialog({
