@@ -1,18 +1,24 @@
 import React from "react";
+import "./burger_menu.scss";
 import { useDispatch } from "react-redux";
 import { Drawer } from "antd";
 import { SettingOutlined, ProfileOutlined, LogoutOutlined } from "@ant-design/icons";
-import "./burger_menu.scss";
 import { closeMenu } from "store/burgerMenu/actionCreators";
 import { useSelector } from "tools/hooks";
 import Avatar from "../Avatar/Avatar";
 import { getFullName } from "tools";
 import blackMoonImage from "./assets/svg/moon_black.svg";
+import { logout as storeLogout } from "store/auth/actionCreators";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
   const active = useSelector(state => state.burgerMenu.active);
   const user = useSelector(state => state.auth.user);
+
+  const logout = () => {
+    dispatch(closeMenu());
+    dispatch(storeLogout());
+  };
 
   return (
     <div className="div">
@@ -58,7 +64,7 @@ const BurgerMenu: React.FC = () => {
                 Ночной режим
               </p>
             </li>
-            <li className="burger-menu-item">
+            <li className="burger-menu-item" onClick={logout}>
               <div className="burger-menu-item__image-wrapper">
                 <LogoutOutlined className="burger-menu-item__image" />
               </div>

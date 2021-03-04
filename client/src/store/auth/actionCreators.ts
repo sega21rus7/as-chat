@@ -6,10 +6,12 @@ import {
   AuthFailActionType,
   RegistrationSuccessActionType,
   LoginSuccessActionType,
+  LogoutActionType,
   CommonActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
 import { message } from "antd";
+import { removeToken } from "tools";
 
 export const startAuth = (): AuthStartActionType => {
   return { type: ActionTypes.AUTH_START };
@@ -33,6 +35,13 @@ const loginSuccess = (user: UserType): LoginSuccessActionType => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
     payload: { user },
+  };
+};
+
+export const logout = (): LogoutActionType => {
+  removeToken();
+  return {
+    type: ActionTypes.LOGOUT,
   };
 };
 

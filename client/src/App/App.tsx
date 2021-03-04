@@ -12,7 +12,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user && token) {
+    if (token && !user) {
       dispatch(fetchUser());
     }
   });

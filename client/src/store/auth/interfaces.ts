@@ -4,7 +4,8 @@ export enum ActionTypes {
   AUTH_START = "AUTH:AUTH_START",
   AUTH_FAIL = "AUTH:AUTH_FAIL",
   REGISTRATION_SUCCESS = "AUTH:REGISTRATION_SUCCESS",
-  LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS"
+  LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS",
+  LOGOUT = "AUTH:LOGOUT",
 }
 
 export interface StateType {
@@ -37,8 +38,13 @@ export interface LoginSuccessActionType {
   }
 }
 
+export interface LogoutActionType {
+  type: ActionTypes.LOGOUT
+}
+
 export type CommonActionType =
   AuthStartActionType |
   AuthFailActionType |
   RegistrationSuccessActionType |
-  LoginSuccessActionType;
+  LoginSuccessActionType |
+  LogoutActionType;
