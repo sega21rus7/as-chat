@@ -1,44 +1,10 @@
 @import '~style/variables';
 
 .burger-menu {
-  left: 0;
-  top: 0;
-  height: 100vh;
-  position: fixed;
-  width: 20vw;
-  z-index: 999;
-  background: whitesmoke;
-  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
-  transform: translateX(-100%);
-  transition: all 0.3s;
-  &_active {
-    transform: translateX(0);
+  .ant-drawer-body {
+    padding: 0;
   }
-  &__body {
-    height: 100%;
-    transition: all 0.4s;
-  }
-  &__list {
-    margin: 20px;
-    li {
-      opacity: 0.8;
-      font-size: 20px;
-      margin: 0 0 10px 0;
-      cursor: pointer;
-      img {
-        height: 19px;
-        width: 19px;
-        margin: 0 10px 0 0;
-      }
-    }
-  }
-  &__shade {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    background: rgba(0,0,0,.3);
-    left: 20vw;
-  }
+  position: absolute;
   &__header {
     height: 100px;
     padding: 20px;
@@ -47,7 +13,22 @@
   &__title {
     color: white;
   }
-  &__avatar {
-    margin: 0 0 10px 0;
+  &__list {
+    padding: 15px;
+  }
+}
+
+.burger-menu-item {
+  cursor: pointer;
+  display: flex;
+  margin: 0 0 10px 0;
+  &__image-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  &__image {
+    width: 14px;
+    height: 14px;
+    margin: 0 10px 0 0;
   }
 }
