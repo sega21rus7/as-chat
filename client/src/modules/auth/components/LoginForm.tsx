@@ -46,7 +46,7 @@ const LoginForm: React.FC = () => {
           name="password"
           rules={[{ required: true, message: requireMes }]}
         >
-          <Input.Password placeholder="Введите пароль" />
+          <Input.Password autoComplete="on" placeholder="Введите пароль" />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">

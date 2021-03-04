@@ -64,7 +64,7 @@ const RegForm: React.FC = () => {
             { min: 5, message: "Минимальная длина пароля 5 символов" },
           ]}
         >
-          <Input.Password placeholder="Придумайте пароль" />
+          <Input.Password autoComplete="on" placeholder="Придумайте пароль" />
         </Form.Item>
 
         <Form.Item
@@ -82,7 +82,7 @@ const RegForm: React.FC = () => {
             }),
           ]}
         >
-          <Input.Password placeholder="Повторите пароль" />
+          <Input.Password autoComplete="on" placeholder="Повторите пароль" />
         </Form.Item>
 
         <Form.Item>
