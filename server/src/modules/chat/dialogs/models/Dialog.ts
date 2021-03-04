@@ -14,7 +14,6 @@ const dialogSchema = new Schema({
     ref: "User",
   },
   companion: {
-    unique: true,
     required: true,
     type: Schema.Types.ObjectId,
     ref: "User",

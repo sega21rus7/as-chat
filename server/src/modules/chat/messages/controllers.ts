@@ -37,8 +37,7 @@ export const getMessages = async (req: CustomRequest, res: express.Response): Pr
 
 export const createMessage = async (req: CreateRequestType, res: express.Response): Promise<unknown> => {
   try {
-    console.log("req.body.text", req.body.text.trim());
-    if (!req.body.text && !req.body.text.trim()) {
+    if (!req.body.text || !req.body.text.trim()) {
       throw new Error("Текст сообщения не может быть пустым!");
     }
     if (!req.body.dialog) {
