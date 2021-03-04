@@ -51,7 +51,7 @@ const CreateDialogPopup: React.FC<PropsType> = ({ visible, hide }) => {
     <Modal
       className="create-dialog-popup"
       visible={visible}
-      title="Список пользователей"
+      title="Новое сообщение"
       okText="Отправить"
       cancelText="Закрыть"
       onCancel={hide}
