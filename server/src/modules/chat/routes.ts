@@ -13,13 +13,13 @@ import {
 
 const router = express.Router();
 
-router.get("/:dialogID", getMessagesController);
-router.post("/", createMessageController);
-router.put("/:id", editMessageController);
-router.delete("/:id", deleteMessageController);
+router.get("/messages/:dialogID", getMessagesController);
+router.post("/messages/", createMessageController);
+router.put("/messages/:id", editMessageController);
+router.delete("/messages/:id", deleteMessageController);
 
-router.get("/", getDialogsController);
-router.post("/", createDialogController);
-router.delete("/:dialogID", deleteDialogController);
+router.get("/dialogs", getDialogsController);
+router.post("/dialogs", createDialogController);
+router.delete("/dialogs/:dialogID", deleteDialogController);
 
 export default router;
