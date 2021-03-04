@@ -80,7 +80,7 @@ const CreateDialogPopup: React.FC<PropsType> = ({ visible, hide }) => {
 
       <Form form={form}>
         <Form.Item
-          name="text"
+          name="message"
           rules={[{ required: true, message: "Эот обязательное поле" }]}
         >
           <Input placeholder="Введите текст сообщения..." />
