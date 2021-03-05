@@ -13,8 +13,6 @@ export const getFiltetedDialogs = (state: StateType, currentUserID: string | und
     [getFilter, getDialogs],
     (filter, dialogs) => {
       if (!filter || !currentUserID) { return; }
-      console.log("dialogs", dialogs);
-      console.log("filter", filter);
       switch (filter.type) {
         case FilterTypes.SHOW_ALL: {
           return dialogs;
@@ -22,7 +20,7 @@ export const getFiltetedDialogs = (state: StateType, currentUserID: string | und
         case FilterTypes.SHOW_BY_FULLNAME: {
           return dialogs.filter(d => {
             const dialogAuthor = currentUserID === d.author._id ? d.companion : d.author;
-            return getFullName(dialogAuthor, { includeMiddleName: true }).includes(filter.key);
+            return getFullName(dialogAuthor).includes(filter.key);
           },
           );
         }

@@ -50,13 +50,10 @@ export const getToken = (): string => {
   return cookies.get("jwt") || "";
 };
 
-export const getFullName = (user: UserType, { includeMiddleName = false } = {}) => {
+export const getFullName = (user: UserType) => {
   let res = "";
   if (user.firstName || user.lastName || user.middleName) {
     res = `${user.firstName || ""} ${user.lastName || ""}`;
-    if (user.middleName && includeMiddleName) {
-      res = `${res} ${user.middleName}`;
-    }
   }
   return res || user.login;
 };
