@@ -8,6 +8,12 @@ export enum ActionTypes {
   ADD_DIALOG = "DIALOGS:ADD_DIALOG",
   POST_DIALOG_START = "DIALOGS:POST_DIALOG_START",
   POST_DIALOG_FAIL = "DIALOGS:POST_DIALOG_FAIL",
+  FILTER = "DIALOGS:FILTER",
+}
+
+export enum FilterTypes {
+  SHOW_ALL = "SHOW_ALL",
+  SHOW_BY_FULLNAME = "SHOW_BY_FULLNAME",
 }
 
 export interface StateType {
@@ -15,6 +21,10 @@ export interface StateType {
   fetchDialogsError: string;
   currentDialog: DialogType | null;
   postDialogError: string;
+  filter: {
+    type: FilterTypes;
+    key: string;
+  };
 }
 
 export interface SetCurrentDialogActionType {
@@ -60,6 +70,14 @@ export interface PostDialogFailActionType {
   }
 }
 
+export interface FilterActionType {
+  type: ActionTypes.FILTER,
+  payload: {
+    type: FilterTypes;
+    key: string;
+  }
+}
+
 export type CommonActionType =
   FetchDialogsStartActionType |
   FetchDialogsSuccessActionType |
@@ -67,4 +85,5 @@ export type CommonActionType =
   SetCurrentDialogActionType |
   AddDialogActionType |
   PostDialogFailActionType |
-  PostDialogStartActionType;
+  PostDialogStartActionType |
+  FilterActionType;

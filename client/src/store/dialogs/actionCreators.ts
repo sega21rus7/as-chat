@@ -9,6 +9,8 @@ import {
   AddDialogActionType,
   PostDialogFailActionType,
   PostDialogStartActionType,
+  FilterActionType,
+  FilterTypes,
 } from "./interfaces";
 import { DialogType } from "tools/interfaces";
 import { Dispatch } from "react";
@@ -45,6 +47,20 @@ export const addDialog = (item: DialogType): AddDialogActionType => {
   return { type: ActionTypes.ADD_DIALOG, payload: { item } };
 };
 
+export const showByFullName = (key: string): FilterActionType => {
+  return {
+    type: ActionTypes.FILTER,
+    payload: { type: FilterTypes.SHOW_BY_FULLNAME, key },
+  };
+};
+
+export const showAll = (): FilterActionType => {
+  return {
+    type: ActionTypes.FILTER,
+    payload: { type: FilterTypes.SHOW_ALL, key: "" },
+  };
+};
+
 const startPostDialog = (): PostDialogStartActionType => {
   return { type: ActionTypes.POST_DIALOG_START };
 };
@@ -67,3 +83,4 @@ export const postDialog = (companion: string, messageText: string) => {
     }
   };
 };
+

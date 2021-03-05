@@ -7,6 +7,7 @@ import SearchForm from "./SearchForm/SearchForm";
 import BurgerIcon from "./BurgerIcon/BurgerIcon";
 import { useDispatch } from "react-redux";
 import { addDialog, fetchDialogs } from "store/dialogs/actionCreators";
+import { getFiltetedDialogs } from "store/dialogs/selectors";
 import { useSelector } from "tools/hooks";
 import { DialogType } from "tools/interfaces";
 import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
@@ -14,8 +15,8 @@ import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
-  const dialogs = useSelector(state => state.dialogs.items);
   const userID = useSelector(state => state.auth.user?._id);
+  const dialogs = useSelector(state => getFiltetedDialogs(state.dialogs, userID));
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
   const listenDialog = (dialog: DialogType) => {
@@ -47,7 +48,7 @@ const DialogList: React.FC = () => {
         <CreateDialogButton openCreatePopup={openCreatePopup} />
       </div>
       {
-        dialogs.sort((a, b) => {
+        dialogs && dialogs.sort((a, b) => {
           return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
         }).map(item => <Dialog
           className="dialog-list__item"

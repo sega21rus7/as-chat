@@ -1,11 +1,15 @@
 /* eslint-disable indent */
-import { StateType, CommonActionType, ActionTypes } from "./interfaces";
+import { StateType, CommonActionType, ActionTypes, FilterTypes } from "./interfaces";
 
 const initialState: StateType = {
   items: [],
   fetchDialogsError: "",
   currentDialog: null,
   postDialogError: "",
+  filter: {
+    key: "",
+    type: FilterTypes.SHOW_ALL,
+  },
 };
 
 const dialogsReducer = (state = initialState, action: CommonActionType): StateType => {
@@ -20,6 +24,8 @@ const dialogsReducer = (state = initialState, action: CommonActionType): StateTy
       return { ...state, items: [...state.items, action.payload.item] };
     case ActionTypes.POST_DIALOG_FAIL:
       return { ...state, postDialogError: action.payload.error };
+    case ActionTypes.FILTER:
+      return { ...state, filter: { ...action.payload } };
     default:
       return state;
   }
