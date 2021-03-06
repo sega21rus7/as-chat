@@ -2,25 +2,25 @@
 import express from "express";
 import { handleError } from "tools";
 import Message from "./models/Message";
-import { UserType } from "modules/auth/models/User";
+import { IUser } from "modules/auth/models/User";
 import mongoose from "mongoose";
 import Dialog from "../dialogs/models/Dialog";
-import { CustomRequest } from "tools/interfaces";
+import { IRequest } from "tools/interfaces";
 
-interface EditRequestType extends CustomRequest {
+interface IEditRequest extends IRequest {
   body: {
     text: string;
   }
 }
 
-interface CreateRequestType extends EditRequestType {
+interface ICreateRequest extends IEditRequest {
   body: {
     text: string;
     dialog: string;
   }
 }
 
-export const getMessages = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const getMessages = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");
@@ -35,7 +35,7 @@ export const getMessages = async (req: CustomRequest, res: express.Response): Pr
   }
 };
 
-export const createMessage = async (req: CreateRequestType, res: express.Response): Promise<unknown> => {
+export const createMessage = async (req: ICreateRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.body.text || !req.body.text.trim()) {
       throw new Error("Текст сообщения не может быть пустым!");
@@ -43,7 +43,7 @@ export const createMessage = async (req: CreateRequestType, res: express.Respons
     if (!req.body.dialog) {
       throw new Error("Не указан диалог!");
     }
-    const userID = (req.user as UserType)._id;
+    const userID = (req.user as IUser)._id;
     const message = new Message({
       author: userID,
       text: req.body.text,
@@ -62,7 +62,7 @@ export const createMessage = async (req: CreateRequestType, res: express.Respons
   }
 };
 
-export const editMessage = async (req: EditRequestType, res: express.Response): Promise<unknown> => {
+export const editMessage = async (req: IEditRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.id) {
       throw new Error("ID сообщения не может быть пустым!");
@@ -81,7 +81,7 @@ export const editMessage = async (req: EditRequestType, res: express.Response): 
   }
 };
 
-export const deleteMessage = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const deleteMessage = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.id) {
       throw new Error("ID сообщения не может быть пустым!");

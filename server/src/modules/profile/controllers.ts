@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import User from "modules/auth/models/User";
 import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
-import { CustomRequest } from "tools/interfaces";
+import { IRequest } from "tools/interfaces";
 
-interface ChangePasswordRequestType extends CustomRequest {
+interface IChangePasswordRequest extends IRequest {
   body: {
     old_password: string,
     password1: string,
@@ -12,7 +12,7 @@ interface ChangePasswordRequestType extends CustomRequest {
   }
 }
 
-export const editUser = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const editUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     await User.updateOne({ _id }, req.body);
@@ -22,7 +22,7 @@ export const editUser = async (req: CustomRequest, res: express.Response): Promi
   }
 };
 
-export const getUserInfo = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const getUserInfo = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     const user = await User.findOne({ _id });
@@ -32,7 +32,7 @@ export const getUserInfo = async (req: CustomRequest, res: express.Response): Pr
   }
 };
 
-export const changePassword = async (req: ChangePasswordRequestType, res: express.Response): Promise<unknown> => {
+export const changePassword = async (req: IChangePasswordRequest, res: express.Response): Promise<unknown> => {
   try {
     if (req.body.password1 !== req.body.password2) {
       return res.status(400).end("Пароли должны совпадать!");

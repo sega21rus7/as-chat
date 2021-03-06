@@ -1,7 +1,7 @@
 import { Schema, Document, model } from "mongoose";
 import { UserRoles } from "./Role";
 
-export interface UserType extends Document {
+export interface IUser extends Document {
   login: string,
   email: string,
   password: string;
@@ -44,4 +44,4 @@ const userSchema = new Schema({
     }],
 }, { timestamps: true });
 
-export default model<UserType & Document>("User", userSchema);
+export default model<IUser & Document>("User", userSchema);

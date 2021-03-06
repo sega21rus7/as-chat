@@ -1,6 +1,6 @@
 import { Schema, Document, model } from "mongoose";
 
-interface DialogType extends Document {
+interface IDialog extends Document {
   _id: Schema.Types.ObjectId;
   author: Schema.Types.ObjectId;
   companion: Schema.Types.ObjectId;
@@ -24,4 +24,4 @@ const dialogSchema = new Schema({
   }],
 }, { timestamps: true });
 
-export default model<DialogType & Document>("Dialog", dialogSchema);
+export default model<IDialog & Document>("Dialog", dialogSchema);

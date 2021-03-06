@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import express from "express";
 import mongoose from "mongoose";
-import { UserType } from "modules/auth/models/User";
+import { IUser } from "modules/auth/models/User";
 import { handleError } from "tools";
 import Message from "../messages/models/Message";
 import Dialog from "./models/Dialog";
-import { CustomRequest } from "tools/interfaces";
+import { IRequest } from "tools/interfaces";
 
-interface CreateRequestType extends CustomRequest {
+interface ICreateRequest extends IRequest {
   body: {
     companion: string;
     messageText: string;
   }
 }
 
-export const createDialog = async (req: CreateRequestType, res: express.Response): Promise<unknown> => {
+export const createDialog = async (req: ICreateRequest, res: express.Response): Promise<unknown> => {
   try {
-    const userID = (req.user as UserType)._id;
+    const userID = (req.user as IUser)._id;
     if (!req.body.companion) {
       throw new Error("Отсутствует собеседник для диалога!");
     }
@@ -53,9 +53,9 @@ export const createDialog = async (req: CreateRequestType, res: express.Response
   }
 };
 
-export const getDialogs = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const getDialogs = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
-    const userID = (req.user as UserType)._id;
+    const userID = (req.user as IUser)._id;
     const dialogs = await Dialog.find(
       {
         // @ts-ignore
@@ -74,7 +74,7 @@ export const getDialogs = async (req: CustomRequest, res: express.Response): Pro
   }
 };
 
-export const deleteDialog = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const deleteDialog = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");

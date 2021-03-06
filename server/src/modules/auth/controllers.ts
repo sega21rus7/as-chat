@@ -5,18 +5,18 @@ import User from "./models/User";
 import Role from "./models/Role";
 import config from "config";
 import { handleError, generatePassword, isPasswordsEqual } from "tools";
-import { UserType } from "./models/User";
+import { IUser } from "./models/User";
 import { UserRoles } from "./models/Role";
-import { CustomRequest } from "tools/interfaces";
+import { IRequest } from "tools/interfaces";
 
-interface LoginRequestType extends CustomRequest {
+interface ILoginRequest extends IRequest {
   body: {
     login: string;
     password: string;
   }
 }
 
-interface RegRequestType extends LoginRequestType {
+interface IRegRequest extends ILoginRequest {
   body: {
     login: string;
     email: string;
@@ -28,7 +28,7 @@ interface RegRequestType extends LoginRequestType {
   }
 }
 
-const generateTokenAndWriteToCookie = (user: UserType, response: express.Response) => {
+const generateTokenAndWriteToCookie = (user: IUser, response: express.Response) => {
   // генерируем токен
   const token = jwt.sign({
     _id: user._id,
@@ -46,7 +46,7 @@ const generateTokenAndWriteToCookie = (user: UserType, response: express.Respons
   return token;
 };
 
-export const getAllUsers = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const getAllUsers = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     const userID = req.user?._id;
     const users = await User.find({ _id: { $nin: [mongoose.Types.ObjectId(userID)] } });
@@ -56,9 +56,9 @@ export const getAllUsers = async (req: CustomRequest, res: express.Response): Pr
   }
 };
 
-export const getUser = async (req: CustomRequest, res: express.Response): Promise<unknown> => {
+export const getUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
-    const userID = (req.user as UserType)._id;
+    const userID = (req.user as IUser)._id;
     const user = await User.findOne({ _id: mongoose.Types.ObjectId(userID) });
     return res.status(200).json({ user });
   } catch (err) {
@@ -66,7 +66,7 @@ export const getUser = async (req: CustomRequest, res: express.Response): Promis
   }
 };
 
-export const login = async (req: LoginRequestType, res: express.Response): Promise<unknown> => {
+export const login = async (req: ILoginRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.body.password || !req.body.login) {
       throw new Error("Отсутствуют обязательные поля!");
@@ -90,7 +90,7 @@ export const login = async (req: LoginRequestType, res: express.Response): Promi
   }
 };
 
-export const register = async (req: RegRequestType, res: express.Response): Promise<unknown> => {
+export const register = async (req: IRegRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.body.password || !req.body.login || !req.body.repeatPassword || !req.body.email) {
       throw new Error("Отсутствуют обязательные поля!");

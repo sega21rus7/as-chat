@@ -5,7 +5,7 @@ export enum UserRoles {
   user = "user",
 }
 
-interface RoleType extends Document {
+interface IRole extends Document {
   name: UserRoles.admin | UserRoles.user;
 }
 
@@ -17,4 +17,4 @@ const roleSchema = new Schema({
   },
 }, { timestamps: true });
 
-export default model<RoleType & Document>("Role", roleSchema);
+export default model<IRole & Document>("Role", roleSchema);

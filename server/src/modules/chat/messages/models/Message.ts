@@ -1,6 +1,6 @@
 import { Schema, Document, model } from "mongoose";
 
-interface MessageType extends Document {
+interface IMessage extends Document {
   _id: Schema.Types.ObjectId;
   author: Schema.Types.ObjectId;
   text: string;
@@ -29,4 +29,4 @@ const messageSchema = new Schema({
   },
 }, { timestamps: true });
 
-export default model<MessageType & Document>("Message", messageSchema);
+export default model<IMessage & Document>("Message", messageSchema);

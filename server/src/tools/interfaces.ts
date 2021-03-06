@@ -1,9 +1,9 @@
 import express from "express";
 import socketIO from "socket.io";
-import { UserType } from "modules/auth/models/User";
+import { IUser } from "modules/auth/models/User";
 
-export interface CustomRequest extends express.Request {
-  user?: UserType;
+export interface IRequest extends express.Request {
+  user?: IUser;
   io?: socketIO.Server;
 }
 
