@@ -30,7 +30,7 @@ export interface StateType {
 export interface SetCurrentDialogActionType {
   type: ActionTypes.SET_CURRENT_DIALOG;
   payload: {
-    dialog: DialogType;
+    dialog: DialogType | null;
   }
 }
 

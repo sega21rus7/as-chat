@@ -5,6 +5,7 @@ export enum ActionTypes {
   FETCH_MESSAGES_FAIL = "MESSAGES:FETCH_MESSAGES_FAIL",
   FETCH_MESSAGES_SUCCESS = "MESSAGES:FETCH_MESSAGES_SUCCESS",
   ADD_MESSAGE = "MESSAGES:ADD_MESSAGE",
+  RESET_MESSAGES = "MESSAGES:RESET_MESSAGES",
   POST_MESSAGE_START = "MESSAGES:POST_MESSAGE_START",
   POST_MESSAGE_FAIL = "MESSAGES:POST_MESSAGE_FAIL",
 }
@@ -51,10 +52,15 @@ export interface PostMessageFailActionType {
   }
 }
 
+export interface ResetMessagesActionType {
+  type: ActionTypes.RESET_MESSAGES,
+}
+
 export type CommonActionType =
   FetchMessagesStartActionType |
   FetchMessagesSuccessActionType |
   FetchMessagesFailtActionType |
   AddMessageActionType |
   PostMessageStartActionType |
-  PostMessageFailActionType;
+  PostMessageFailActionType |
+  ResetMessagesActionType;

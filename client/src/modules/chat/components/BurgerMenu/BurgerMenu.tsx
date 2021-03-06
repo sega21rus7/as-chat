@@ -9,6 +9,8 @@ import Avatar from "../Avatar/Avatar";
 import { getFullName } from "tools";
 import blackMoonImage from "./assets/svg/moon_black.svg";
 import { logout as storeLogout } from "store/auth/actionCreators";
+import { setCurrentDialog } from "store/dialogs/actionCreators";
+import { resetMessages } from "store/messages/actionCreators";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ const BurgerMenu: React.FC = () => {
 
   const logout = () => {
     dispatch(closeMenu());
+    dispatch(resetMessages());
+    dispatch(setCurrentDialog(null));
     dispatch(storeLogout());
   };
 

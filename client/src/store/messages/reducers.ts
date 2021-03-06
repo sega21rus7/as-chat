@@ -14,9 +14,12 @@ const messagesReducer = (state = initialState, action: CommonActionType): StateT
     case ActionTypes.FETCH_MESSAGES_SUCCESS:
       return { ...state, items: action.payload.items };
     case ActionTypes.ADD_MESSAGE:
+      if (!state.items) { return state; }
       return { ...state, items: [...state.items, action.payload.item] };
     case ActionTypes.POST_MESSAGE_FAIL:
       return { ...state, postMessageError: action.payload.error };
+    case ActionTypes.RESET_MESSAGES:
+      return initialState;
     default:
       return state;
   }

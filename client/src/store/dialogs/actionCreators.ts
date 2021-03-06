@@ -27,7 +27,7 @@ const successFetchDialogs = (items: DialogType[]): FetchDialogsSuccessActionType
   return { type: ActionTypes.FETCH_DIALOGS_SUCCESS, payload: { items } };
 };
 
-export const setCurrentDialog = (dialog: DialogType): SetCurrentDialogActionType => {
+export const setCurrentDialog = (dialog: DialogType | null): SetCurrentDialogActionType => {
   return { type: ActionTypes.SET_CURRENT_DIALOG, payload: { dialog } };
 };
 

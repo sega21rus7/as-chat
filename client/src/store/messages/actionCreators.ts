@@ -8,6 +8,7 @@ import {
   AddMessageActionType,
   PostMessageStartActionType,
   PostMessageFailActionType,
+  ResetMessagesActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
 import { MessageType } from "tools/interfaces";
@@ -63,4 +64,8 @@ export const fetchMessages = (dialogID: string) => {
       dispatch(failFetchDialogs(err.message || err));
     }
   };
+};
+
+export const resetMessages = (): ResetMessagesActionType => {
+  return { type: ActionTypes.RESET_MESSAGES };
 };
