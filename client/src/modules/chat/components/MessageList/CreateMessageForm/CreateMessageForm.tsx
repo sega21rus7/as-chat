@@ -3,7 +3,7 @@ import "./create_message_form.scss";
 import { Form, Input, Button } from "antd";
 import image from "./assets/svg/send.svg";
 import { useDispatch } from "react-redux";
-import { postMessage } from "store/messages/actionCreators";
+import { postMessage } from "store/messages/thunkCreators";
 import { useSelector } from "tools/hooks";
 
 interface FormValuesType {

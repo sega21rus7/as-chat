@@ -1,5 +1,6 @@
 /* eslint-disable indent */
-import { CommonActionType, ActionTypes } from "./interfaces";
+import { ActionTypes } from "./actionTypes";
+import { ActionCreatorTypes } from "./types";
 
 const initialState = {
   active: false,
@@ -7,7 +8,7 @@ const initialState = {
 
 type StateType = typeof initialState;
 
-const burgerMenuReducer = (state = initialState, action: CommonActionType): StateType => {
+const burgerMenuReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.OPEN:
       return { active: true };

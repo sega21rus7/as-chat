@@ -3,14 +3,14 @@ import "./burger_menu.scss";
 import { useDispatch } from "react-redux";
 import { Drawer } from "antd";
 import { SettingOutlined, ProfileOutlined, LogoutOutlined } from "@ant-design/icons";
-import { closeMenu } from "store/burgerMenu/actionCreators";
+import burgerMenuАctionCreators from "store/burgerMenu/actionCreators";
 import { useSelector } from "tools/hooks";
 import Avatar from "../Avatar/Avatar";
 import { getFullName } from "tools";
 import blackMoonImage from "./assets/svg/moon_black.svg";
-import { logout as storeLogout } from "store/auth/actionCreators";
-import { setCurrentDialog } from "store/dialogs/actionCreators";
-import { resetMessages } from "store/messages/actionCreators";
+import authАctionCreators from "store/auth/actionCreators";
+import dialogsActionCreators from "store/dialogs/actionCreators";
+import messagesActionCreators from "store/messages/actionCreators";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
@@ -18,10 +18,10 @@ const BurgerMenu: React.FC = () => {
   const user = useSelector(state => state.auth.user);
 
   const logout = () => {
-    dispatch(closeMenu());
-    dispatch(resetMessages());
-    dispatch(setCurrentDialog(null));
-    dispatch(storeLogout());
+    dispatch(burgerMenuАctionCreators.closeMenu());
+    dispatch(messagesActionCreators.resetMessages());
+    dispatch(dialogsActionCreators.setCurrentDialog(null));
+    dispatch(authАctionCreators.logout());
   };
 
   return (
@@ -30,7 +30,7 @@ const BurgerMenu: React.FC = () => {
         className="burger-menu"
         placement="left"
         closable={false}
-        onClose={() => dispatch(closeMenu())}
+        onClose={() => dispatch(burgerMenuАctionCreators.closeMenu())}
         visible={active}
         getContainer={false}
       >

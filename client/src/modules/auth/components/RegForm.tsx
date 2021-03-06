@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { register } from "store/auth/actionCreators";
+import { register } from "store/auth/thunkCreators";
 import { useSelector } from "tools/hooks";
 
 interface IFormValues {

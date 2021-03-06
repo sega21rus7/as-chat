@@ -1,7 +1,8 @@
 /* eslint-disable indent */
-import { CommonActionType, ActionTypes } from "./interfaces";
+import { ActionTypes } from "./actionTypes";
 import { IUser } from "tools/interfaces";
 import { Nullable } from "tools/types";
+import { ActionCreatorTypes } from "./types";
 
 const initialState = {
   user: null as Nullable<IUser>,
@@ -11,7 +12,7 @@ const initialState = {
 
 type StateType = typeof initialState;
 
-const authReducer = (state = initialState, action: CommonActionType): StateType => {
+const authReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.AUTH_START:
       return initialState;

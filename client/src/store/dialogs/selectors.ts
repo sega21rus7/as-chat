@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable indent */
 import { createSelector } from "reselect";
-import { FilterTypes } from "./interfaces";
+import { FilterTypes } from "./types";
 import { StateType } from "./reducers";
 import { getFullName } from "tools";
 import { IDialog } from "tools/interfaces";

@@ -1,7 +1,9 @@
 /* eslint-disable indent */
 import { IDialog } from "tools/interfaces";
 import { Nullable } from "tools/types";
-import { CommonActionType, ActionTypes, FilterTypes } from "./interfaces";
+import { FilterTypes } from "./types";
+import { ActionTypes } from "./actionTypes";
+import { ActionCreatorTypes } from "./types";
 
 const initialState = {
   items: null as Nullable<IDialog[]>,
@@ -16,7 +18,7 @@ const initialState = {
 
 export type StateType = typeof initialState;
 
-const dialogsReducer = (state = initialState, action: CommonActionType): StateType => {
+const dialogsReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.FETCH_DIALOGS_FAIL:
       return { ...state, fetchDialogsError: action.payload.error };

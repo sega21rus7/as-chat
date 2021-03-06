@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import "./create_dialog_popup.scss";
 import { Modal, Form, Input, Radio, message, RadioChangeEvent } from "antd";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "store/createDialogUsers/actionCreators";
+import { fetchUsers } from "store/createDialogUsers/thunkCreators";
 import { getFullName } from "tools";
 import { useSelector } from "tools/hooks";
 import Avatar from "../../Avatar/Avatar";
-import { postDialog } from "store/dialogs/actionCreators";
+import { postDialog } from "store/dialogs/thunkCreators";
 
 interface IProps {
   visible: boolean;

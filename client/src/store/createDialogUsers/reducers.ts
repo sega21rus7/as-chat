@@ -1,7 +1,8 @@
 /* eslint-disable indent */
 import { IUser } from "tools/interfaces";
 import { Nullable } from "tools/types";
-import { CommonActionType, ActionTypes } from "./interfaces";
+import { ActionTypes } from "./actionTypes";
+import { ActionCreatorTypes } from "./types";
 
 const initialState = {
   users: null as Nullable<IUser[]>,
@@ -10,7 +11,7 @@ const initialState = {
 
 type StateType = typeof initialState;
 
-const createDialogReducer = (state = initialState, action: CommonActionType): StateType => {
+const createDialogReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.FETCH_USERS_FAIL:
       return { ...state, error: action.payload.error };

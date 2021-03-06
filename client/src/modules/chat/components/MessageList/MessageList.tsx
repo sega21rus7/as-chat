@@ -4,7 +4,8 @@ import "./message_list.scss";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 import { useDispatch } from "react-redux";
-import { addMessage, fetchMessages } from "store/messages/actionCreators";
+import { fetchMessages } from "store/messages/thunkCreators";
+import messagesActionCreators from "store/messages/actionCreators";
 import { useSelector } from "tools/hooks";
 import { getFullName } from "tools";
 import socket from "core/socket";
@@ -23,7 +24,7 @@ const MessageList: React.FC = () => {
 
   const listenMessage = (message: IMessage) => {
     if (message.dialog === dialog?._id && message.author._id !== userID) {
-      dispatch(addMessage(message));
+      dispatch(messagesActionCreators.addMessage(message));
     }
   };
 

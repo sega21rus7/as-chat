@@ -6,7 +6,8 @@ import socket from "core/socket";
 import SearchForm from "./SearchForm/SearchForm";
 import BurgerIcon from "./BurgerIcon/BurgerIcon";
 import { useDispatch } from "react-redux";
-import { addDialog, fetchDialogs } from "store/dialogs/actionCreators";
+import { fetchDialogs } from "store/dialogs/thunkCreators";
+import dialogsActionCreators from "store/dialogs/actionCreators";
 import { getFiltetedDialogs } from "store/dialogs/selectors";
 import { useSelector } from "tools/hooks";
 import { IDialog } from "tools/interfaces";
@@ -21,7 +22,7 @@ const DialogList: React.FC = () => {
 
   const listenDialog = (dialog: IDialog) => {
     if (dialog.author._id !== userID) {
-      dispatch(addDialog(dialog));
+      dispatch(dialogsActionCreators.addDialog(dialog));
     }
   };
 

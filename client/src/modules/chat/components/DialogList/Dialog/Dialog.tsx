@@ -6,7 +6,7 @@ import "./dialog.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getFullName } from "tools";
-import { setCurrentDialog } from "store/dialogs/actionCreators";
+import dialogsActionCreators from "store/dialogs/actionCreators";
 import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 
@@ -21,7 +21,7 @@ const DialogListItem: React.FC<IProps> = ({ item, className }) => {
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
 
   const handleClick = () => {
-    dispatch(setCurrentDialog(item));
+    dispatch(dialogsActionCreators.setCurrentDialog(item));
   };
 
   return (

@@ -4,7 +4,7 @@ import "./search_form.scss";
 import { useDispatch } from "react-redux";
 import { Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import { showByFullName, showAll } from "store/dialogs/actionCreators";
+import dialogsActionCreators from "store/dialogs/actionCreators";
 
 const SearchForm: React.FC = () => {
   const [value, setValue] = useState("");
@@ -12,10 +12,10 @@ const SearchForm: React.FC = () => {
 
   useEffect(() => {
     if (!value || !value.trim()) {
-      dispatch(showAll());
+      dispatch(dialogsActionCreators.showAll());
       return;
     }
-    dispatch(showByFullName(value));
+    dispatch(dialogsActionCreators.showByFullName(value));
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

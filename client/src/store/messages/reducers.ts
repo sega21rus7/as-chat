@@ -1,7 +1,8 @@
 /* eslint-disable indent */
 import { IMessage } from "tools/interfaces";
 import { Nullable } from "tools/types";
-import { CommonActionType, ActionTypes } from "./interfaces";
+import { ActionTypes } from "./actionTypes";
+import { ActionCreatorTypes } from "./types";
 
 const initialState = {
   items: null as Nullable<IMessage[]>,
@@ -11,7 +12,7 @@ const initialState = {
 
 type StateType = typeof initialState;
 
-const messagesReducer = (state = initialState, action: CommonActionType): StateType => {
+const messagesReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.FETCH_MESSAGES_FAIL:
       return { ...state, fetchMessagesError: action.payload.error };

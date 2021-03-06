@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { getToken } from "tools";
 import { useSelector } from "tools/hooks";
 import BaseRouter from "../routes";
-import { fetchUser } from "store/auth/actionCreators";
+import { fetchUser } from "store/auth/thunkCreators";
 
 const App: React.FC = () => {
   const token = !!getToken();
