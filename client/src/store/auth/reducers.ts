@@ -1,9 +1,10 @@
 /* eslint-disable indent */
 import { CommonActionType, ActionTypes } from "./interfaces";
-import { IUser } from 'tools/interfaces'
+import { IUser } from "tools/interfaces";
+import { Nullable } from "tools/types";
 
 const initialState = {
-  user: Nullable<IUser>;
+  user: null as Nullable<IUser>,
   error: "",
 };
 

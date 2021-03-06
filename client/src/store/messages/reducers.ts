@@ -1,11 +1,15 @@
 /* eslint-disable indent */
-import { StateType, CommonActionType, ActionTypes } from "./interfaces";
+import { IMessage } from "tools/interfaces";
+import { Nullable } from "tools/types";
+import { CommonActionType, ActionTypes } from "./interfaces";
 
-const initialState: StateType = {
-  items: [],
+const initialState = {
+  items: null as Nullable<IMessage[]>,
   fetchMessagesError: "",
   postMessageError: "",
 };
+
+type StateType = typeof initialState;
 
 const messagesReducer = (state = initialState, action: CommonActionType): StateType => {
   switch (action.type) {

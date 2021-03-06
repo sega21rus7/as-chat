@@ -9,13 +9,6 @@ export enum ActionTypes {
   POST_MESSAGE_START = "MESSAGES:POST_MESSAGE_START",
   POST_MESSAGE_FAIL = "MESSAGES:POST_MESSAGE_FAIL",
 }
-
-export interface StateType {
-  items: IMessage[];
-  fetchMessagesError: string;
-  postMessageError: string;
-}
-
 export interface FetchMessagesStartActionType {
   type: ActionTypes.FETCH_MESSAGES_START;
 }

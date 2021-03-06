@@ -6,11 +6,6 @@ export enum ActionTypes {
   FETCH_USERS_FAIL = "CREATE_DIALOG_USERS:FETCH_USERS_FAIL",
 }
 
-export interface StateType {
-  users: IUser[] | null;
-  error: string;
-}
-
 export interface FetchUsersStartActionType {
   type: ActionTypes.FETCH_USERS_START,
 }

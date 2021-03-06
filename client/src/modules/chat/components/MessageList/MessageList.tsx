@@ -38,7 +38,7 @@ const MessageList: React.FC = () => {
     };
   }, [dialog?._id]);
 
-  if (!messages.length) {
+  if (!messages) {
     return (
       <div className="message-list">
         <div className="message-list__no no-message">
@@ -68,7 +68,7 @@ const MessageList: React.FC = () => {
       </div>
       <div className="message-list__body">
         <div className="message-list__items">
-          {messages.map(m => <Message
+          {messages?.map(m => <Message
             key={m._id}
             text={m.text}
             date={m.updatedAt}

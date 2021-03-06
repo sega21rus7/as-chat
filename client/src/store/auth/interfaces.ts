@@ -7,12 +7,6 @@ export enum ActionTypes {
   LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS",
   LOGOUT = "AUTH:LOGOUT",
 }
-
-export interface StateType {
-  user: IUser | null;
-  error: string;
-}
-
 export interface AuthStartActionType {
   type: ActionTypes.AUTH_START
 }

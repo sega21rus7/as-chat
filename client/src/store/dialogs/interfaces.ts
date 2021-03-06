@@ -15,18 +15,6 @@ export enum FilterTypes {
   SHOW_ALL = "SHOW_ALL",
   SHOW_BY_FULLNAME = "SHOW_BY_FULLNAME",
 }
-
-export interface StateType {
-  items: IDialog[];
-  fetchDialogsError: string;
-  currentDialog: IDialog | null;
-  postDialogError: string;
-  filter: {
-    type: FilterTypes;
-    key: string;
-  };
-}
-
 export interface SetCurrentDialogActionType {
   type: ActionTypes.SET_CURRENT_DIALOG;
   payload: {
