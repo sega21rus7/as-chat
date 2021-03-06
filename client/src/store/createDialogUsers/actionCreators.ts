@@ -25,7 +25,7 @@ export const fetchUsers = () => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startFetchUsers());
-      const users = await jsonFetch<UserType[]>("/api/auth/users", undefined, { method: "GET" });
+      const { users } = await jsonFetch<UserType[]>("/api/auth/users", undefined, { method: "GET" });
       dispatch(successFetchUsers(users));
     } catch (err) {
       dispatch(failFetchUsers(err.message || err));

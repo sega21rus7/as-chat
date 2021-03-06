@@ -5,7 +5,9 @@ import { UserType } from "./interfaces";
 
 export const jsonFetch = async<T>(url: string, data?: Record<string, unknown>, params?: {
   method?: string;
-}): Promise<T> => {
+}): Promise<{
+  [key: string]: T
+}> => {
   const response = await fetch(url, {
     method: params && params.method ? params.method : "POST",
     headers: {

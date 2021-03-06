@@ -35,7 +35,7 @@ export const fetchDialogs = () => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startFetchDialogs());
-      const dialogs = await jsonFetch<DialogType[]>("/api/chat/dialogs", undefined, { method: "GET" });
+      const { dialogs } = await jsonFetch<DialogType[]>("/api/chat/dialogs", undefined, { method: "GET" });
       dispatch(successFetchDialogs(dialogs));
     } catch (err) {
       dispatch(failFetchDialogs(err.message || err));
@@ -73,7 +73,7 @@ export const postDialog = (companion: string, messageText: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startPostDialog());
-      const dialog = await jsonFetch<DialogType>("/api/chat/dialogs", {
+      const { dialog } = await jsonFetch<DialogType>("/api/chat/dialogs", {
         companion,
         messageText,
       });

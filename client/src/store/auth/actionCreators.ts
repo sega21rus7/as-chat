@@ -49,7 +49,7 @@ export const register = (login: string, email: string, password: string, repeatP
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startAuth());
-      const user = await jsonFetch<UserType>("/api/auth/register", {
+      const { user } = await jsonFetch<UserType>("/api/auth/register", {
         login, email, password, repeatPassword,
       });
       dispatch(regSuccess(user));
@@ -64,7 +64,7 @@ export const login = (login: string, password: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startAuth());
-      const user = await jsonFetch<UserType>("/api/auth/login", {
+      const { user } = await jsonFetch<UserType>("/api/auth/login", {
         login, password,
       });
       dispatch(loginSuccess(user));
@@ -78,7 +78,7 @@ export const login = (login: string, password: string) => {
 export const fetchUser = () => {
   return async (dispatch: Dispatch<LoginSuccessActionType>): Promise<void> => {
     try {
-      const user = await jsonFetch<UserType>("/api/auth/getUser");
+      const { user } = await jsonFetch<UserType>("/api/auth/getUser");
       dispatch(loginSuccess(user));
     } catch (err) {
       message.error(err.message || err);

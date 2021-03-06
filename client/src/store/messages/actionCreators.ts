@@ -40,7 +40,7 @@ export const postMessage = (dialogID: string, text: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startPostMessage());
-      const message = await jsonFetch<MessageType>("/api/chat/messages", {
+      const { message } = await jsonFetch<MessageType>("/api/chat/messages", {
         dialog: dialogID,
         text,
       });
@@ -55,7 +55,7 @@ export const fetchMessages = (dialogID: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startFetchDialogs());
-      const messages = await jsonFetch<MessageType[]>(
+      const { messages } = await jsonFetch<MessageType[]>(
         `/api/chat/messages/${dialogID}`, undefined, { method: "GET" },
       );
       dispatch(successFetchDialogs(messages));
