@@ -1,4 +1,4 @@
-import { UserType } from "tools/interfaces";
+import { IUser } from "tools/interfaces";
 
 export enum ActionTypes {
   FETCH_USERS_START = "CREATE_DIALOG_USERS:FETCH_USERS_START",
@@ -7,7 +7,7 @@ export enum ActionTypes {
 }
 
 export interface StateType {
-  users: UserType[] | null;
+  users: IUser[] | null;
   error: string;
 }
 
@@ -18,7 +18,7 @@ export interface FetchUsersStartActionType {
 export interface FetchUsersSuccessActionType {
   type: ActionTypes.FETCH_USERS_SUCCESS,
   payload: {
-    users: UserType[];
+    users: IUser[];
   }
 }
 

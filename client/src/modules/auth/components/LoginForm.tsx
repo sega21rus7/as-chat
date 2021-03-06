@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { login as loginUser } from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
 
-interface FormValuesType {
+interface IFormValues {
   login: string,
   password: string,
 }
@@ -17,7 +17,7 @@ const LoginForm: React.FC = () => {
   const error = useSelector(state => state.auth.error);
   const history = useHistory();
 
-  const handleSubmit = (values: FormValuesType) => {
+  const handleSubmit = (values: IFormValues) => {
     const { login, password } = values;
     dispatch(loginUser(login, password));
     if (!error) {

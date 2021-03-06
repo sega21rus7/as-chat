@@ -2,12 +2,12 @@ import React from "react";
 import "./popup.scss";
 import closeIcon from "./assets/svg/close.svg";
 
-interface PropsType {
+interface IProps {
   hide(): void;
   component: JSX.Element;
 }
 
-const Popup: React.FC<PropsType> = ({ hide, component }) => {
+const Popup: React.FC<IProps> = ({ hide, component }) => {
   return (
     <div className="popup" onClick={hide}>
       <div className="popup__body">

@@ -11,7 +11,7 @@ import {
   ResetMessagesActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
-import { MessageType } from "tools/interfaces";
+import { IMessage } from "tools/interfaces";
 
 const startFetchDialogs = (): FetchMessagesStartActionType => {
   return { type: ActionTypes.FETCH_MESSAGES_START };
@@ -21,11 +21,11 @@ const failFetchDialogs = (error: string): FetchMessagesFailtActionType => {
   return { type: ActionTypes.FETCH_MESSAGES_FAIL, payload: { error } };
 };
 
-const successFetchDialogs = (items: MessageType[]): FetchMessagesSuccessActionType => {
+const successFetchDialogs = (items: IMessage[]): FetchMessagesSuccessActionType => {
   return { type: ActionTypes.FETCH_MESSAGES_SUCCESS, payload: { items } };
 };
 
-export const addMessage = (item: MessageType): AddMessageActionType => {
+export const addMessage = (item: IMessage): AddMessageActionType => {
   return { type: ActionTypes.ADD_MESSAGE, payload: { item } };
 };
 
@@ -41,7 +41,7 @@ export const postMessage = (dialogID: string, text: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startPostMessage());
-      const { message } = await jsonFetch<MessageType>("/api/chat/messages", {
+      const { message } = await jsonFetch<IMessage>("/api/chat/messages", {
         dialog: dialogID,
         text,
       });
@@ -56,7 +56,7 @@ export const fetchMessages = (dialogID: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startFetchDialogs());
-      const { messages } = await jsonFetch<MessageType[]>(
+      const { messages } = await jsonFetch<IMessage[]>(
         `/api/chat/messages/${dialogID}`, undefined, { method: "GET" },
       );
       dispatch(successFetchDialogs(messages));

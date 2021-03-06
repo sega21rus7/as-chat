@@ -8,7 +8,7 @@ import { addMessage, fetchMessages } from "store/messages/actionCreators";
 import { useSelector } from "tools/hooks";
 import { getFullName } from "tools";
 import socket from "core/socket";
-import { MessageType } from "tools/interfaces";
+import { IMessage } from "tools/interfaces";
 
 const MessageList: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const MessageList: React.FC = () => {
     listRef.current?.scrollTo(0, listRef.current?.scrollHeight);
   });
 
-  const listenMessage = (message: MessageType) => {
+  const listenMessage = (message: IMessage) => {
     if (message.dialog === dialog?._id && message.author._id !== userID) {
       dispatch(addMessage(message));
     }

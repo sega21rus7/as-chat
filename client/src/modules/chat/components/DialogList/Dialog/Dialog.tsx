@@ -7,15 +7,15 @@ import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getFullName } from "tools";
 import { setCurrentDialog } from "store/dialogs/actionCreators";
-import { DialogType } from "tools/interfaces";
+import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 
-interface PropsType {
-  item: DialogType;
+interface IProps {
+  item: IDialog;
   className: string;
 }
 
-const DialogListItem: React.FC<PropsType> = ({ item, className }) => {
+const DialogListItem: React.FC<IProps> = ({ item, className }) => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);

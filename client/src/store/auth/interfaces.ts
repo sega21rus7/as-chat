@@ -1,4 +1,4 @@
-import { UserType } from "tools/interfaces";
+import { IUser } from "tools/interfaces";
 
 export enum ActionTypes {
   AUTH_START = "AUTH:AUTH_START",
@@ -9,7 +9,7 @@ export enum ActionTypes {
 }
 
 export interface StateType {
-  user: UserType | null;
+  user: IUser | null;
   error: string;
 }
 
@@ -27,14 +27,14 @@ export interface AuthFailActionType {
 export interface RegistrationSuccessActionType {
   type: ActionTypes.REGISTRATION_SUCCESS,
   payload: {
-    user: UserType;
+    user: IUser;
   }
 }
 
 export interface LoginSuccessActionType {
   type: ActionTypes.LOGIN_SUCCESS,
   payload: {
-    user: UserType;
+    user: IUser;
   }
 }
 

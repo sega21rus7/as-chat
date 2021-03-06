@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { addDialog, fetchDialogs } from "store/dialogs/actionCreators";
 import { getFiltetedDialogs } from "store/dialogs/selectors";
 import { useSelector } from "tools/hooks";
-import { DialogType } from "tools/interfaces";
+import { IDialog } from "tools/interfaces";
 import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
 import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 
@@ -19,7 +19,7 @@ const DialogList: React.FC = () => {
   const dialogs = useSelector(state => getFiltetedDialogs(state.dialogs, userID));
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
-  const listenDialog = (dialog: DialogType) => {
+  const listenDialog = (dialog: IDialog) => {
     if (dialog.author._id !== userID) {
       dispatch(addDialog(dialog));
     }

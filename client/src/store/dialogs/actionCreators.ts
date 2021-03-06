@@ -12,7 +12,7 @@ import {
   FilterActionType,
   FilterTypes,
 } from "./interfaces";
-import { DialogType } from "tools/interfaces";
+import { IDialog } from "tools/interfaces";
 import { Dispatch } from "react";
 
 const startFetchDialogs = (): FetchDialogsStartActionType => {
@@ -23,11 +23,11 @@ const failFetchDialogs = (error: string): FetchDialogsFailtActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_FAIL, payload: { error } };
 };
 
-const successFetchDialogs = (items: DialogType[]): FetchDialogsSuccessActionType => {
+const successFetchDialogs = (items: IDialog[]): FetchDialogsSuccessActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_SUCCESS, payload: { items } };
 };
 
-export const setCurrentDialog = (dialog: DialogType | null): SetCurrentDialogActionType => {
+export const setCurrentDialog = (dialog: IDialog | null): SetCurrentDialogActionType => {
   return { type: ActionTypes.SET_CURRENT_DIALOG, payload: { dialog } };
 };
 
@@ -35,7 +35,7 @@ export const fetchDialogs = () => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startFetchDialogs());
-      const { dialogs } = await jsonFetch<DialogType[]>("/api/chat/dialogs", undefined, { method: "GET" });
+      const { dialogs } = await jsonFetch<IDialog[]>("/api/chat/dialogs", undefined, { method: "GET" });
       dispatch(successFetchDialogs(dialogs));
     } catch (err) {
       dispatch(failFetchDialogs(err.message || err));
@@ -43,7 +43,7 @@ export const fetchDialogs = () => {
   };
 };
 
-export const addDialog = (item: DialogType): AddDialogActionType => {
+export const addDialog = (item: IDialog): AddDialogActionType => {
   return { type: ActionTypes.ADD_DIALOG, payload: { item } };
 };
 
@@ -73,7 +73,7 @@ export const postDialog = (companion: string, messageText: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startPostDialog());
-      const { dialog } = await jsonFetch<DialogType>("/api/chat/dialogs", {
+      const { dialog } = await jsonFetch<IDialog>("/api/chat/dialogs", {
         companion,
         messageText,
       });

@@ -1,13 +1,13 @@
-import { UserType } from "tools/interfaces";
+import { IUser } from "tools/interfaces";
 import React from "react";
 import "./avatar.scss";
 
-interface PropsType {
-  user: UserType;
+interface IProps {
+  user: IUser;
   online?: boolean,
 }
 
-const Avatar: React.FC<PropsType> = ({ user, online }) => {
+const Avatar: React.FC<IProps> = ({ user, online }) => {
   const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
       return user.firstName[0].toUpperCase();

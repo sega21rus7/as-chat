@@ -1,4 +1,4 @@
-import { DialogType } from "tools/interfaces";
+import { IDialog } from "tools/interfaces";
 
 export enum ActionTypes {
   FETCH_DIALOGS_START = "DIALOGS:FETCH_DIALOGS_START",
@@ -17,9 +17,9 @@ export enum FilterTypes {
 }
 
 export interface StateType {
-  items: DialogType[];
+  items: IDialog[];
   fetchDialogsError: string;
-  currentDialog: DialogType | null;
+  currentDialog: IDialog | null;
   postDialogError: string;
   filter: {
     type: FilterTypes;
@@ -30,7 +30,7 @@ export interface StateType {
 export interface SetCurrentDialogActionType {
   type: ActionTypes.SET_CURRENT_DIALOG;
   payload: {
-    dialog: DialogType | null;
+    dialog: IDialog | null;
   }
 }
 
@@ -48,14 +48,14 @@ export interface FetchDialogsFailtActionType {
 export interface AddDialogActionType {
   type: ActionTypes.ADD_DIALOG,
   payload: {
-    item: DialogType,
+    item: IDialog,
   }
 }
 
 export interface FetchDialogsSuccessActionType {
   type: ActionTypes.FETCH_DIALOGS_SUCCESS;
   payload: {
-    items: DialogType[];
+    items: IDialog[];
   }
 }
 

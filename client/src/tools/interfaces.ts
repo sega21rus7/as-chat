@@ -1,4 +1,4 @@
-export interface UserType {
+export interface IUser {
   roles: string[];
   _id: string;
   email: string;
@@ -10,19 +10,19 @@ export interface UserType {
   middleName?: string;
   avatar?: string;
 }
-export interface MessageType {
+export interface IMessage {
   hasRead: boolean;
   _id: string;
-  author: UserType;
+  author: IUser;
   text: string;
   updatedAt: Date;
   dialog: string;
 }
 
-export interface DialogType {
-  messages: MessageType[],
+export interface IDialog {
+  messages: IMessage[],
   _id: string;
-  author: UserType;
-  companion: UserType;
+  author: IUser;
+  companion: IUser;
   updatedAt: Date;
 }

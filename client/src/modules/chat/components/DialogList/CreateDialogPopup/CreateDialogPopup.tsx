@@ -9,21 +9,21 @@ import { useSelector } from "tools/hooks";
 import Avatar from "../../Avatar/Avatar";
 import { postDialog } from "store/dialogs/actionCreators";
 
-interface PropsType {
+interface IProps {
   visible: boolean;
   hide(): void;
 }
-interface FormValuesType {
+interface IFormValues {
   message: string;
 }
 
-const CreateDialogPopup: React.FC<PropsType> = ({ visible, hide }) => {
+const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
   const [form] = Form.useForm();
   const [selectedUser, setSelectedUser] = useState("");
   const dispatch = useDispatch();
   const users = useSelector(state => state.createDialogUsers.users);
 
-  const handleSubmit = (values: FormValuesType) => {
+  const handleSubmit = (values: IFormValues) => {
     const { message } = values;
     dispatch(postDialog(selectedUser, message));
     hide();

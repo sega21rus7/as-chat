@@ -4,19 +4,19 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ruLocale from "date-fns/locale/ru";
 import "./message.scss";
 import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
-import { UserType } from "tools/interfaces";
+import { IUser } from "tools/interfaces";
 import Avatar from "../../Avatar/Avatar";
 import { useSelector } from "tools/hooks";
 
-interface PropsType {
+interface IProps {
   text: string;
   date: Date;
-  author: UserType,
+  author: IUser,
   hasRead?: boolean;
   className: string;
 }
 
-const Message: React.FC<PropsType> = ({ text, date, author, hasRead, className }) => {
+const Message: React.FC<IProps> = ({ text, date, author, hasRead, className }) => {
   const userID = useSelector(state => state.auth.user?._id);
   const my = userID === author._id;
 

@@ -1,4 +1,4 @@
-import { MessageType } from "tools/interfaces";
+import { IMessage } from "tools/interfaces";
 
 export enum ActionTypes {
   FETCH_MESSAGES_START = "MESSAGES:FETCH_MESSAGES_START",
@@ -11,7 +11,7 @@ export enum ActionTypes {
 }
 
 export interface StateType {
-  items: MessageType[];
+  items: IMessage[];
   fetchMessagesError: string;
   postMessageError: string;
 }
@@ -30,14 +30,14 @@ export interface FetchMessagesFailtActionType {
 export interface FetchMessagesSuccessActionType {
   type: ActionTypes.FETCH_MESSAGES_SUCCESS;
   payload: {
-    items: MessageType[];
+    items: IMessage[];
   }
 }
 
 export interface AddMessageActionType {
   type: ActionTypes.ADD_MESSAGE,
   payload: {
-    item: MessageType;
+    item: IMessage;
   }
 }
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "universal-cookie";
-import { UserType } from "./interfaces";
+import { IUser } from "./interfaces";
 
 export const jsonFetch = async<T>(url: string, data?: Record<string, unknown>, params?: {
   method?: string;
@@ -49,7 +49,7 @@ export const getToken = (): string => {
   return cookies.get("jwt") || "";
 };
 
-export const getFullName = (user: UserType) => {
+export const getFullName = (user: IUser) => {
   let res = "";
   if (user.firstName || user.lastName || user.middleName) {
     res = `${user.firstName || ""} ${user.lastName || ""}`;

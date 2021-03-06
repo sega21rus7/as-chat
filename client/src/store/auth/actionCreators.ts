@@ -1,5 +1,5 @@
 import { jsonFetch } from "tools";
-import { UserType } from "tools/interfaces";
+import { IUser } from "tools/interfaces";
 import {
   ActionTypes,
   AuthStartActionType,
@@ -24,14 +24,14 @@ const failAuth = (error: string): AuthFailActionType => {
   };
 };
 
-const regSuccess = (user: UserType): RegistrationSuccessActionType => {
+const regSuccess = (user: IUser): RegistrationSuccessActionType => {
   return {
     type: ActionTypes.REGISTRATION_SUCCESS,
     payload: { user },
   };
 };
 
-const loginSuccess = (user: UserType): LoginSuccessActionType => {
+const loginSuccess = (user: IUser): LoginSuccessActionType => {
   return {
     type: ActionTypes.LOGIN_SUCCESS,
     payload: { user },
@@ -49,7 +49,7 @@ export const register = (login: string, email: string, password: string, repeatP
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startAuth());
-      const { user } = await jsonFetch<UserType>("/api/auth/register", {
+      const { user } = await jsonFetch<IUser>("/api/auth/register", {
         login, email, password, repeatPassword,
       });
       dispatch(regSuccess(user));
@@ -64,7 +64,7 @@ export const login = (login: string, password: string) => {
   return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
       dispatch(startAuth());
-      const { user } = await jsonFetch<UserType>("/api/auth/login", {
+      const { user } = await jsonFetch<IUser>("/api/auth/login", {
         login, password,
       });
       dispatch(loginSuccess(user));
@@ -78,7 +78,7 @@ export const login = (login: string, password: string) => {
 export const fetchUser = () => {
   return async (dispatch: Dispatch<LoginSuccessActionType>): Promise<void> => {
     try {
-      const { user } = await jsonFetch<UserType>("/api/auth/getUser");
+      const { user } = await jsonFetch<IUser>("/api/auth/getUser");
       dispatch(loginSuccess(user));
     } catch (err) {
       message.error(err.message || err);

@@ -3,11 +3,11 @@ import "./message_status_icon.scss";
 import hasReadIcon from "./assets/svg/has_read.svg";
 import hasSendIcon from "./assets/svg/has_send.svg";
 
-interface PropsType {
+interface IProps {
   hasRead?: boolean;
 }
 
-const MessageStatusIcon: React.FC<PropsType> = ({ hasRead }) => {
+const MessageStatusIcon: React.FC<IProps> = ({ hasRead }) => {
   return (
     <img src={hasRead ? hasReadIcon : hasSendIcon} alt="" />
   );

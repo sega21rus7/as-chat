@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { register } from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
 
-interface FormValuesType {
+interface IFormValues {
   email: string,
   login: string,
   password: string,
@@ -19,7 +19,7 @@ const RegForm: React.FC = () => {
   const history = useHistory();
   const error = useSelector(state => state.auth.error);
 
-  const handleSubmit = (values: FormValuesType) => {
+  const handleSubmit = (values: IFormValues) => {
     const { email, login, password, repeatPassword } = values;
     dispatch(register(email, login, password, repeatPassword));
     if (!error) {

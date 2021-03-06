@@ -3,12 +3,12 @@
 import { createSelector } from "reselect";
 import { StateType, FilterTypes } from "./interfaces";
 import { getFullName } from "tools";
-import { DialogType } from "tools/interfaces";
+import { IDialog } from "tools/interfaces";
 
 const getFilter = (state: StateType) => state.filter;
 const getDialogs = (state: StateType) => state.items;
 
-export const getFiltetedDialogs = (state: StateType, currentUserID: string | undefined): DialogType[] | undefined => {
+export const getFiltetedDialogs = (state: StateType, currentUserID: string | undefined): IDialog[] | undefined => {
   return createSelector(
     [getFilter, getDialogs],
     (filter, dialogs) => {
