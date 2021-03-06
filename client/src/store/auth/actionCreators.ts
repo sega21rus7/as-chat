@@ -7,6 +7,9 @@ import {
   RegistrationSuccessActionType,
   LoginSuccessActionType,
   LogoutActionType,
+  fetchUserStartActionType,
+  fetchUserSuccessActionType,
+  fetchUserFailActionType,
   CommonActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
@@ -75,14 +78,29 @@ export const login = (login: string, password: string) => {
   };
 };
 
+const fetchUserStart = (): fetchUserStartActionType => {
+  return {
+    type: ActionTypes.FETCH_USER_START,
+  };
+};
+
+const fetchUserFail = (error: string): fetchUserFailActionType => {
+  return { type: ActionTypes.FETCH_USER_FAIL, payload: { error } };
+};
+
+const fetchUserSuccess = (user: IUser): fetchUserSuccessActionType => {
+  return { type: ActionTypes.FETCH_USER_SUCCESS, payload: { user } };
+};
+
 export const fetchUser = () => {
-  return async (dispatch: Dispatch<LoginSuccessActionType>): Promise<void> => {
+  return async (dispatch: Dispatch<CommonActionType>): Promise<void> => {
     try {
+      dispatch(fetchUserStart());
       const { user } = await jsonFetch<IUser>("/api/auth/getUser");
-      dispatch(loginSuccess(user));
+      dispatch(fetchUserSuccess(user));
     } catch (err) {
       message.error(err.message || err);
-      // TODO вызывать action с ошибкой
+      dispatch(fetchUserFail(err.message || err));
     }
   };
 };

@@ -17,7 +17,7 @@ const requireMes = "Это обязательное поле";
 const RegForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const error = useSelector(state => state.auth.error);
+  const error = useSelector(state => state.auth.authError);
 
   const handleSubmit = (values: IFormValues) => {
     const { email, login, password, repeatPassword } = values;

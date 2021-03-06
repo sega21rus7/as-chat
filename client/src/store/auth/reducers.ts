@@ -5,7 +5,8 @@ import { Nullable } from "tools/types";
 
 const initialState = {
   user: null as Nullable<IUser>,
-  error: "",
+  authError: "",
+  fetchUserError: "",
 };
 
 type StateType = typeof initialState;
@@ -19,9 +20,13 @@ const authReducer = (state = initialState, action: CommonActionType): StateType 
     case ActionTypes.LOGIN_SUCCESS:
       return { ...state, user: action.payload.user };
     case ActionTypes.AUTH_FAIL:
-      return { ...state, error: action.payload.error };
+      return { ...state, authError: action.payload.error };
     case ActionTypes.LOGOUT:
-      return { ...state, user: null, error: "" };
+      return initialState;
+    case ActionTypes.FETCH_USER_FAIL:
+      return { ...state, fetchUserError: action.payload.error };
+    case ActionTypes.FETCH_USER_SUCCESS:
+      return { ...state, user: action.payload.user };
     default:
       return state;
   }

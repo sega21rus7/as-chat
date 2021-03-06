@@ -14,6 +14,7 @@ import {
 } from "./interfaces";
 import { IDialog } from "tools/interfaces";
 import { Dispatch } from "react";
+import { message } from "antd";
 
 const startFetchDialogs = (): FetchDialogsStartActionType => {
   return { type: ActionTypes.FETCH_DIALOGS_START };
@@ -79,6 +80,7 @@ export const postDialog = (companion: string, messageText: string) => {
       });
       dispatch(addDialog(dialog));
     } catch (err) {
+      message.error(err.message || err);
       dispatch(failPostDialog(err.message || err));
     }
   };

@@ -14,7 +14,7 @@ const requireMes = "Это обязательное поле";
 
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
-  const error = useSelector(state => state.auth.error);
+  const error = useSelector(state => state.auth.authError);
   const history = useHistory();
 
   const handleSubmit = (values: IFormValues) => {

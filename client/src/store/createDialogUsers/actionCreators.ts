@@ -8,6 +8,7 @@ import {
   CommonActionType,
 } from "./interfaces";
 import { Dispatch } from "react";
+import { message } from "antd";
 
 const startFetchUsers = (): FetchUsersStartActionType => {
   return { type: ActionTypes.FETCH_USERS_START };
@@ -28,6 +29,7 @@ export const fetchUsers = () => {
       const { users } = await jsonFetch<IUser[]>("/api/auth/users", undefined, { method: "GET" });
       dispatch(successFetchUsers(users));
     } catch (err) {
+      message.error(err.message || err);
       dispatch(failFetchUsers(err.message || err));
     }
   };

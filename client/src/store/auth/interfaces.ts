@@ -6,6 +6,9 @@ export enum ActionTypes {
   REGISTRATION_SUCCESS = "AUTH:REGISTRATION_SUCCESS",
   LOGIN_SUCCESS = "AUTH:LOGIN_SUCCESS",
   LOGOUT = "AUTH:LOGOUT",
+  FETCH_USER_START = "AUTH:FETCH_USER_START",
+  FETCH_USER_SUCCESS = "AUTH:FETCH_USER_SUCCESS",
+  FETCH_USER_FAIL = "AUTH:FETCH_USER_FAIL",
 }
 export interface AuthStartActionType {
   type: ActionTypes.AUTH_START
@@ -36,9 +39,30 @@ export interface LogoutActionType {
   type: ActionTypes.LOGOUT
 }
 
+export interface fetchUserStartActionType {
+  type: ActionTypes.FETCH_USER_START,
+}
+
+export interface fetchUserSuccessActionType {
+  type: ActionTypes.FETCH_USER_SUCCESS,
+  payload: {
+    user: IUser;
+  }
+}
+
+export interface fetchUserFailActionType {
+  type: ActionTypes.FETCH_USER_FAIL,
+  payload: {
+    error: string;
+  }
+}
+
 export type CommonActionType =
   AuthStartActionType |
   AuthFailActionType |
   RegistrationSuccessActionType |
   LoginSuccessActionType |
-  LogoutActionType;
+  LogoutActionType |
+  fetchUserStartActionType |
+  fetchUserSuccessActionType |
+  fetchUserFailActionType;
