@@ -3,9 +3,9 @@
 import Cookies from "universal-cookie";
 import { UserType } from "./interfaces";
 
-export const jsonFetch = async (url: string, data?: Record<string, unknown>, params?: {
+export const jsonFetch = async<T>(url: string, data?: Record<string, unknown>, params?: {
   method?: string;
-}): Promise<any> => {
+}): Promise<T> => {
   const response = await fetch(url, {
     method: params && params.method ? params.method : "POST",
     headers: {
@@ -17,11 +17,8 @@ export const jsonFetch = async (url: string, data?: Record<string, unknown>, par
     const errMessage = await response.text();
     throw new Error(errMessage || "Произошла непредвиденная ошибка.");
   }
-  let res: any = await response.text();
-  try {
-    res = JSON.parse(res);
-    // eslint-disable-next-line no-empty
-  } catch (err) { }
+  // if (response.headers.get("Content-Type")?.includes("application/json")) {
+  const res = await response.json();
   return res;
 };
 
