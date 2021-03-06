@@ -1,10 +1,13 @@
 /* eslint-disable indent */
-import { StateType, CommonActionType, ActionTypes } from "./interfaces";
+import { CommonActionType, ActionTypes } from "./interfaces";
+import { IUser } from 'tools/interfaces'
 
-const initialState: StateType = {
-  user: null,
+const initialState = {
+  user: Nullable<IUser>;
   error: "",
 };
+
+type StateType = typeof initialState;
 
 const authReducer = (state = initialState, action: CommonActionType): StateType => {
   switch (action.type) {
