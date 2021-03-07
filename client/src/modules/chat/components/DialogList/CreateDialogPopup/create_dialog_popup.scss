@@ -1,7 +1,6 @@
 @import '~style/variables';
 
 .user-list {
-  overflow-y: auto;
   margin: 10px 0;
   &__title {
     margin: 0 0 10px 0;
@@ -13,13 +12,18 @@
   }
 }
 .user-item {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
+  padding: 5px;
   &__body {
     display: flex;
     align-items: center;
   }
   &__avatar {
     margin: 0 10px 0 0;
+  }
+  &_selected {
+    background: $lightblue;
   }
 }
