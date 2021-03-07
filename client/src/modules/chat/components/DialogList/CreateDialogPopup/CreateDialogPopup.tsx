@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "./create_dialog_popup.scss";
-import { Modal, Form, Input, message, Pagination } from "antd";
+import { Modal, Form, Input, message, Pagination, Empty } from "antd";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "store/createDialog/thunkCreators";
 import { getFullName } from "tools";
@@ -61,8 +61,15 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
   }, [searchValue]);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+    if (visible) {
+      dispatch(fetchUsers());
+      return;
+    }
+    form.resetFields();
+    setSearchValue("");
+    setSelectedUserID("");
+    setPage(1);
+  }, [visible]);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { _id } = e.currentTarget.dataset;
@@ -89,34 +96,36 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
         onChange={handleSearchValueChange}
       />
 
-      <div className="user-list">
-        {users?.slice(page === 1 ? 0 : pageSize * page - pageSize, pageSize * page).map(user =>
-          <li
-            className={
-              selectedUserID === user._id ?
-                "user-list__item user-item user-item_selected" :
-                "user-list__item user-item"
-            }
-            key={user._id}
-            data-_id={user._id}
-            onClick={handleClick}
-          >
-            <div className="user-item__body">
-              <div className="user-item__avatar">
-                <Avatar user={user} />
+      {!users?.length ?
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={"Нет данных"} /> :
+        <div className="user-list">
+          {users.slice(page === 1 ? 0 : pageSize * page - pageSize, pageSize * page).map(user =>
+            <li
+              className={
+                selectedUserID === user._id ?
+                  "user-list__item user-item user-item_selected" :
+                  "user-list__item user-item"
+              }
+              key={user._id}
+              data-_id={user._id}
+              onClick={handleClick}
+            >
+              <div className="user-item__body">
+                <div className="user-item__avatar">
+                  <Avatar user={user} />
+                </div>
+                <div className="user-item__name">{getFullName(user)}</div>
               </div>
-              <div className="user-item__name">{getFullName(user)}</div>
-            </div>
-          </li>)}
-        <Pagination
-          defaultCurrent={1}
-          total={users?.length}
-          showSizeChanger={false}
-          pageSize={pageSize}
-          responsive
-          onChange={paginate}
-        />
-      </div>
+            </li>)}
+          <Pagination
+            current={page}
+            total={users?.length}
+            showSizeChanger={false}
+            pageSize={pageSize}
+            responsive
+            onChange={paginate}
+          />
+        </div>}
 
       <Form form={form}>
         <Form.Item
