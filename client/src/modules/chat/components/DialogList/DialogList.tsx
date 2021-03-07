@@ -21,7 +21,7 @@ const DialogList: React.FC = () => {
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
   const listenDialog = (dialog: IDialog) => {
-    if (dialog.author._id !== userID) {
+    if (dialog.companion._id === userID) {
       dispatch(dialogsActionCreators.addDialog(dialog));
     }
   };
