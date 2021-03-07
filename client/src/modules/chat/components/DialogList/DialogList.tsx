@@ -26,11 +26,18 @@ const DialogList: React.FC = () => {
     }
   };
 
+  const listenMessage = () => {
+    dispatch(fetchDialogs());
+  };
+
   useEffect(() => {
     dispatch(fetchDialogs());
     socket.on("DIALOG_CREATED", listenDialog);
+    // todo обновлять список только у создателя диалога и его собеседника
+    socket.on("MESSAGE_CREATED", listenMessage);
     return () => {
       socket.removeListener("DIALOG_CREATED", listenDialog);
+      socket.removeListener("MESSAGE_CREATED", listenMessage);
     };
   }, []);
 
