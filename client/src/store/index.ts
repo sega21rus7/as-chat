@@ -3,7 +3,7 @@ import authReducer from "./auth/reducers";
 import burgerMenuReducer from "./burgerMenu/reducers";
 import dialogsReducer from "./dialogs/reducers";
 import messagesReducer from "./messages/reducers";
-import createDialogUsersReducer from "./createDialogUsers/reducers";
+import createDialogReducer from "./createDialog/reducers";
 import { ThunkAction } from "redux-thunk";
 
 const rootReducer = combineReducers({
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   burgerMenu: burgerMenuReducer,
   dialogs: dialogsReducer,
   messages: messagesReducer,
-  createDialogUsers: createDialogUsersReducer,
+  createDialog: createDialogReducer,
 });
 
 export type rootStateType = ReturnType<typeof rootReducer>

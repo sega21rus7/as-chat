@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./create_dialog_popup.scss";
 import { Modal, Form, Input, message, Pagination } from "antd";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from "store/createDialogUsers/thunkCreators";
+import { fetchUsers } from "store/createDialog/thunkCreators";
 import { getFullName } from "tools";
 import { useSelector } from "tools/hooks";
 import Avatar from "../../Avatar/Avatar";
@@ -24,7 +24,7 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
   const [selectedUserID, setSelectedUserID] = useState("");
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const users = useSelector(state => state.createDialogUsers.users);
+  const users = useSelector(state => state.createDialog.users);
 
   const handleSubmit = (values: IFormValues) => {
     if (!selectedUserID) {
