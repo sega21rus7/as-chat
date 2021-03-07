@@ -8,6 +8,8 @@ import { getFullName } from "tools";
 import { useSelector } from "tools/hooks";
 import Avatar from "../../Avatar/Avatar";
 import { postDialog } from "store/dialogs/thunkCreators";
+import { getFiltetedUsers } from "store/createDialog/selectors";
+import createDialogActionCreators from "store/createDialog/actionCreators";
 
 interface IProps {
   visible: boolean;
@@ -21,10 +23,11 @@ const pageSize = 5;
 
 const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
   const [selectedUserID, setSelectedUserID] = useState("");
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const users = useSelector(state => state.createDialog.users);
+  const users = useSelector(state => getFiltetedUsers(state.createDialog));
 
   const handleSubmit = (values: IFormValues) => {
     if (!selectedUserID) {
@@ -50,12 +53,24 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
   };
 
   useEffect(() => {
+    if (!searchValue || !searchValue.trim()) {
+      dispatch(createDialogActionCreators.showAll());
+      return;
+    }
+    dispatch(createDialogActionCreators.showByFullName(searchValue));
+  }, [searchValue]);
+
+  useEffect(() => {
     dispatch(fetchUsers());
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     const { _id } = e.currentTarget.dataset;
     _id && setSelectedUserID(_id);
+  };
+
+  const handleSearchValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -68,7 +83,11 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
       onCancel={hide}
       onOk={onOk}
     >
-      <Input placeholder="Найти пользователей..." />
+      <Input
+        placeholder="Найти пользователей..."
+        value={searchValue}
+        onChange={handleSearchValueChange}
+      />
 
       <div className="user-list">
         {users?.slice(page === 1 ? 0 : pageSize * page - pageSize, pageSize * page).map(user =>
