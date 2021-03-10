@@ -24,6 +24,9 @@
     }
   }
   display: flex;
+  &__content {
+    max-width: 100%;
+  }
   &__avatar {
     display: flex;
     flex-direction: column-reverse;
@@ -35,6 +38,7 @@
     opacity: 0.7;
   }
   &__bubble {
+
     background: whitesmoke;
     box-shadow: 0px 5px 5px rgba(54, 116, 255, 0.196733);
     border-radius: 12px 12px 12px 0;
@@ -43,5 +47,6 @@
   }
   &__text {
     line-height: 15px;
+    word-wrap: break-word;
   }
 }
