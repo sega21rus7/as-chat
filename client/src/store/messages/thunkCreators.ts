@@ -34,3 +34,18 @@ export const postMessage = (dialogID: string, text: string): ThunkType => {
     }
   };
 };
+
+export const postDeleteMessage = (messageID: string): ThunkType => {
+  return async dispatch => {
+    try {
+      dispatch(actionCreators.startPostDeleteMessage());
+      const { message } = await jsonFetch<IMessage>(`/api/chat/messages/${messageID}`, undefined, {
+        method: "DELETE",
+      });
+      dispatch(actionCreators.removeMessage(message));
+    } catch (err) {
+      message.error(err.message || err);
+      dispatch(actionCreators.failPostDeleteMessage(err.message || err));
+    }
+  };
+};

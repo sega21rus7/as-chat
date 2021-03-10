@@ -8,6 +8,7 @@ const initialState = {
   items: null as Nullable<IMessage[]>,
   fetchMessagesError: "",
   postMessageError: "",
+  postDeleteMessageError: "",
 };
 
 type StateType = typeof initialState;
@@ -19,12 +20,24 @@ const messagesReducer = (state = initialState, action: ActionCreatorTypes): Stat
     case ActionTypes.FETCH_MESSAGES_SUCCESS:
       return { ...state, items: action.payload.items };
     case ActionTypes.ADD_MESSAGE:
-      if (!state.items) { return state; }
-      return { ...state, items: [...state.items, action.payload.item] };
+      return {
+        ...state,
+        items: [
+          ...(state.items ? state.items : []),
+          action.payload.item,
+        ],
+      };
     case ActionTypes.POST_MESSAGE_FAIL:
       return { ...state, postMessageError: action.payload.error };
     case ActionTypes.RESET_MESSAGES:
       return initialState;
+    case ActionTypes.POST_DELETE_MESSAGE_FAIL:
+      return { ...state, postDeleteMessageError: action.payload.error };
+    case ActionTypes.REMOVE_MESSAGE:
+      return {
+        ...state,
+        items: state.items && state.items.filter(x => x._id !== action.payload.item._id),
+      };
     default:
       return state;
   }

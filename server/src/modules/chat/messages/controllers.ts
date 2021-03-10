@@ -6,6 +6,7 @@ import { IUser } from "modules/auth/models/User";
 import mongoose from "mongoose";
 import Dialog from "../dialogs/models/Dialog";
 import { IRequest } from "tools/interfaces";
+import socketEvents from "core/socket/events";
 
 interface IEditRequest extends IRequest {
   body: {
@@ -55,7 +56,7 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
       { lastMessage: message._id }
     );
     const populated = await message.populate("author").execPopulate();
-    req.io?.emit("MESSAGE_CREATED", populated);
+    req.io?.emit(socketEvents.MESSAGE_CREATED, populated);
     return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);
@@ -86,18 +87,26 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
     if (!req.params.id) {
       throw new Error("ID сообщения не может быть пустым!");
     }
-    const message = await Message.findOneAndDelete({ _id: mongoose.Types.ObjectId(req.params.id) });
+    const message = await Message.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
     if (!message) {
       throw new Error("Сообщение не существует!");
     }
-    const lastMessage = await Message.findOne().sort({ createdAt: -1 });
-    if (!lastMessage) {
+    const twoLast = await Message
+      .find({ dialog: message.dialog })
+      .sort({ createdAt: -1 })
+      .limit(2);
+    console.log("twoLast", twoLast);
+    if (!twoLast || twoLast.length < 2) {
       throw new Error("Невозможно удалить последнее сообщение. Удалите диалог целиком.");
     }
+    await message.deleteOne();
+    const lastMessage = twoLast[1];
     await Dialog.updateOne(
       { _id: message.dialog },
       { lastMessage: lastMessage._id }
     );
+    const populated = await message.populate("author").execPopulate();
+    req.io?.emit(socketEvents.MESSAGE_DELETED, populated);
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);

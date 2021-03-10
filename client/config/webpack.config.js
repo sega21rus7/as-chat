@@ -331,6 +331,7 @@ module.exports = function (webpackEnv) {
         "store": path.resolve(process.cwd(), "src/store"),
         "modules": path.resolve(process.cwd(), "src/modules"),
         "config": path.resolve(process.cwd(), "src/config"),
+        "core": path.resolve(process.cwd(), "src/core"),
         "react-native": "react-native-web",
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {

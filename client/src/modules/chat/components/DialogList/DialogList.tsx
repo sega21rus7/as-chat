@@ -13,6 +13,7 @@ import { useSelector } from "tools/hooks";
 import { IDialog } from "tools/interfaces";
 import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
 import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
+import socketEvents from "core/socket/events";
 
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,12 +33,14 @@ const DialogList: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchDialogs());
-    socket.on("DIALOG_CREATED", listenDialog);
+    socket.on(socketEvents.DIALOG_CREATED, listenDialog);
     // todo обновлять список только у создателя диалога и его собеседника
-    socket.on("MESSAGE_CREATED", listenMessage);
+    socket.on(socketEvents.MESSAGE_CREATED, listenMessage);
+    socket.on(socketEvents.MESSAGE_DELETED, listenMessage);
     return () => {
-      socket.removeListener("DIALOG_CREATED", listenDialog);
-      socket.removeListener("MESSAGE_CREATED", listenMessage);
+      socket.removeListener(socketEvents.DIALOG_CREATED, listenDialog);
+      socket.removeListener(socketEvents.MESSAGE_CREATED, listenMessage);
+      socket.removeListener(socketEvents.MESSAGE_DELETED, listenMessage);
     };
   }, []);
 

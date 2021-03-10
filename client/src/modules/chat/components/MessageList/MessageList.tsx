@@ -10,6 +10,7 @@ import { useSelector } from "tools/hooks";
 import { getFullName } from "tools";
 import socket from "core/socket";
 import { IMessage } from "tools/interfaces";
+import socketEvents from "core/socket/events";
 
 const MessageList: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,9 +23,15 @@ const MessageList: React.FC = () => {
     listRef.current?.scrollTo(0, listRef.current?.scrollHeight);
   });
 
-  const listenMessage = (message: IMessage) => {
+  const listenMessageCreated = (message: IMessage) => {
     if (message.dialog === dialog?._id && message.author._id !== userID) {
       dispatch(messagesActionCreators.addMessage(message));
+    }
+  };
+
+  const listenMessageDeleted = (message: IMessage) => {
+    if (message.dialog === dialog?._id && message.author._id !== userID) {
+      dispatch(messagesActionCreators.removeMessage(message));
     }
   };
 
@@ -33,9 +40,11 @@ const MessageList: React.FC = () => {
       return;
     }
     dispatch(fetchMessages(dialog._id));
-    socket.on("MESSAGE_CREATED", listenMessage);
+    socket.on(socketEvents.MESSAGE_CREATED, listenMessageCreated);
+    socket.on(socketEvents.MESSAGE_DELETED, listenMessageDeleted);
     return () => {
-      socket.removeListener("MESSAGE_CREATED", listenMessage);
+      socket.removeListener(socketEvents.MESSAGE_CREATED, listenMessageCreated);
+      socket.removeListener(socketEvents.MESSAGE_DELETED, listenMessageDeleted);
     };
   }, [dialog?._id]);
 
@@ -70,6 +79,7 @@ const MessageList: React.FC = () => {
       <div className="message-list__body">
         <div className="message-list__items">
           {messages?.map(m => <Message
+            _id={m._id}
             key={m._id}
             text={m.text}
             date={m.updatedAt}

@@ -24,4 +24,13 @@ export default {
   resetMessages: () => {
     return { type: ActionTypes.RESET_MESSAGES } as const;
   },
+  startPostDeleteMessage: () => {
+    return { type: ActionTypes.POST_DELETE_MESSAGE_START } as const;
+  },
+  failPostDeleteMessage: (error: string) => {
+    return { type: ActionTypes.POST_DELETE_MESSAGE_FAIL, payload: { error } } as const;
+  },
+  removeMessage: (item: IMessage) => {
+    return { type: ActionTypes.REMOVE_MESSAGE, payload: { item } } as const;
+  },
 };

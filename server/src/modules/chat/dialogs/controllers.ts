@@ -6,6 +6,7 @@ import { handleError } from "tools";
 import Message from "../messages/models/Message";
 import Dialog from "./models/Dialog";
 import { IRequest } from "tools/interfaces";
+import socketEvents from "core/socket/events";
 
 interface ICreateRequest extends IRequest {
   body: {
@@ -41,7 +42,7 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     );
     const populated = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
       .populate(["author", "companion", "lastMessage"]);
-    req.io?.emit("DIALOG_CREATED", populated);
+    req.io?.emit(socketEvents.DIALOG_CREATED, populated);
     return res.status(201).json({ dialog: populated });
   } catch (err) {
     handleError(res, err);

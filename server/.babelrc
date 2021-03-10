@@ -11,7 +11,8 @@
           "modules": "./src/modules",
           "tools": "./src/tools",
           "config": "./src/config",
-          "middlewares": "./src/middlewares"
+          "middlewares": "./src/middlewares",
+          "core": "./src/core"
         }
       }
     ]
