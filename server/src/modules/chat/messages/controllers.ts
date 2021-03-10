@@ -52,7 +52,7 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
     await message.save();
     await Dialog.updateOne(
       { _id: mongoose.Types.ObjectId(req.body.dialog) },
-      { $push: { messages: message._id } }
+      { lastMessage: message._id }
     );
     const populated = await message.populate("author").execPopulate();
     req.io?.emit("MESSAGE_CREATED", populated);
@@ -90,10 +90,13 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
     if (!message) {
       throw new Error("Сообщение не существует!");
     }
-    // при удалении сообщения надо удалять его ид также и из диалога
+    const lastMessage = await Message.findOne().sort({ createdAt: -1 });
+    if (!lastMessage) {
+      throw new Error("Невозможно удалить последнее сообщение. Удалите диалог целиком.");
+    }
     await Dialog.updateOne(
       { _id: message.dialog },
-      { $pull: { messages: mongoose.Types.ObjectId(req.params.id) } }
+      { lastMessage: lastMessage._id }
     );
     return res.status(200).json({ message });
   } catch (err) {

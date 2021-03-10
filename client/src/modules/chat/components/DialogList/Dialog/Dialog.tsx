@@ -52,16 +52,16 @@ const DialogListItem: React.FC<IProps> = ({ item, className }) => {
         </div>
         <div className="dialog__footer">
           <div className="dialog__message">
-            {item.messages[0].text}
+            {item.lastMessage.text}
           </div>
           {
-            item.messages[0] ?
+            item.lastMessage ?
               <div className="dialog__count">
                 {999}
               </div>
               :
               <div className="dialog__status">
-                <MessageStatusIcon hasRead={item.messages[0].hasRead} />
+                <MessageStatusIcon hasRead={item.lastMessage} />
               </div>
           }
         </div>

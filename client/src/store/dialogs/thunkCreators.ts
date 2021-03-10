@@ -9,6 +9,7 @@ export const fetchDialogs = (): ThunkType => {
     try {
       dispatch(actionCreators.startFetchDialogs());
       const { dialogs } = await jsonFetch<IDialog[]>("/api/chat/dialogs", undefined, { method: "GET" });
+      console.log("dialogs", dialogs);
       dispatch(actionCreators.successFetchDialogs(dialogs));
     } catch (err) {
       dispatch(actionCreators.failFetchDialogs(err.message || err));

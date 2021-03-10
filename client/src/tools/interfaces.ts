@@ -20,7 +20,7 @@ export interface IMessage {
 }
 
 export interface IDialog {
-  messages: IMessage[],
+  lastMessage: IMessage,
   _id: string;
   author: IUser;
   companion: IUser;

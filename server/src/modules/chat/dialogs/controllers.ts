@@ -37,15 +37,10 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     // findOneAndUpdate
     await Dialog.updateOne(
       { _id: dialog._id },
-      { messages: [message._id] },
+      { lastMessage: message._id },
     );
     const populated = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
-      .slice("messages", -1)
-      .populate(["author", "companion"])
-      .populate({
-        path: "messages",
-        populate: "author",
-      });
+      .populate(["author", "companion", "lastMessage"]);
     req.io?.emit("DIALOG_CREATED", populated);
     return res.status(201).json({ dialog: populated });
   } catch (err) {
@@ -64,10 +59,8 @@ export const getDialogs = async (req: IRequest, res: express.Response): Promise<
           { companion: mongoose.Types.ObjectId(userID) },
         ],
       },
-      // { author: mongoose.Types.ObjectId(userID) }
     )
-      .slice("messages", -1)
-      .populate(["messages", "author", "companion"]);
+      .populate(["lastMessage", "author", "companion"]);
     return res.status(200).json({ dialogs });
   } catch (err) {
     handleError(res, err);

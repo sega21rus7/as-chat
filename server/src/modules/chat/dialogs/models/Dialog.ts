@@ -4,7 +4,7 @@ interface IDialog extends Document {
   _id: Schema.Types.ObjectId;
   author: Schema.Types.ObjectId;
   companion: Schema.Types.ObjectId;
-  messages: Array<Schema.Types.ObjectId>;
+  lastMessage: Schema.Types.ObjectId;
 }
 
 const dialogSchema = new Schema({
@@ -18,10 +18,10 @@ const dialogSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  messages: [{
+  lastMessage: {
     type: Schema.Types.ObjectId,
     ref: "Message",
-  }],
+  },
 }, { timestamps: true });
 
 export default model<IDialog & Document>("Dialog", dialogSchema);
