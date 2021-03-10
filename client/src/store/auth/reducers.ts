@@ -7,6 +7,7 @@ import { ActionCreatorTypes } from "./types";
 const initialState = {
   user: null as Nullable<IUser>,
   authError: "",
+  authLoading: false,
   fetchUserError: "",
 };
 
@@ -15,13 +16,13 @@ type StateType = typeof initialState;
 const authReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
     case ActionTypes.AUTH_START:
-      return initialState;
+      return { ...state, authLoading: true };
     case ActionTypes.REGISTRATION_SUCCESS:
-      return { ...state, user: action.payload.user };
+      return { ...state, user: action.payload.user, authLoading: false };
     case ActionTypes.LOGIN_SUCCESS:
-      return { ...state, user: action.payload.user };
+      return { ...state, user: action.payload.user, authLoading: false };
     case ActionTypes.AUTH_FAIL:
-      return { ...state, authError: action.payload.error };
+      return { ...state, authError: action.payload.error, authLoading: false };
     case ActionTypes.LOGOUT:
       return initialState;
     case ActionTypes.FETCH_USER_FAIL:

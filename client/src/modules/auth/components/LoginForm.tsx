@@ -15,9 +15,10 @@ const requireMes = "Это обязательное поле";
 const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
   const error = useSelector(state => state.auth.authError);
+  const loading = useSelector(state => state.auth.authLoading);
   const history = useHistory();
 
-  const handleSubmit = (values: IFormValues) => {
+  const handleSubmit = async (values: IFormValues) => {
     const { login, password } = values;
     dispatch(loginUser(login, password));
     if (!error) {
@@ -49,7 +50,7 @@ const LoginForm: React.FC = () => {
           <Input.Password autoComplete="on" placeholder="Введите пароль" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Войти в аккаунт
           </Button>
         </Form.Item>

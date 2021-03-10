@@ -1,5 +1,12 @@
 @import '~style/variables';
 
+.create-dialog-popup {
+  &__no {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .user-list {
   margin: 10px 0;
   &__title {

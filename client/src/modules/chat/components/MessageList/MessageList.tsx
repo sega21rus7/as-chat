@@ -11,12 +11,14 @@ import { getFullName } from "tools";
 import socket from "core/socket";
 import { IMessage } from "tools/interfaces";
 import socketEvents from "core/socket/events";
+import { Empty, Spin } from "antd";
 
 const MessageList: React.FC = () => {
   const dispatch = useDispatch();
   const messages = useSelector(state => state.messages.items);
   const dialog = useSelector(state => state.dialogs.currentDialog);
   const userID = useSelector(state => state.auth.user?._id);
+  const loading = useSelector(state => state.messages.fetchMessagesLoading);
   const listRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -48,7 +50,7 @@ const MessageList: React.FC = () => {
     };
   }, [dialog?._id]);
 
-  if (!messages) {
+  if (!dialog) {
     return (
       <div className="message-list">
         <div className="message-list__no no-message">
@@ -78,15 +80,25 @@ const MessageList: React.FC = () => {
       </div>
       <div className="message-list__body">
         <div className="message-list__items">
-          {messages?.map(m => <Message
-            _id={m._id}
-            key={m._id}
-            text={m.text}
-            date={m.updatedAt}
-            author={m.author}
-            hasRead={m.hasRead}
-            className="message-list__item"
-          />)}
+          {
+            loading ? <div className="message-list__no">
+              <Spin />
+            </div> :
+              !messages?.length ? <div className="message-list__no">
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description="У вас нет сообщений"
+                />
+              </div> :
+                messages?.map(m => <Message
+                  _id={m._id}
+                  key={m._id}
+                  text={m.text}
+                  date={m.updatedAt}
+                  author={m.author}
+                  hasRead={m.hasRead}
+                  className="message-list__item"
+                />)}
         </div>
         <CreateMessageForm />
       </div>

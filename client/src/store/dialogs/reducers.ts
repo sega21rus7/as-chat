@@ -8,6 +8,7 @@ import { ActionCreatorTypes } from "./types";
 const initialState = {
   items: null as Nullable<IDialog[]>,
   fetchDialogsError: "",
+  fetchDialogsLoading: false,
   currentDialog: null as Nullable<IDialog>,
   postDialogError: "",
   filter: {
@@ -20,10 +21,12 @@ export type StateType = typeof initialState;
 
 const dialogsReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
+    case ActionTypes.FETCH_DIALOGS_START:
+      return { ...state, fetchDialogsLoading: true };
     case ActionTypes.FETCH_DIALOGS_FAIL:
-      return { ...state, fetchDialogsError: action.payload.error };
+      return { ...state, fetchDialogsError: action.payload.error, fetchDialogsLoading: false };
     case ActionTypes.FETCH_DIALOGS_SUCCESS:
-      return { ...state, items: action.payload.items };
+      return { ...state, items: action.payload.items, fetchDialogsLoading: false };
     case ActionTypes.SET_CURRENT_DIALOG:
       return { ...state, currentDialog: action.payload.dialog };
     case ActionTypes.ADD_DIALOG:

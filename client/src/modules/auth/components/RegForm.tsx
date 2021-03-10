@@ -17,11 +17,12 @@ const requireMes = "Это обязательное поле";
 const RegForm: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const loading = useSelector(state => state.auth.authLoading);
   const error = useSelector(state => state.auth.authError);
 
   const handleSubmit = (values: IFormValues) => {
     const { email, login, password, repeatPassword } = values;
-    dispatch(register(email, login, password, repeatPassword));
+    dispatch(register(login, email, password, repeatPassword));
     if (!error) {
       history.push("/im");
     }
@@ -86,7 +87,7 @@ const RegForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Зарегистрироваться
           </Button>
         </Form.Item>

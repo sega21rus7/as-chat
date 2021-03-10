@@ -7,6 +7,7 @@ import { ActionCreatorTypes, FilterTypes } from "./types";
 const initialState = {
   users: null as Nullable<IUser[]>,
   error: "",
+  loading: false,
   filter: {
     key: "",
     type: FilterTypes.SHOW_ALL as FilterTypes,
@@ -17,10 +18,12 @@ export type StateType = typeof initialState;
 
 const createDialogReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
+    case ActionTypes.FETCH_USERS_START:
+      return { ...state, loading: true };
     case ActionTypes.FETCH_USERS_FAIL:
-      return { ...state, error: action.payload.error };
+      return { ...state, error: action.payload.error, loading: false };
     case ActionTypes.FETCH_USERS_SUCCESS:
-      return { ...state, users: action.payload.users };
+      return { ...state, users: action.payload.users, loading: false };
     case ActionTypes.FILTER:
       return { ...state, filter: { ...action.payload } };
     default:

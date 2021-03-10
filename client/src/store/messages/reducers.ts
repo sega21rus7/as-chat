@@ -7,6 +7,7 @@ import { ActionCreatorTypes } from "./types";
 const initialState = {
   items: null as Nullable<IMessage[]>,
   fetchMessagesError: "",
+  fetchMessagesLoading: false,
   postMessageError: "",
   postDeleteMessageError: "",
 };
@@ -15,10 +16,12 @@ type StateType = typeof initialState;
 
 const messagesReducer = (state = initialState, action: ActionCreatorTypes): StateType => {
   switch (action.type) {
+    case ActionTypes.FETCH_MESSAGES_START:
+      return { ...state, fetchMessagesLoading: true };
     case ActionTypes.FETCH_MESSAGES_FAIL:
-      return { ...state, fetchMessagesError: action.payload.error };
+      return { ...state, fetchMessagesError: action.payload.error, fetchMessagesLoading: false };
     case ActionTypes.FETCH_MESSAGES_SUCCESS:
-      return { ...state, items: action.payload.items };
+      return { ...state, items: action.payload.items, fetchMessagesLoading: false };
     case ActionTypes.ADD_MESSAGE:
       return {
         ...state,

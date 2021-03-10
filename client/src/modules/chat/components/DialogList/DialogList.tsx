@@ -14,11 +14,13 @@ import { IDialog } from "tools/interfaces";
 import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
 import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 import socketEvents from "core/socket/events";
+import { Empty, Spin } from "antd";
 
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const dialogs = useSelector(state => getFiltetedDialogs(state.dialogs, userID));
+  const loading = useSelector(state => state.dialogs.fetchDialogsLoading);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
   const listenDialog = (dialog: IDialog) => {
@@ -59,13 +61,22 @@ const DialogList: React.FC = () => {
         <CreateDialogButton openCreatePopup={openCreatePopup} />
       </div>
       {
-        dialogs && dialogs.sort((a, b) => {
-          return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
-        }).map(item => <Dialog
-          className="dialog-list__item"
-          key={item._id}
-          item={item}
-        />)
+        loading ? <div className="dialog-list__no">
+          <Spin />
+        </div> :
+          !dialogs?.length ? <div className="dialog-list__no">
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="Диалогов не найдено"
+            />
+          </div> :
+            dialogs.sort((a, b) => {
+              return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
+            }).map(item => <Dialog
+              className="dialog-list__item"
+              key={item._id}
+              item={item}
+            />)
       }
       <CreateDialogPopup visible={createPopupVisible} hide={closeCreatePopup} />
     </div>
