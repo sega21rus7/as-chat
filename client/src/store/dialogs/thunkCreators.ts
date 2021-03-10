@@ -26,6 +26,7 @@ export const postDialog = (companion: string, messageText: string): ThunkType =>
         messageText,
       });
       dispatch(actionCreators.addDialog(dialog));
+      dispatch(actionCreators.setCurrentDialog(dialog));
     } catch (err) {
       message.error(err.message || err);
       dispatch(actionCreators.failPostDialog(err.message || err));
