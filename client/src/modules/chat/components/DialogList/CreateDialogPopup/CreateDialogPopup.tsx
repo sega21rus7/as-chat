@@ -91,6 +91,11 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
       onCancel={hide}
       onOk={onOk}
     >
+      <Input
+        placeholder="Найти пользователей..."
+        value={searchValue}
+        onChange={handleSearchValueChange}
+      />
       {
         loading ? <div className="create-dialog-popup__no">
           <Spin />
@@ -102,11 +107,6 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
             />
           </div> :
             <React.Fragment>
-              <Input
-                placeholder="Найти пользователей..."
-                value={searchValue}
-                onChange={handleSearchValueChange}
-              />
               <div className="user-list">
                 {users.slice(page === 1 ? 0 : pageSize * page - pageSize, pageSize * page).map(user =>
                   <li
