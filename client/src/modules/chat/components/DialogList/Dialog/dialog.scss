@@ -7,7 +7,7 @@
   margin: 0 0 10px 0;
   padding: 10px 5px;
   &_selected {
-    background: $lightblue;
+    background: $blue;
     #{$self}__companion, #{$self}__message, #{$self}__date {
       color: white;
     }

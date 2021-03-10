@@ -19,6 +19,7 @@
   }
 }
 .user-item {
+  $self: &;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -31,6 +32,9 @@
     margin: 0 10px 0 0;
   }
   &_selected {
-    background: $lightblue;
+    background: $blue;
+    #{$self}__name {
+      color: white;
+    }
   }
 }
