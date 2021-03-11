@@ -18,9 +18,10 @@ const store = createStore(rootReducer,
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    {/* не синхронизирован с antd */}
+    {/* <React.StrictMode> */}
+    <App />
+    {/* </React.StrictMode> */}
   </Provider>,
   document.getElementById("root"),
 );
