@@ -31,4 +31,13 @@ export default {
   showByFullName: (key: string) => {
     return { type: ActionTypes.FILTER, payload: { type: FilterTypes.SHOW_BY_FULLNAME, key } } as const;
   },
+  startPostDeleteDialog: () => {
+    return { type: ActionTypes.POST_DELETE_DIALOG_START } as const;
+  },
+  failPostDeleteDialog: (error: string) => {
+    return { type: ActionTypes.POST_DELETE_DIALOG_FAIL, payload: { error } } as const;
+  },
+  removeDialog: (item: IDialog) => {
+    return { type: ActionTypes.REMOVE_DIALOG, payload: { item } } as const;
+  },
 };

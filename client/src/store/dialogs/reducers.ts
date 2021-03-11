@@ -15,6 +15,7 @@ const initialState = {
     key: "",
     type: FilterTypes.SHOW_ALL as FilterTypes,
   },
+  postDeleteDialogError: "",
 };
 
 export type StateType = typeof initialState;
@@ -41,6 +42,13 @@ const dialogsReducer = (state = initialState, action: ActionCreatorTypes): State
       return { ...state, postDialogError: action.payload.error };
     case ActionTypes.FILTER:
       return { ...state, filter: { ...action.payload } };
+    case ActionTypes.POST_DELETE_DIALOG_FAIL:
+      return { ...state, postDeleteDialogError: action.payload.error };
+    case ActionTypes.REMOVE_DIALOG:
+      return {
+        ...state,
+        items: state.items && state.items.filter(x => x._id !== action.payload.item._id),
+      };
     default:
       return state;
   }
