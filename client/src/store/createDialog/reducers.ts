@@ -23,7 +23,7 @@ const createDialogReducer = (state = initialState, action: ActionCreatorTypes): 
     case ActionTypes.FETCH_USERS_FAIL:
       return { ...state, error: action.payload.error, loading: false };
     case ActionTypes.FETCH_USERS_SUCCESS:
-      return { ...state, users: action.payload.users, loading: false };
+      return { ...state, users: action.payload.users, loading: false, error: "" };
     case ActionTypes.FILTER:
       return { ...state, filter: { ...action.payload } };
     default:

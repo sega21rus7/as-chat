@@ -27,12 +27,18 @@ const dialogsReducer = (state = initialState, action: ActionCreatorTypes): State
     case ActionTypes.FETCH_DIALOGS_FAIL:
       return { ...state, fetchDialogsError: action.payload.error, fetchDialogsLoading: false };
     case ActionTypes.FETCH_DIALOGS_SUCCESS:
-      return { ...state, items: action.payload.items, fetchDialogsLoading: false };
+      return {
+        ...state,
+        items: action.payload.items,
+        fetchDialogsLoading: false,
+        fetchDialogsError: "",
+      };
     case ActionTypes.SET_CURRENT_DIALOG:
       return { ...state, currentDialog: action.payload.dialog };
     case ActionTypes.ADD_DIALOG:
       return {
         ...state,
+        postDialogError: "",
         items: [
           ...(state.items ? state.items : []),
           action.payload.item,

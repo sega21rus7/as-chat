@@ -21,7 +21,12 @@ const messagesReducer = (state = initialState, action: ActionCreatorTypes): Stat
     case ActionTypes.FETCH_MESSAGES_FAIL:
       return { ...state, fetchMessagesError: action.payload.error, fetchMessagesLoading: false };
     case ActionTypes.FETCH_MESSAGES_SUCCESS:
-      return { ...state, items: action.payload.items, fetchMessagesLoading: false };
+      return {
+        ...state,
+        items: action.payload.items,
+        fetchMessagesLoading: false,
+        fetchMessagesError: "",
+      };
     case ActionTypes.ADD_MESSAGE:
       return {
         ...state,
@@ -29,6 +34,7 @@ const messagesReducer = (state = initialState, action: ActionCreatorTypes): Stat
           ...(state.items ? state.items : []),
           action.payload.item,
         ],
+        postMessageError: "",
       };
     case ActionTypes.POST_MESSAGE_FAIL:
       return { ...state, postMessageError: action.payload.error };
@@ -40,6 +46,7 @@ const messagesReducer = (state = initialState, action: ActionCreatorTypes): Stat
       return {
         ...state,
         items: state.items && state.items.filter(x => x._id !== action.payload.item._id),
+        postDeleteMessageError: "",
       };
     default:
       return state;
