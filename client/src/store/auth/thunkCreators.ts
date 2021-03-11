@@ -1,8 +1,24 @@
-import { jsonFetch } from "tools";
+import { jsonFetch, textFetch } from "tools";
 import { ThunkType } from "./types";
 import actionCreators from "./actionCreators";
 import { message } from "antd";
 import { IUser } from "tools/interfaces";
+
+export const changePassword = (oldPassword: string, password: string, repeatPassword: string): ThunkType => {
+  return async dispatch => {
+    try {
+      dispatch(actionCreators.changePasswordStart());
+      const res = await textFetch("/api/profile/change_password", {
+        oldPassword, password, repeatPassword,
+      });
+      dispatch(actionCreators.changePasswordSuccess());
+      message.success(res);
+    } catch (err) {
+      message.error(err.message || err);
+      dispatch(actionCreators.changePasswordFail(err.message || err));
+    }
+  };
+};
 
 export const fetchUser = (): ThunkType => {
   return async dispatch => {

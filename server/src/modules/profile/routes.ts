@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.use("/change_password", changePasswordController);
+router.post("/change_password", changePasswordController);
 router.use("/user/info", getUserInfoController);
 router.use("/user/edit", editUserController);
 

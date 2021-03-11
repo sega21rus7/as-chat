@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./burger_menu.scss";
 import { useDispatch } from "react-redux";
 import { Drawer } from "antd";
@@ -11,11 +11,13 @@ import blackMoonImage from "./assets/svg/moon_black.svg";
 import authАctionCreators from "store/auth/actionCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
 import messagesActionCreators from "store/messages/actionCreators";
+import ChangePasswordModal from "./ChangePasswordPopup/ChangePasswordPopup";
 
 const BurgerMenu: React.FC = () => {
   const dispatch = useDispatch();
   const active = useSelector(state => state.burgerMenu.active);
   const user = useSelector(state => state.auth.user);
+  const [changePasswordModalActive, setChangePasswordModalActive] = useState(false);
 
   const logout = () => {
     dispatch(burgerMenuАctionCreators.closeMenu());
@@ -24,8 +26,16 @@ const BurgerMenu: React.FC = () => {
     dispatch(authАctionCreators.logout());
   };
 
+  const openChangePasswordPopup = () => {
+    dispatch(burgerMenuАctionCreators.closeMenu());
+    setChangePasswordModalActive(true);
+  };
+  const closeChangePasswordPopup = () => {
+    setChangePasswordModalActive(false);
+  };
+
   return (
-    <div className="div">
+    <React.Fragment>
       <Drawer
         className="burger-menu"
         placement="left"
@@ -52,7 +62,7 @@ const BurgerMenu: React.FC = () => {
                 Профиль
               </p>
             </li>
-            <li className="burger-menu-item">
+            <li className="burger-menu-item" onClick={openChangePasswordPopup}>
               <div className="burger-menu-item__image-wrapper">
                 <SettingOutlined className="burger-menu-item__image" />
               </div>
@@ -79,7 +89,11 @@ const BurgerMenu: React.FC = () => {
           </div>
         </div>
       </Drawer>
-    </div>
+      <ChangePasswordModal
+        visible={changePasswordModalActive}
+        hide={closeChangePasswordPopup}
+      />
+    </React.Fragment>
   );
 };
 

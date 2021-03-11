@@ -29,4 +29,13 @@ export default {
   fetchUserSuccess: (user: IUser) => {
     return { type: ActionTypes.FETCH_USER_SUCCESS, payload: { user } } as const;
   },
+  changePasswordStart: () => {
+    return { type: ActionTypes.CHANGE_PASSWORD_START } as const;
+  },
+  changePasswordFail: (error: string) => {
+    return { type: ActionTypes.CHANGE_PASSWORD_FAIL, payload: { error } } as const;
+  },
+  changePasswordSuccess: () => {
+    return { type: ActionTypes.CHANGE_PASSWORD_SUCCESS } as const;
+  },
 };

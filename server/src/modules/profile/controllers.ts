@@ -6,9 +6,9 @@ import { IRequest } from "tools/interfaces";
 
 interface IChangePasswordRequest extends IRequest {
   body: {
-    old_password: string,
-    password1: string,
-    password2: string,
+    oldPassword: string,
+    password: string,
+    repeatPassword: string,
   }
 }
 
@@ -34,14 +34,14 @@ export const getUserInfo = async (req: IRequest, res: express.Response): Promise
 
 export const changePassword = async (req: IChangePasswordRequest, res: express.Response): Promise<unknown> => {
   try {
-    if (req.body.password1 !== req.body.password2) {
+    if (req.body.password !== req.body.repeatPassword) {
       return res.status(400).end("Пароли должны совпадать!");
     }
     const _id = req.user && mongoose.Types.ObjectId(req.user._id);
     const user = await User.findOne({ _id });
-    if (user && isPasswordsEqual(req.body.old_password, user.password)) {
-      await user.updateOne({ password: generatePassword(req.body.password1) });
-      res.status(200).json("Пароль успешно изменен");
+    if (user && isPasswordsEqual(req.body.oldPassword, user.password)) {
+      await user.updateOne({ password: generatePassword(req.body.password) });
+      res.status(200).end("Пароль успешно изменен");
     } else {
       res.status(400).end("Старый пароль введен неверно.");
     }

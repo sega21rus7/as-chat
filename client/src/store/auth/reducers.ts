@@ -9,6 +9,7 @@ const initialState = {
   authError: "",
   authLoading: false,
   fetchUserError: "",
+  changePasswordError: "",
 };
 
 type StateType = typeof initialState;
@@ -18,9 +19,9 @@ const authReducer = (state = initialState, action: ActionCreatorTypes): StateTyp
     case ActionTypes.AUTH_START:
       return { ...state, authLoading: true };
     case ActionTypes.REGISTRATION_SUCCESS:
-      return { ...state, user: action.payload.user, authLoading: false };
+      return { ...state, user: action.payload.user, authLoading: false, authError: "" };
     case ActionTypes.LOGIN_SUCCESS:
-      return { ...state, user: action.payload.user, authLoading: false };
+      return { ...state, user: action.payload.user, authLoading: false, authError: "" };
     case ActionTypes.AUTH_FAIL:
       return { ...state, authError: action.payload.error, authLoading: false };
     case ActionTypes.LOGOUT:
@@ -28,7 +29,11 @@ const authReducer = (state = initialState, action: ActionCreatorTypes): StateTyp
     case ActionTypes.FETCH_USER_FAIL:
       return { ...state, fetchUserError: action.payload.error };
     case ActionTypes.FETCH_USER_SUCCESS:
-      return { ...state, user: action.payload.user };
+      return { ...state, user: action.payload.user, fetchUserError: "" };
+    case ActionTypes.CHANGE_PASSWORD_FAIL:
+      return { ...state, changePasswordError: action.payload.error };
+    case ActionTypes.CHANGE_PASSWORD_SUCCESS:
+      return { ...state, changePasswordError: "" };
     default:
       return state;
   }
