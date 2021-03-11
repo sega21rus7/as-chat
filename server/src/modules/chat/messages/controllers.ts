@@ -91,22 +91,22 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
     if (!message) {
       throw new Error("Сообщение не существует!");
     }
-    const twoLast = await Message
-      .find({ dialog: message.dialog })
-      .sort({ createdAt: -1 })
-      .limit(2);
-    console.log("twoLast", twoLast);
-    if (!twoLast || twoLast.length < 2) {
+    const count = await Message.find({ dialog: message.dialog }).countDocuments();
+    if (count <= 1) {
       throw new Error("Невозможно удалить последнее сообщение. Удалите диалог целиком.");
     }
+    const dialog = await Dialog.findOne({ _id: message.dialog });
     await message.deleteOne();
-    const lastMessage = twoLast[1];
-    await Dialog.updateOne(
-      { _id: message.dialog },
-      { lastMessage: lastMessage._id }
-    );
+    let isLast = false;
+    if (dialog && message._id.equals(dialog.lastMessage)) {
+      const lastMessage = await Message
+        .findOne({ dialog: dialog?._id })
+        .sort({ createdAt: -1 });
+      lastMessage && dialog.updateOne({ lastMessage: lastMessage._id }).exec();
+      isLast = true;
+    }
     const populated = await message.populate("author").execPopulate();
-    req.io?.emit(socketEvents.MESSAGE_DELETED, populated);
+    req.io?.emit(socketEvents.MESSAGE_DELETED, populated, isLast);
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);
