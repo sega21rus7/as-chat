@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./create_message_form.scss";
 import { Form, Input, Button } from "antd";
 import image from "./assets/svg/send.svg";
 import { useDispatch } from "react-redux";
 import { postMessage } from "store/messages/thunkCreators";
 import { useSelector } from "tools/hooks";
+import { TextAreaRef } from "antd/lib/input/TextArea";
 
 interface FormValuesType {
   text: string,
@@ -13,7 +14,12 @@ interface FormValuesType {
 const CreateMessageForm: React.FC = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const inputRef = useRef<TextAreaRef>(null);
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  });
 
   const handleSubmit = (values: FormValuesType) => {
     if (currentDialogID && values.text && values.text.trim()) {
@@ -37,6 +43,7 @@ const CreateMessageForm: React.FC = () => {
     >
       <Form.Item name="text">
         <Input.TextArea
+          ref={inputRef}
           placeholder="Написать сообщение..."
           allowClear
           autoSize
