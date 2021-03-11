@@ -66,10 +66,10 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
       dispatch(fetchUsers());
       return;
     }
-    form.resetFields();
-    setSearchValue("");
-    setSelectedUserID("");
-    setPage(1);
+    // form.resetFields();
+    // setSearchValue("");
+    // setSelectedUserID("");
+    // setPage(1);
   }, [visible]);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -81,6 +81,14 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
     setSearchValue(e.target.value);
   };
 
+  const onCancel = () => {
+    form.resetFields();
+    setSearchValue("");
+    setSelectedUserID("");
+    setPage(1);
+    hide();
+  };
+
   return (
     <Modal
       className="create-dialog-popup"
@@ -88,7 +96,7 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
       title="Новое сообщение"
       okText="Отправить"
       cancelText="Закрыть"
-      onCancel={hide}
+      onCancel={onCancel}
       onOk={onOk}
     >
       <Input
