@@ -56,16 +56,6 @@ export const getAllUsers = async (req: IRequest, res: express.Response): Promise
   }
 };
 
-export const getUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
-  try {
-    const userID = (req.user as IUser)._id;
-    const user = await User.findOne({ _id: mongoose.Types.ObjectId(userID) });
-    return res.status(200).json({ user });
-  } catch (err) {
-    handleError(res, err);
-  }
-};
-
 export const login = async (req: ILoginRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.body.password || !req.body.login) {

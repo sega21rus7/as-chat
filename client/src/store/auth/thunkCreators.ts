@@ -24,7 +24,9 @@ export const fetchUser = (): ThunkType => {
   return async dispatch => {
     try {
       dispatch(actionCreators.fetchUserStart());
-      const { user } = await jsonFetch<IUser>("/api/auth/getUser");
+      const { user } = await jsonFetch<IUser>("/api/profile", undefined, {
+        method: "GET",
+      });
       dispatch(actionCreators.fetchUserSuccess(user));
     } catch (err) {
       message.error(err.message || err);

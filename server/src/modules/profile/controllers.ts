@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import User from "modules/auth/models/User";
-import { handleError, generatePassword, isPasswordsEqual } from "../../tools";
+import { handleError, generatePassword, isPasswordsEqual } from "tools";
 import { IRequest } from "tools/interfaces";
+import { IUser } from "modules/auth/models/User";
 
 interface IChangePasswordRequest extends IRequest {
   body: {
@@ -22,10 +23,10 @@ export const editUser = async (req: IRequest, res: express.Response): Promise<un
   }
 };
 
-export const getUserInfo = async (req: IRequest, res: express.Response): Promise<unknown> => {
+export const getUser = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
-    const _id = req.user && mongoose.Types.ObjectId(req.user._id);
-    const user = await User.findOne({ _id });
+    const _id = (req.user as IUser)._id;
+    const user = await User.findOne({ _id: mongoose.Types.ObjectId(_id) });
     return res.status(200).json({ user });
   } catch (err) {
     handleError(res, err);
