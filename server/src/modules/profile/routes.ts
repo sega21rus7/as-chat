@@ -1,5 +1,4 @@
 import express from "express";
-import authMiddleware from "middlewares/auth";
 import {
   changePassword as changePasswordController,
   getUser as getUserController,
@@ -8,8 +7,8 @@ import {
 
 const router = express.Router();
 
-router.post("/change_password", authMiddleware, changePasswordController);
-router.get("/", authMiddleware, getUserController);
-router.put("/", authMiddleware, editUserController);
+router.post("/change_password", changePasswordController);
+router.get("/", getUserController);
+router.put("/", editUserController);
 
 export default router;
