@@ -29,20 +29,24 @@ const DialogList: React.FC = () => {
     }
   };
 
-  const listenMessage = () => {
+  const listenCreateMessage = () => {
     dispatch(fetchDialogs());
+  };
+
+  const listenDeleteMessage = (_: never, isLast: boolean) => {
+    isLast && dispatch(fetchDialogs());
   };
 
   useEffect(() => {
     dispatch(fetchDialogs());
     socket.on(socketEvents.DIALOG_CREATED, listenDialog);
     // todo обновлять список только у создателя диалога и его собеседника
-    socket.on(socketEvents.MESSAGE_CREATED, listenMessage);
-    socket.on(socketEvents.MESSAGE_DELETED, listenMessage);
+    socket.on(socketEvents.MESSAGE_CREATED, listenCreateMessage);
+    socket.on(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
     return () => {
       socket.removeListener(socketEvents.DIALOG_CREATED, listenDialog);
-      socket.removeListener(socketEvents.MESSAGE_CREATED, listenMessage);
-      socket.removeListener(socketEvents.MESSAGE_DELETED, listenMessage);
+      socket.removeListener(socketEvents.MESSAGE_CREATED, listenCreateMessage);
+      socket.removeListener(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
     };
   }, []);
 
