@@ -82,11 +82,9 @@ const DialogList: React.FC = () => {
           </div> :
             dialogs.sort((a, b) => {
               return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
-            }).map(item => <Dialog
-              className="dialog-list__item"
-              key={item._id}
-              item={item}
-            />)
+            }).map(item => <div className="dialog-list__item">
+              <Dialog key={item._id} item={item} />
+            </div>)
       }
       <CreateDialogPopup visible={createPopupVisible} hide={closeCreatePopup} />
     </div>

@@ -1,4 +1,4 @@
-@import '~style/variables';
+@import '~style/colors';
 
 .message {
   $self: &;
@@ -24,9 +24,6 @@
     }
   }
   display: flex;
-  &__content {
-    max-width: 100%;
-  }
   &__avatar {
     display: flex;
     flex-direction: column-reverse;

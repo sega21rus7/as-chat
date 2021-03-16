@@ -15,10 +15,9 @@ import { postDeleteDialog } from "store/dialogs/thunkCreators";
 
 interface IProps {
   item: IDialog;
-  className: string;
 }
 
-const DialogListItem: React.FC<IProps> = ({ item, className }) => {
+const DialogListItem: React.FC<IProps> = ({ item }) => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
@@ -42,11 +41,7 @@ const DialogListItem: React.FC<IProps> = ({ item, className }) => {
   return (
     <Dropdown overlay={menu} trigger={["contextMenu"]}>
       <div
-        className={
-          currentDialogID === item._id ?
-            ["dialog", "dialog_selected", className].join(" ") :
-            ["dialog", className].join(" ")
-        }
+        className={currentDialogID === item._id ? "dialog dialog_selected" : "dialog"}
         onClick={handleClick}>
         <div className="dialog__avatar">
           <Avatar

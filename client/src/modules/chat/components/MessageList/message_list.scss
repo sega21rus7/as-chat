@@ -1,4 +1,4 @@
-@import '~style/variables';
+@import '~style/colors';
 
 .no-message {
   &__body {
@@ -16,9 +16,7 @@
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  &__item {
-    margin: 0 0 10px 0;
-  }
+  padding: 0 5px 0 0;
   &__no {
     height: 100%;
     display: flex;
@@ -57,12 +55,20 @@
     flex-direction: column;
     justify-content: flex-end;
   }
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 0 10px 0;
+    &_my {
+      justify-content: flex-end;
+    }
+  }
 }
 
 .message-online-icon {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   &__body {
     width: 5px;
     height: 5px;
