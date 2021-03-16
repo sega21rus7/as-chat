@@ -4,7 +4,7 @@ import Dialog from "./Dialog/Dialog";
 import "./dialog_list.scss";
 import socket from "core/socket";
 import SearchForm from "./SearchForm/SearchForm";
-import BurgerIcon from "./BurgerIcon/BurgerIcon";
+import BurgerButton from "./BurgerButton/BurgerButton";
 import { useDispatch } from "react-redux";
 import { fetchDialogs } from "store/dialogs/thunkCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
@@ -60,9 +60,15 @@ const DialogList: React.FC = () => {
   return (
     <div className="dialog-list">
       <div className="dialog-list__header">
-        <BurgerIcon />
-        <SearchForm />
-        <CreateDialogButton openCreatePopup={openCreatePopup} />
+        <div className="dialog-list__burger-icon">
+          <BurgerButton />
+        </div>
+        <div className="dialog-list__search-input">
+          <SearchForm />
+        </div>
+        <div className="dialog-list__create-dialog-button">
+          <CreateDialogButton openCreatePopup={openCreatePopup} />
+        </div>
       </div>
       {
         loading ? <div className="dialog-list__no">

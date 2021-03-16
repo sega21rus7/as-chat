@@ -1,6 +1,6 @@
 import React from "react";
+import "./burger_button.scss";
 import { useDispatch } from "react-redux";
-import "./burger_icon.scss";
 import burgerMenuАctionCreators from "store/burgerMenu/actionCreators";
 
 const BurgerIcon: React.FC = () => {
