@@ -42,7 +42,7 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     );
     const populated = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
       .populate(["author", "companion", "lastMessage"]);
-    // req.io?.emit(socketEvents.DIALOG_CREATED, populated);
+    req.io?.emit(socketEvents.CREATE_DIALOG, populated);
     return res.status(201).json({ dialog: populated });
   } catch (err) {
     handleError(res, err);
@@ -75,11 +75,12 @@ export const deleteDialog = async (req: IRequest, res: express.Response): Promis
     }
     const dialog = await Dialog.findOneAndDelete({
       _id: mongoose.Types.ObjectId(req.params.dialogID),
-    });
+    }).populate("companion");
     if (!dialog) {
       throw new Error("Диалог не найден!");
     }
     await Message.deleteMany({ dialog: dialog._id });
+    req.io?.emit(socketEvents.DELETE_DIALOG, dialog);
     return res.status(200).json({ dialog });
   } catch (err) {
     handleError(res, err);
