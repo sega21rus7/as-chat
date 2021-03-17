@@ -91,13 +91,8 @@ const MessageList: React.FC = () => {
                 />
               </div> :
                 messages?.map(m => <Message
-                  _id={m._id}
+                  item={m}
                   key={m._id}
-                  text={m.text}
-                  date={m.updatedAt}
-                  author={m.author}
-                  hasRead={m.hasRead}
-                  className="message-list__item"
                 />)}
         </div>
         <CreateMessageForm />

@@ -1,4 +1,4 @@
-@import '~style/variables';
+@import '~style/colors';
 
 .no-message {
   &__body {
@@ -14,12 +14,8 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  margin: 0 0 10px 0;
   overflow-y: auto;
   overflow-x: hidden;
-  &__item {
-    margin: 0 0 10px 0;
-  }
   &__no {
     height: 100%;
     display: flex;

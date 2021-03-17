@@ -1,6 +1,7 @@
-@import '~style/variables';
+@import '~style/colors';
 
 .message {
+  margin: 0 0 10px 0;
   $self: &;
   &_my {
     #{$self}__bubble {
@@ -38,7 +39,6 @@
     opacity: 0.7;
   }
   &__bubble {
-
     background: whitesmoke;
     box-shadow: 0px 5px 5px rgba(54, 116, 255, 0.196733);
     border-radius: 12px 12px 12px 0;
