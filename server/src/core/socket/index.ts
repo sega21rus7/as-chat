@@ -10,7 +10,6 @@ export default (http: http.Server): socketIO.Server => {
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
-    socket.emit("test", "test message");
   });
   return io;
 };
