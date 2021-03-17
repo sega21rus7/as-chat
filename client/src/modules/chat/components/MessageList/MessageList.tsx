@@ -5,6 +5,7 @@ import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 import { useDispatch } from "react-redux";
 import { fetchMessages } from "store/messages/thunkCreators";
+import { fetchDialogs } from "store/dialogs/thunkCreators";
 import messagesActionCreators from "store/messages/actionCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
 import { useSelector } from "tools/hooks";
@@ -19,7 +20,8 @@ const MessageList: React.FC = () => {
   const dispatch = useDispatch();
   const messages = useSelector(state => state.messages.items);
   const dialog = useSelector(state => state.dialogs.currentDialog);
-  const userID = useSelector(state => state.auth.user?._id);
+  const user = useSelector(state => state.auth.user);
+  const userID = user?._id;
   const loading = useSelector(state => state.messages.fetchMessagesLoading);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -27,16 +29,14 @@ const MessageList: React.FC = () => {
     listRef.current?.scrollTo(0, listRef.current?.scrollHeight);
   });
 
-  const listenMessageCreated = (message: IMessage) => {
-    if (message.dialog === dialog?._id && message.author._id !== userID) {
-      dispatch(messagesActionCreators.addMessage(message));
-    }
+  const listenSendMessage = (message: IMessage) => {
+    dispatch(messagesActionCreators.addMessage(message));
+    dispatch(fetchDialogs());
   };
 
-  const listenMessageDeleted = (message: IMessage) => {
-    if (message.dialog === dialog?._id && message.author._id !== userID) {
-      dispatch(messagesActionCreators.removeMessage(message));
-    }
+  const listenDeleteMessage = (message: IMessage, isLast: boolean) => {
+    dispatch(messagesActionCreators.removeMessage(message));
+    isLast && dispatch(fetchDialogs());
   };
 
   useEffect(() => {
@@ -44,11 +44,12 @@ const MessageList: React.FC = () => {
       return;
     }
     dispatch(fetchMessages(dialog._id));
-    socket.on(socketEvents.MESSAGE_CREATED, listenMessageCreated);
-    socket.on(socketEvents.MESSAGE_DELETED, listenMessageDeleted);
+    socket.emit(socketEvents.JOIN_ROOM, dialog._id, user?.login);
+    socket.on(socketEvents.SEND_MESSAGE, listenSendMessage);
+    socket.on(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
     return () => {
-      socket.removeListener(socketEvents.MESSAGE_CREATED, listenMessageCreated);
-      socket.removeListener(socketEvents.MESSAGE_DELETED, listenMessageDeleted);
+      socket.off(socketEvents.SEND_MESSAGE, listenSendMessage);
+      socket.off(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
     };
   }, [dialog?._id]);
 

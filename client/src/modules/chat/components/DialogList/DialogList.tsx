@@ -40,15 +40,15 @@ const DialogList: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchDialogs());
-    socket.on(socketEvents.DIALOG_CREATED, listenDialog);
-    // todo обновлять список только у создателя диалога и его собеседника
-    socket.on(socketEvents.MESSAGE_CREATED, listenCreateMessage);
-    socket.on(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
-    return () => {
-      socket.removeListener(socketEvents.DIALOG_CREATED, listenDialog);
-      socket.removeListener(socketEvents.MESSAGE_CREATED, listenCreateMessage);
-      socket.removeListener(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
-    };
+    // socket.on(socketEvents.DIALOG_CREATED, listenDialog);
+    // // todo обновлять список только у создателя диалога и его собеседника
+    // socket.on(socketEvents.MESSAGE_CREATED, listenCreateMessage);
+    // socket.on(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
+    // return () => {
+    //   socket.removeListener(socketEvents.DIALOG_CREATED, listenDialog);
+    //   socket.removeListener(socketEvents.MESSAGE_CREATED, listenCreateMessage);
+    //   socket.removeListener(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
+    // };
   }, []);
 
   const openCreatePopup = () => {

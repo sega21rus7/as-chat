@@ -23,11 +23,10 @@ export const postMessage = (dialogID: string, text: string): ThunkType => {
   return async dispatch => {
     try {
       dispatch(actionCreators.startPostMessage());
-      const { message } = await jsonFetch<IMessage>("/api/chat/messages", {
+      await jsonFetch<IMessage>("/api/chat/messages", {
         dialog: dialogID,
         text,
       });
-      dispatch(actionCreators.addMessage(message));
     } catch (err) {
       message.error(err.message || err);
       dispatch(actionCreators.failPostMessage(err.message || err));
@@ -39,10 +38,9 @@ export const postDeleteMessage = (messageID: string): ThunkType => {
   return async dispatch => {
     try {
       dispatch(actionCreators.startPostDeleteMessage());
-      const { message } = await jsonFetch<IMessage>(`/api/chat/messages/${messageID}`, undefined, {
+      await jsonFetch<IMessage>(`/api/chat/messages/${messageID}`, undefined, {
         method: "DELETE",
       });
-      dispatch(actionCreators.removeMessage(message));
     } catch (err) {
       message.error(err.message || err);
       dispatch(actionCreators.failPostDeleteMessage(err.message || err));

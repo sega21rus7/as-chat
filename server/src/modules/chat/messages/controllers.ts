@@ -56,7 +56,7 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
       { lastMessage: message._id }
     );
     const populated = await message.populate("author").execPopulate();
-    req.io?.emit(socketEvents.MESSAGE_CREATED, populated);
+    req.io?.in(req.body.dialog).emit(socketEvents.SEND_MESSAGE, populated);
     return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);
@@ -106,7 +106,7 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
       isLast = true;
     }
     const populated = await message.populate("author").execPopulate();
-    req.io?.emit(socketEvents.MESSAGE_DELETED, populated, isLast);
+    req.io?.in(message.dialog.toString()).emit(socketEvents.DELETE_MESSAGE, populated, isLast);
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);
