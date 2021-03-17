@@ -100,9 +100,7 @@ const MessageList: React.FC = () => {
                   className="message-list__item"
                 />)}
         </div>
-        <div className="message-list__create-message-form">
-          <CreateMessageForm />
-        </div>
+        <CreateMessageForm />
       </div>
     </div>
   );

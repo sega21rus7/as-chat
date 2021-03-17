@@ -1,5 +1,6 @@
 .dialog-list {
   flex: 0 0 300px;
+  margin: 0 30px 0 0;
   overflow-y: auto;
   &__no {
     display: flex;
@@ -13,7 +14,10 @@
   &__burger-icon {
     margin: 0 10px 0 0;
   }
-  &__search-input {
-    margin: 0 10px 0 0;
+  &__search-form {
+    flex: 1 0 auto;
+  }
+  &__create-dialog-icon {
+    margin: 0 0 0 10px;
   }
 }

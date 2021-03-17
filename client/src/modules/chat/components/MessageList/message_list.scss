@@ -11,9 +11,10 @@
 }
 
 .message-list {
-  height: 100%;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  margin: 0 0 10px 0;
   overflow-y: auto;
   overflow-x: hidden;
   &__item {

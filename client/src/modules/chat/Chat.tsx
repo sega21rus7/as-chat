@@ -11,15 +11,9 @@ const Chat: React.FC = () => {
       <div className="chat">
         <div className="container">
           <div className="chat__body">
-            <div className="chat__burger-menu">
-              <BurgerMenu />
-            </div>
-            <div className="chat__dialog-list">
-              <DialogList />
-            </div>
-            <div className="chat__message-list">
-              <MessageList />
-            </div>
+            <BurgerMenu />
+            <DialogList />
+            <MessageList />
           </div>
         </div>
       </div>
