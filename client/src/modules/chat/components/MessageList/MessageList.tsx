@@ -90,15 +90,15 @@ const MessageList: React.FC = () => {
                   description="У вас нет сообщений"
                 />
               </div> :
-                messages?.map(m => {
-                  const my = userID === m.author._id;
-                  return <div className={my ?
-                    "message-list__item message-list__item_my" :
-                    "message-list__item"
-                  }>
-                    <Message item={m} key={m._id} />
-                  </div>;
-                })}
+                messages?.map(m => <Message
+                  _id={m._id}
+                  key={m._id}
+                  text={m.text}
+                  date={m.updatedAt}
+                  author={m.author}
+                  hasRead={m.hasRead}
+                  className="message-list__item"
+                />)}
         </div>
         <div className="message-list__create-message-form">
           <CreateMessageForm />
