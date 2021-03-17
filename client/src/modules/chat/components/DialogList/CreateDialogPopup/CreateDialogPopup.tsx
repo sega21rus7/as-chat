@@ -66,10 +66,6 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
       dispatch(fetchUsers());
       return;
     }
-    // form.resetFields();
-    // setSearchValue("");
-    // setSelectedUserID("");
-    // setPage(1);
   }, [visible]);
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
