@@ -38,13 +38,13 @@ export const jsonFetch = async<T>(url: string, data?: Record<string, unknown>, p
   return res;
 };
 
-export const arrToObj = (array: any[], key = "_id"): Record<string, any> => {
-  if (!array.length) {
-    return {};
+export const arrToObj = <T>(array: T[] | undefined | null, key = "_id"): Record<string, T> | undefined => {
+  if (!array || !array.length) {
+    return undefined;
   }
-  let result: any = {};
+  let result: { [key: string]: T } = {};
   array.forEach(item => {
-    result[item[key]] = item;
+    result[(item as any)[key]] = item;
   });
   return result;
 };
