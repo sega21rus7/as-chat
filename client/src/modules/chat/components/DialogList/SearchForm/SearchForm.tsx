@@ -26,7 +26,7 @@ const SearchForm: React.FC = () => {
     <Input
       className="search-input"
       allowClear
-      placeholder="Поиск среди контактов"
+      placeholder="Поиск"
       value={value}
       onChange={handleChange}
       suffix={<SearchOutlined />}

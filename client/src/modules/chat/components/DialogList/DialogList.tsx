@@ -20,6 +20,7 @@ const DialogList: React.FC = () => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const dialogs = useSelector(state => getFiltetedDialogs(state.dialogs, userID));
+  const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
   const loading = useSelector(state => state.dialogs.fetchDialogsLoading);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
@@ -58,7 +59,7 @@ const DialogList: React.FC = () => {
   };
 
   return (
-    <div className="dialog-list">
+    <div className={currentDialogID ? "dialog-list dialog-list_invisible-md" : "dialog-list"}>
       <div className="dialog-list__header">
         <BurgerIcon />
         <SearchForm />

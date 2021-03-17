@@ -1,4 +1,5 @@
 @import '~style/colors';
+@import '~style/variables';
 
 .no-message {
   &__body {
@@ -11,11 +12,20 @@
 }
 
 .message-list {
+  @media(max-width: $md4 + px) {
+    display: none;
+  }
+  &_visible-md {
+    @media(max-width: $md4 + px) {
+      display: flex;
+    }
+  }
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
   &__no {
     height: 100%;
     display: flex;
@@ -28,6 +38,22 @@
     background: white;
     padding: 0 0 10px 0;
     z-index: 2;
+  }
+  &__goback {
+    padding: 20px 20px 20px 0;
+    display: none;
+    @media(max-width: $md4 + px) {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      .anticon  {
+        font-size: 20px;
+        opacity: 0.7;
+      }
+    }
   }
   &__title {
     font-weight: bold;

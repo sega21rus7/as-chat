@@ -1,9 +1,11 @@
 @import '~style/colors';
+@import '~style/variables';
 
 .message {
   margin: 0 0 10px 0;
   $self: &;
   &_my {
+    justify-content: flex-end;
     #{$self}__bubble {
       background: $lightblue;
       border-radius: 12px 12px 0 12px;
@@ -25,8 +27,12 @@
     }
   }
   display: flex;
+  justify-content: flex-start;
   &__content {
-    max-width: 100%;
+    max-width: 50%;
+    @media(max-width: $md2 + px) {
+      max-width: 80%;
+    }
   }
   &__avatar {
     display: flex;

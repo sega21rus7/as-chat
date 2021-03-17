@@ -6,12 +6,14 @@ import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 import { useDispatch } from "react-redux";
 import { fetchMessages } from "store/messages/thunkCreators";
 import messagesActionCreators from "store/messages/actionCreators";
+import dialogsActionCreators from "store/dialogs/actionCreators";
 import { useSelector } from "tools/hooks";
 import { getFullName } from "tools";
 import socket from "core/socket";
 import { IMessage } from "tools/interfaces";
 import socketEvents from "core/socket/events";
 import { Empty, Spin } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const MessageList: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,6 +52,11 @@ const MessageList: React.FC = () => {
     };
   }, [dialog?._id]);
 
+  const goBack = () => {
+    dispatch(dialogsActionCreators.setCurrentDialog(null));
+    dispatch(messagesActionCreators.resetMessages());
+  };
+
   if (!dialog) {
     return (
       <div className="message-list">
@@ -65,8 +72,14 @@ const MessageList: React.FC = () => {
   }
 
   return (
-    <div className="message-list" ref={listRef}>
-      <div className="message-list__header">
+    <div
+      className={dialog._id ? "message-list message-list_visible-md" : "message-list"}
+      ref={listRef}
+    >
+      < div className="message-list__header" >
+        <div className="message-list__goback" onClick={goBack}>
+          <ArrowLeftOutlined />
+        </div>
         <div className="message-list__title">
           {dialog &&
             getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
@@ -77,7 +90,7 @@ const MessageList: React.FC = () => {
           </div>
           <p>Online</p>
         </div>
-      </div>
+      </div >
       <div className="message-list__body">
         <div className="message-list__items">
           {
@@ -97,7 +110,7 @@ const MessageList: React.FC = () => {
         </div>
         <CreateMessageForm />
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -1,9 +1,9 @@
 @import '~style/colors';
+@import '~style/variables';
 
 .dialog {
   $self: &;
   cursor: pointer;
-  display: flex;
   margin: 0 0 10px 0;
   padding: 10px 5px;
   &_selected {
@@ -19,6 +19,7 @@
     margin: 0 10px 0 0;
     display: flex;
     align-items: center;
+    float: left;
   }
   &__status {
     img {
@@ -50,7 +51,6 @@
   }
   &__message {
     opacity: 0.7;
-    max-width: 200px;
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
