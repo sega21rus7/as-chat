@@ -26,12 +26,10 @@ const DialogList: React.FC = () => {
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
   const listenCreateDialog = (dialog: IDialog) => {
-    console.log("listenCreateDialog");
     dispatch(dialogsActionCreators.addDialog(dialog));
   };
 
   const listenDeleteDialog = (dialog: IDialog) => {
-    console.log("listenDeleteDialog");
     dispatch(dialogsActionCreators.removeDialog(dialog));
     dispatch(dialogsActionCreators.setCurrentDialog(null));
     dispatch(messagesActionCreators.resetMessages());
