@@ -18,18 +18,18 @@ const Chat: React.FC = () => {
   };
 
   useEffect(() => {
-    socket.on(socketEvents.UNAUTHORIZED, listenUnauthorized);
+    socket.on(socketEvents.unauthorized, listenUnauthorized);
     return () => {
-      socket.off(socketEvents.UNAUTHORIZED, listenUnauthorized);
+      socket.off(socketEvents.unauthorized, listenUnauthorized);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const creds = [user?._id, user?.login];
-    user && socket.emit(socketEvents.JOIN, ...creds);
+    user && socket.emit(socketEvents.join, ...creds);
     return () => {
-      socket.emit(socketEvents.LEAVE, ...creds);
+      socket.emit(socketEvents.leave, ...creds);
     };
   }, [user]);
 

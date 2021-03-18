@@ -60,7 +60,7 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
     req.io?.to(req.body.dialog) // в сам диалог
       .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
       .to(dialog.companion.toString())
-      .emit(socketEvents.SEND_MESSAGE, populated);
+      .emit(socketEvents.sendMessage, populated);
     return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);
@@ -116,7 +116,7 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
     req.io?.to(message.dialog.toString()) // в сам диалог
       .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
       .to(dialog.companion.toString())
-      .emit(socketEvents.DELETE_MESSAGE, populated, isLast);
+      .emit(socketEvents.deleteMessage, populated, isLast);
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);

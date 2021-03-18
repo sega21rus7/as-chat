@@ -46,13 +46,13 @@ const MessageList: React.FC = () => {
     }
     dispatch(fetchMessages(dialog._id));
     const creds = [dialog._id, user?.login];
-    socket.emit(socketEvents.JOIN_ROOM, ...creds);
-    socket.on(socketEvents.SEND_MESSAGE, listenSendMessage);
-    socket.on(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+    socket.emit(socketEvents.joinDialog, ...creds);
+    socket.on(socketEvents.sendMessage, listenSendMessage);
+    socket.on(socketEvents.deleteMessage, listenDeleteMessage);
     return () => {
-      socket.emit(socketEvents.LEAVE_ROOM, ...creds);
-      socket.off(socketEvents.SEND_MESSAGE, listenSendMessage);
-      socket.off(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+      socket.emit(socketEvents.leaveDialog, ...creds);
+      socket.off(socketEvents.sendMessage, listenSendMessage);
+      socket.off(socketEvents.deleteMessage, listenDeleteMessage);
     };
   }, [dialog?._id]);
 

@@ -14,9 +14,10 @@ import { postDeleteDialog } from "store/dialogs/thunkCreators";
 
 interface IProps {
   item: IDialog;
+  typingText?: string;
 }
 
-const DialogListItem: React.FC<IProps> = ({ item }) => {
+const DialogListItem: React.FC<IProps> = ({ item, typingText }) => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
@@ -60,7 +61,7 @@ const DialogListItem: React.FC<IProps> = ({ item }) => {
           </div>
           <div className="dialog__footer">
             <div className="dialog__message">
-              {item.lastMessage.text}
+              {typingText || item.lastMessage.text}
             </div>
             {
               item.lastMessage ?

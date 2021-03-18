@@ -17,6 +17,12 @@ import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 import socketEvents from "core/socket/events";
 import { Empty, Spin } from "antd";
 
+interface ITyping {
+  dialogID: string;
+  message?: string;
+  stopped?: boolean;
+}
+
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
@@ -24,6 +30,7 @@ const DialogList: React.FC = () => {
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
   const loading = useSelector(state => state.dialogs.fetchDialogsLoading);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
+  const [typing, setTyping] = useState<null | ITyping>(null);
 
   const listenCreateDialog = (dialog: IDialog) => {
     dispatch(dialogsActionCreators.addDialog(dialog));
@@ -43,17 +50,28 @@ const DialogList: React.FC = () => {
     isLast && dispatch(fetchDialogs());
   };
 
+  const listenTypingMessage = (dialogID: string, message: string) => {
+    setTyping({ dialogID, message });
+  };
+
+  const listenStopTypingMessage = (dialogID: string) => {
+    setTyping({ dialogID, stopped: true });
+  };
+
   useEffect(() => {
     dispatch(fetchDialogs());
-    socket.on(socketEvents.CREATE_DIALOG, listenCreateDialog);
-    socket.on(socketEvents.DELETE_DIALOG, listenDeleteDialog);
-    socket.on(socketEvents.SEND_MESSAGE, listenSendMessage);
-    socket.on(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+    socket.on(socketEvents.createDialog, listenCreateDialog);
+    socket.on(socketEvents.deleteDialog, listenDeleteDialog);
+    socket.on(socketEvents.sendMessage, listenSendMessage);
+    socket.on(socketEvents.deleteMessage, listenDeleteMessage);
+    socket.on(socketEvents.typingMessage, listenTypingMessage);
+    socket.on(socketEvents.stopTypingMessage, listenStopTypingMessage);
     return () => {
-      socket.off(socketEvents.CREATE_DIALOG, listenCreateDialog);
-      socket.off(socketEvents.DELETE_DIALOG, listenDeleteDialog);
-      socket.off(socketEvents.SEND_MESSAGE, listenSendMessage);
-      socket.off(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+      socket.off(socketEvents.createDialog, listenCreateDialog);
+      socket.off(socketEvents.deleteDialog, listenDeleteDialog);
+      socket.off(socketEvents.sendMessage, listenSendMessage);
+      socket.off(socketEvents.deleteMessage, listenDeleteMessage);
+      socket.off(socketEvents.stopTypingMessage, listenStopTypingMessage);
     };
   }, []);
 
@@ -84,6 +102,7 @@ const DialogList: React.FC = () => {
             dialogs.sort((a, b) => {
               return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
             }).map(item => <Dialog
+              typingText={typing && !typing.stopped && item._id === typing.dialogID ? typing.message : undefined}
               key={item._id}
               item={item}
             />)

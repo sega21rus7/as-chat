@@ -53,7 +53,7 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     );
     const populated = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
       .populate(["author", "companion", "lastMessage"]);
-    req.io?.to(req.body.companion).to(userID).emit(socketEvents.CREATE_DIALOG, populated);
+    req.io?.to(req.body.companion).to(userID).emit(socketEvents.createDialog, populated);
     return res.status(201).json({ dialog: populated });
   } catch (err) {
     handleError(res, err);
@@ -93,7 +93,7 @@ export const deleteDialog = async (req: IRequest, res: express.Response): Promis
     }
     await Message.deleteMany({ dialog: dialog._id });
     console.log("dialog.companion", dialog.companion);
-    req.io?.to(dialog.companion.toString()).to(userID).emit(socketEvents.DELETE_DIALOG, dialog);
+    req.io?.to(dialog.companion.toString()).to(userID).emit(socketEvents.deleteDialog, dialog);
     return res.status(200).json({ dialog });
   } catch (err) {
     handleError(res, err);

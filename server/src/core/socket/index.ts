@@ -9,21 +9,31 @@ export default (http: http.Server): socketIO.Server => {
   io.on("connection", (socket: socketIO.Socket) => {
     console.log("a user connected");
 
-    socket.on(events.JOIN_ROOM, (roomID, login) => {
-      socket.join(roomID);
-      console.log(`User ${login} joined the room ${roomID}`);
+    socket.on(events.joinDialog, (dialogID: string, login: string) => {
+      socket.join(dialogID);
+      console.log(`User ${login} joined the room ${dialogID}`);
     });
-    socket.on(events.LEAVE_ROOM, (roomID, login) => {
-      socket.leave(roomID);
-      console.log(`User ${login} left the room ${roomID}`);
+    socket.on(events.leaveDialog, (dialogID: string, login: string) => {
+      socket.leave(dialogID);
+      console.log(`User ${login} left the room ${dialogID}`);
     });
-    socket.on(events.JOIN, (userID, login) => {
+    socket.on(events.join, (userID: string, login: string) => {
       socket.join(userID);
       console.log(`User ${login} joined the chat. ID: ${userID}`);
     });
-    socket.on(events.LEAVE, (userID, login) => {
+    socket.on(events.leave, (userID: string, login: string) => {
       socket.leave(userID);
       console.log(`User ${login} left the chat. ID: ${userID}`);
+    });
+    socket.on(events.typingMessage, (username: string, dialogID, ...roomIds: string[]) => {
+      roomIds.forEach(room => {
+        socket.to(room).emit(events.typingMessage, dialogID, `${username} печатает сообщение...`);
+      });
+    });
+    socket.on(events.stopTypingMessage, (dialogID, ...roomIds: string[]) => {
+      roomIds.forEach(room => {
+        socket.to(room).emit(events.typingMessage, dialogID);
+      });
     });
 
     socket.on("disconnect", () => {
