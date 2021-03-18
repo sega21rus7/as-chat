@@ -20,7 +20,6 @@ import { Empty, Spin } from "antd";
 interface ITyping {
   dialogID: string;
   message?: string;
-  stopped?: boolean;
 }
 
 const DialogList: React.FC = () => {
@@ -55,7 +54,7 @@ const DialogList: React.FC = () => {
   };
 
   const listenStopTypingMessage = (dialogID: string) => {
-    setTyping({ dialogID, stopped: true });
+    setTyping(null);
   };
 
   useEffect(() => {
@@ -102,7 +101,7 @@ const DialogList: React.FC = () => {
             dialogs.sort((a, b) => {
               return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
             }).map(item => <Dialog
-              typingText={typing && !typing.stopped && item._id === typing.dialogID ? typing.message : undefined}
+              typingText={typing && item._id === typing.dialogID ? typing.message : undefined}
               key={item._id}
               item={item}
             />)
