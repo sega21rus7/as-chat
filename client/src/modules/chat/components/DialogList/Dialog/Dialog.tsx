@@ -7,7 +7,6 @@ import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getFullName } from "tools";
 import dialogsActionCreators from "store/dialogs/actionCreators";
-import messagesActionCreators from "store/messages/actionCreators";
 import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 import { Menu, Dropdown } from "antd";
