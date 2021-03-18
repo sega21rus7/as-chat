@@ -24,6 +24,17 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     if (!req.body.messageText || !req.body.messageText.trim()) {
       throw new Error("Сообщение не может быть пустым!");
     }
+    const exists = await Dialog.findOne({
+      $or: [
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        { author: userID, companion: mongoose.Types.ObjectId(req.body.companion) as any },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        { companion: userID, author: mongoose.Types.ObjectId(req.body.companion) as any },
+      ],
+    });
+    if (exists) {
+      throw new Error("Диалог уже существует!");
+    }
     const dialog = new Dialog({
       author: userID,
       companion: req.body.companion,
