@@ -39,6 +39,9 @@
     flex-direction: column-reverse;
     margin: 0 10px 0 0;
     padding: 0 0 22px 0;
+    @media (max-width: $md4 + px) {
+      display: none;
+    }
   }
   &__date {
     font-size: 12px;

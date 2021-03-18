@@ -19,7 +19,7 @@ const Avatar: React.FC<IProps> = ({ user, online, classNames }) => {
   };
 
   return (
-    <div className={`${classNames} avatar`}>
+    <div className={classNames ? `${classNames} avatar` : "avatar"}>
       {
         user && user.avatar ?
           <img className="avatar__image" src={user.avatar} alt="" /> :

@@ -15,6 +15,7 @@ import { IMessage } from "tools/interfaces";
 import socketEvents from "core/socket/events";
 import { Empty, Spin } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import Avatar from "../Avatar/Avatar";
 
 const MessageList: React.FC = () => {
   const dispatch = useDispatch();
@@ -79,19 +80,24 @@ const MessageList: React.FC = () => {
       className={dialog._id ? "message-list message-list_visible-md" : "message-list"}
       ref={listRef}
     >
-      < div className="message-list__header" >
+      < div className="message-list__header message-list-header" >
         <div className="message-list__goback" onClick={goBack}>
           <ArrowLeftOutlined />
         </div>
-        <div className="message-list__title">
-          {dialog &&
-            getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
-        </div>
-        <div className="message-list__subtitle">
-          <div className="message-list__online message-online-icon">
-            <div className="message-online-icon__body" />
+        <div className="message-list-header__body">
+          <Avatar user={dialog.companion} classNames="message-list-header__avatar" />
+          <div className="message-list-header__content">
+            <div className="message-list-header__title">
+              {dialog &&
+                getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
+            </div>
+            <div className="message-list-header__subtitle">
+              <div className="message-list-header__online message-online-icon">
+                <div className="message-online-icon__body" />
+              </div>
+              <p>Online</p>
+            </div>
           </div>
-          <p>Online</p>
         </div>
       </div >
       <div className="message-list__body">

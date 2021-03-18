@@ -55,6 +55,35 @@
       }
     }
   }
+  &__body {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  &__items {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+
+.message-list-header {
+  &__avatar {
+    margin: 0 5px 0 0;
+    @media (min-width: $md4 + px) {
+      display: none;
+    }
+  }
+  &__body {
+    display: flex;
+    justify-content: center;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   &__title {
     font-weight: bold;
     text-align: center;
@@ -69,23 +98,12 @@
       margin: 0 0 0 2px;
     }
   }
-  &__body {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
-  &__items {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
 }
 
 .message-online-icon {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   &__body {
     width: 5px;
     height: 5px;
