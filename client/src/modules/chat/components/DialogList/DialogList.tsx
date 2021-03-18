@@ -17,11 +17,6 @@ import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 import socketEvents from "core/socket/events";
 import { Empty, Spin } from "antd";
 
-interface ITyping {
-  dialogID: string;
-  message?: string;
-}
-
 const DialogList: React.FC = () => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
@@ -29,7 +24,7 @@ const DialogList: React.FC = () => {
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
   const loading = useSelector(state => state.dialogs.fetchDialogsLoading);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
-  const [typing, setTyping] = useState<null | ITyping>(null);
+  const [typingDialogID, setTypingDialogID] = useState("");
 
   const listenCreateDialog = (dialog: IDialog) => {
     dispatch(dialogsActionCreators.addDialog(dialog));
@@ -49,12 +44,12 @@ const DialogList: React.FC = () => {
     isLast && dispatch(fetchDialogs());
   };
 
-  const listenTypingMessage = (dialogID: string, message: string) => {
-    setTyping({ dialogID, message });
+  const listenTypingMessage = (dialogID: string) => {
+    setTypingDialogID(dialogID);
   };
 
   const listenStopTypingMessage = (dialogID: string) => {
-    setTyping(null);
+    setTypingDialogID("");
   };
 
   useEffect(() => {
@@ -101,7 +96,7 @@ const DialogList: React.FC = () => {
             dialogs.sort((a, b) => {
               return new Date(a.updatedAt).getTime() < new Date(b.updatedAt).getTime() ? 1 : -1;
             }).map(item => <Dialog
-              typingText={typing && item._id === typing.dialogID ? typing.message : undefined}
+              typing={item._id === typingDialogID}
               key={item._id}
               item={item}
             />)

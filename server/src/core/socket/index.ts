@@ -25,14 +25,14 @@ export default (http: http.Server): socketIO.Server => {
       socket.leave(userID);
       console.log(`User ${login} left the chat. ID: ${userID}`);
     });
-    socket.on(events.typingMessage, (username: string, dialogID, ...roomIds: string[]) => {
+    socket.on(events.typingMessage, (dialogID, ...roomIds: string[]) => {
       roomIds.forEach(room => {
-        socket.to(room).emit(events.typingMessage, dialogID, `${username} печатает сообщение...`);
+        socket.to(room).emit(events.typingMessage, dialogID);
       });
     });
     socket.on(events.stopTypingMessage, (dialogID, ...roomIds: string[]) => {
       roomIds.forEach(room => {
-        socket.to(room).emit(events.typingMessage, dialogID);
+        socket.to(room).emit(events.stopTypingMessage, dialogID);
       });
     });
 

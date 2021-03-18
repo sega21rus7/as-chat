@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { postMessage } from "store/messages/thunkCreators";
 import { useSelector } from "tools/hooks";
 import { TextAreaRef } from "antd/lib/input/TextArea";
-import { getFullName } from "tools";
 
 interface FormValuesType {
   text: string,
@@ -39,7 +38,6 @@ const CreateMessageForm: React.FC = () => {
     }
     socket.emit(
       socketEvents.typingMessage,
-      getFullName(user),
       currentDialog._id,
       currentDialog.author._id, currentDialog.companion._id,
     );
