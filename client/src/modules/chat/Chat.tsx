@@ -11,7 +11,11 @@ const Chat: React.FC = () => {
   const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
-    user && socket.emit(socketEvents.JOIN, user._id, user?.login);
+    const creds = [user?._id, user?.login];
+    user && socket.emit(socketEvents.JOIN, ...creds);
+    return () => {
+      socket.emit(socketEvents.LEAVE, ...creds);
+    };
   }, [user]);
 
   return (

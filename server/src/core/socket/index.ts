@@ -13,9 +13,17 @@ export default (http: http.Server): socketIO.Server => {
       socket.join(roomID);
       console.log(`User ${login} joined the room ${roomID}`);
     });
+    socket.on(events.LEAVE_ROOM, (roomID, login) => {
+      socket.leave(roomID);
+      console.log(`User ${login} left the room ${roomID}`);
+    });
     socket.on(events.JOIN, (userID, login) => {
       socket.join(userID);
       console.log(`User ${login} joined the chat. ID: ${userID}`);
+    });
+    socket.on(events.LEAVE, (userID, login) => {
+      socket.leave(userID);
+      console.log(`User ${login} left the chat. ID: ${userID}`);
     });
 
     socket.on("disconnect", () => {
