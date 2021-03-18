@@ -2,11 +2,11 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Auth from "modules/auth/Auth";
 import Chat from "modules/chat/Chat";
-import { getToken } from "tools";
+import { useSelector } from "tools/hooks";
 
 const BaseRouter: React.FC = () => {
-  const isAuth = !!getToken();
-  if (isAuth) {
+  const userID = useSelector(state => state.auth.user?._id);
+  if (userID) {
     return (
       <Switch>
         <Route exact path="/im" component={Chat} />

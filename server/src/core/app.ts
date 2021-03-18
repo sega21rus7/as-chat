@@ -14,8 +14,8 @@ const initializeApp = (app: express.Express, io: socketIO.Server): void => {
   app.use(require("cors")());
 
   app.use("/api/auth", authRouter);
-  app.use("/api/profile", authMiddleware, profileRouter);
-  app.use("/api/chat", authMiddleware, socketMiddleware(io), chatRouter);
+  app.use("/api/profile", authMiddleware(io), profileRouter);
+  app.use("/api/chat", authMiddleware(io), socketMiddleware(io), chatRouter);
 
   if (process.env.NODE_ENV === "production") {
     const clientFilesPath = path.resolve(process.cwd(), "client_build");
