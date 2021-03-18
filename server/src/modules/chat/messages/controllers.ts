@@ -51,12 +51,16 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
       dialog: mongoose.Types.ObjectId(req.body.dialog),
     });
     await message.save();
-    await Dialog.updateOne(
-      { _id: mongoose.Types.ObjectId(req.body.dialog) },
-      { lastMessage: message._id }
-    );
+    const dialog = await Dialog.findOne({ _id: mongoose.Types.ObjectId(req.body.dialog) });
+    if (!dialog) {
+      throw new Error("Диалог не существует!");
+    }
+    await dialog.updateOne({ lastMessage: message._id }).exec();
     const populated = await message.populate("author").execPopulate();
-    req.io?.in(req.body.dialog).emit(socketEvents.SEND_MESSAGE, populated);
+    req.io?.to(req.body.dialog) // в сам диалог
+      .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
+      .to(dialog.companion.toString())
+      .emit(socketEvents.SEND_MESSAGE, populated);
     return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);
@@ -96,17 +100,23 @@ export const deleteMessage = async (req: IRequest, res: express.Response): Promi
       throw new Error("Невозможно удалить последнее сообщение. Удалите диалог целиком.");
     }
     const dialog = await Dialog.findOne({ _id: message.dialog });
+    if (!dialog) {
+      throw new Error("Диалог не существует!");
+    }
     await message.deleteOne();
     let isLast = false;
-    if (dialog && message._id.equals(dialog.lastMessage)) {
+    if (message._id.equals(dialog.lastMessage)) {
       const lastMessage = await Message
         .findOne({ dialog: dialog?._id })
         .sort({ createdAt: -1 });
-      lastMessage && dialog.updateOne({ lastMessage: lastMessage._id }).exec();
+      lastMessage && await dialog.updateOne({ lastMessage: lastMessage._id }).exec();
       isLast = true;
     }
     const populated = await message.populate("author").execPopulate();
-    req.io?.in(message.dialog.toString()).emit(socketEvents.DELETE_MESSAGE, populated, isLast);
+    req.io?.to(message.dialog.toString()) // в сам диалог
+      .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
+      .to(dialog.companion.toString())
+      .emit(socketEvents.DELETE_MESSAGE, populated, isLast);
     return res.status(200).json({ message });
   } catch (err) {
     handleError(res, err);

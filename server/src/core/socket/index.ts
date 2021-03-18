@@ -13,6 +13,10 @@ export default (http: http.Server): socketIO.Server => {
       socket.join(roomID);
       console.log(`User ${login} joined the room ${roomID}`);
     });
+    socket.on(events.JOIN, (userID, login) => {
+      socket.join(userID);
+      console.log(`User ${login} joined the chat. ID: ${userID}`);
+    });
 
     socket.on("disconnect", () => {
       console.log("user disconnected");

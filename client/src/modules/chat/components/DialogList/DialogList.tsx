@@ -8,9 +8,10 @@ import BurgerIcon from "./BurgerIcon/BurgerIcon";
 import { useDispatch } from "react-redux";
 import { fetchDialogs } from "store/dialogs/thunkCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
+import messagesActionCreators from "store/messages/actionCreators";
 import { getFiltetedDialogs } from "store/dialogs/selectors";
 import { useSelector } from "tools/hooks";
-import { IDialog } from "tools/interfaces";
+import { IDialog, IMessage } from "tools/interfaces";
 import CreateDialogButton from "./CreateDialogButton/CreateDialogButton";
 import CreateDialogPopup from "./CreateDialogPopup/CreateDialogPopup";
 import socketEvents from "core/socket/events";
@@ -24,31 +25,38 @@ const DialogList: React.FC = () => {
   const loading = useSelector(state => state.dialogs.fetchDialogsLoading);
   const [createPopupVisible, setCreatePopupVisible] = useState(false);
 
-  const listenDialog = (dialog: IDialog) => {
-    if (dialog.companion._id === userID) {
-      dispatch(dialogsActionCreators.addDialog(dialog));
-    }
+  const listenCreateDialog = (dialog: IDialog) => {
+    console.log("listenCreateDialog");
+    dispatch(dialogsActionCreators.addDialog(dialog));
   };
 
-  const listenCreateMessage = () => {
+  const listenDeleteDialog = (dialog: IDialog) => {
+    console.log("listenDeleteDialog");
+    dispatch(dialogsActionCreators.removeDialog(dialog));
+    dispatch(dialogsActionCreators.setCurrentDialog(null));
+    dispatch(messagesActionCreators.resetMessages());
+  };
+
+  const listenSendMessage = (message: IMessage) => {
     dispatch(fetchDialogs());
   };
 
-  const listenDeleteMessage = (_: never, isLast: boolean) => {
+  const listenDeleteMessage = (message: IMessage, isLast: boolean) => {
     isLast && dispatch(fetchDialogs());
   };
 
   useEffect(() => {
     dispatch(fetchDialogs());
-    // socket.on(socketEvents.DIALOG_CREATED, listenDialog);
-    // // todo обновлять список только у создателя диалога и его собеседника
-    // socket.on(socketEvents.MESSAGE_CREATED, listenCreateMessage);
-    // socket.on(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
-    // return () => {
-    //   socket.removeListener(socketEvents.DIALOG_CREATED, listenDialog);
-    //   socket.removeListener(socketEvents.MESSAGE_CREATED, listenCreateMessage);
-    //   socket.removeListener(socketEvents.MESSAGE_DELETED, listenDeleteMessage);
-    // };
+    socket.on(socketEvents.CREATE_DIALOG, listenCreateDialog);
+    socket.on(socketEvents.DELETE_DIALOG, listenDeleteDialog);
+    socket.on(socketEvents.SEND_MESSAGE, listenSendMessage);
+    socket.on(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+    return () => {
+      socket.off(socketEvents.CREATE_DIALOG, listenCreateDialog);
+      socket.off(socketEvents.DELETE_DIALOG, listenDeleteDialog);
+      socket.off(socketEvents.SEND_MESSAGE, listenSendMessage);
+      socket.off(socketEvents.DELETE_MESSAGE, listenDeleteMessage);
+    };
   }, []);
 
   const openCreatePopup = () => {

@@ -20,12 +20,10 @@ export const postDialog = (companion: string, messageText: string): ThunkType =>
   return async dispatch => {
     try {
       dispatch(actionCreators.startPostDialog());
-      const { dialog } = await jsonFetch<IDialog>("/api/chat/dialogs", {
+      await jsonFetch<IDialog>("/api/chat/dialogs", {
         companion,
         messageText,
       });
-      dispatch(actionCreators.addDialog(dialog));
-      dispatch(actionCreators.setCurrentDialog(dialog));
     } catch (err) {
       message.error(err.message || err);
       dispatch(actionCreators.failPostDialog(err.message || err));
@@ -37,10 +35,10 @@ export const postDeleteDialog = (dialogID: string): ThunkType => {
   return async dispatch => {
     try {
       dispatch(actionCreators.startPostDeleteDialog());
-      const { dialog } = await jsonFetch<IDialog>(`/api/chat/dialogs/${dialogID}`, undefined, {
+      await jsonFetch<IDialog>(`/api/chat/dialogs/${dialogID}`, undefined, {
         method: "DELETE",
       });
-      dispatch(actionCreators.removeDialog(dialog));
+      // dispatch(actionCreators.removeDialog(dialog));
     } catch (err) {
       message.error(err.message || err);
       dispatch(actionCreators.failPostDeleteDialog(err.message || err));

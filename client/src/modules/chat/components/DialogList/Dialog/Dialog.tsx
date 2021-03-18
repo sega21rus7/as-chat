@@ -24,8 +24,6 @@ const DialogListItem: React.FC<IProps> = ({ item }) => {
 
   const removeDialog = () => {
     dispatch(postDeleteDialog(item._id));
-    dispatch(dialogsActionCreators.setCurrentDialog(null));
-    dispatch(messagesActionCreators.resetMessages());
   };
 
   const menu = (

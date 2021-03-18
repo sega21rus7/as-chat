@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./chat.scss";
+import socket from "core/socket";
+import socketEvents from "core/socket/events";
 import DialogList from "./components/DialogList/DialogList";
 import BurgerMenu from "./components/BurgerMenu/BurgerMenu";
 import MessageList from "./components/MessageList/MessageList";
+import { useSelector } from "tools/hooks";
 
 const Chat: React.FC = () => {
+  const user = useSelector(state => state.auth.user);
+
+  useEffect(() => {
+    user && socket.emit(socketEvents.JOIN, user._id, user?.login);
+  }, [user]);
 
   return (
     <div className="page">

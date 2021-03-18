@@ -42,7 +42,7 @@ export const createDialog = async (req: ICreateRequest, res: express.Response): 
     );
     const populated = await Dialog.findOne({ _id: mongoose.Types.ObjectId(dialog._id) })
       .populate(["author", "companion", "lastMessage"]);
-    req.io?.emit(socketEvents.CREATE_DIALOG, populated);
+    req.io?.to(req.body.companion).to(userID).emit(socketEvents.CREATE_DIALOG, populated);
     return res.status(201).json({ dialog: populated });
   } catch (err) {
     handleError(res, err);
@@ -70,17 +70,19 @@ export const getDialogs = async (req: IRequest, res: express.Response): Promise<
 
 export const deleteDialog = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
+    const userID = (req.user as IUser)._id;
     if (!req.params.dialogID) {
       throw new Error("ID диалога не может быть пустым!");
     }
     const dialog = await Dialog.findOneAndDelete({
       _id: mongoose.Types.ObjectId(req.params.dialogID),
-    }).populate("companion");
+    });
     if (!dialog) {
       throw new Error("Диалог не найден!");
     }
     await Message.deleteMany({ dialog: dialog._id });
-    req.io?.emit(socketEvents.DELETE_DIALOG, dialog);
+    console.log("dialog.companion", dialog.companion);
+    req.io?.to(dialog.companion.toString()).to(userID).emit(socketEvents.DELETE_DIALOG, dialog);
     return res.status(200).json({ dialog });
   } catch (err) {
     handleError(res, err);
