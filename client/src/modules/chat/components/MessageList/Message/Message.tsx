@@ -32,7 +32,7 @@ const Message: React.FC<IProps> = ({ item }) => {
 
   return (
     <div className={my ? "message message_my" : "message"}>
-      {!my && <Avatar user={item.author} />}
+      {!my && <Avatar user={item.author} classNames="message__avatar" />}
       <div className="message__content">
         <Dropdown overlay={menu} trigger={["contextMenu"]}>
           <div className="message__bubble">

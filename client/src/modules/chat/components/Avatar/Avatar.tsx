@@ -4,10 +4,11 @@ import "./avatar.scss";
 
 interface IProps {
   user: IUser;
-  online?: boolean,
+  online?: boolean;
+  classNames?: string;
 }
 
-const Avatar: React.FC<IProps> = ({ user, online }) => {
+const Avatar: React.FC<IProps> = ({ user, online, classNames }) => {
   const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
       return user.firstName[0].toUpperCase();
@@ -18,7 +19,7 @@ const Avatar: React.FC<IProps> = ({ user, online }) => {
   };
 
   return (
-    <div className="avatar">
+    <div className={`${classNames} avatar`}>
       {
         user && user.avatar ?
           <img className="avatar__image" src={user.avatar} alt="" /> :
