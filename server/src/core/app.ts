@@ -13,7 +13,7 @@ const initializeApp = (app: express.Express, io: socketIO.Server): void => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   app.use(require("cors")());
 
-  app.use("/api/auth", authRouter);
+  app.use("/api/auth", authRouter(io));
   app.use("/api/profile", authMiddleware(io), profileRouter);
   app.use("/api/chat", authMiddleware(io), socketMiddleware(io), chatRouter);
 
