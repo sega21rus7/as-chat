@@ -5,7 +5,7 @@ import events from "./events";
 
 export default (http: http.Server): socketIO.Server => {
   // @ts-ignore
-  const io = socketIO(http);
+  const io: socketIO.Server = socketIO(http);
   io.on("connection", (socket: socketIO.Socket) => {
     console.log("a user connected");
 
@@ -34,6 +34,10 @@ export default (http: http.Server): socketIO.Server => {
       roomIds.forEach(room => {
         socket.to(room).emit(events.stopTypingMessage, dialogID);
       });
+    });
+    socket.on(events.isOnline, (userID: string, response: (v: boolean | undefined) => void) => {
+      const clients = io.sockets.adapter.rooms.get(userID);
+      response(clients && clients.size > 0);
     });
 
     socket.on("disconnect", () => {

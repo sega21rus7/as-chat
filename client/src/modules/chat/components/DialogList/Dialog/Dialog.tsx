@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import format from "date-fns/format";
 import ruLocale from "date-fns/locale/ru";
@@ -7,10 +8,13 @@ import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getFullName } from "tools";
 import dialogsActionCreators from "store/dialogs/actionCreators";
+import authActionCreators from "store/auth/actionCreators";
 import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 import { Menu, Dropdown } from "antd";
 import { postDeleteDialog } from "store/dialogs/thunkCreators";
+import socket from "core/socket";
+import socketEvents from "core/socket/events";
 
 interface IProps {
   item: IDialog;
@@ -21,6 +25,26 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
   const dispatch = useDispatch();
   const userID = useSelector(state => state.auth.user?._id);
   const currentDialogID = useSelector(state => state.dialogs.currentDialog?._id);
+  const [isOnline, setOnline] = useState<boolean | undefined | null>(false);
+
+  const listenOnline = () => {
+    socket.emit(
+      socketEvents.isOnline,
+      userID === item.author._id ? item.companion._id : item.author._id,
+      (isOnline: boolean | undefined | null) => {
+        setOnline(isOnline);
+        isOnline && dispatch(authActionCreators.setUserOnline(isOnline));
+      },
+    );
+  };
+
+  useEffect(() => {
+    listenOnline();
+    const onlineInterval = setInterval(listenOnline, 60 * 1000);
+    return () => {
+      clearInterval(onlineInterval);
+    };
+  }, []);
 
   const removeDialog = () => {
     dispatch(postDeleteDialog(item._id));
@@ -44,7 +68,7 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
         <div className="dialog__avatar">
           <Avatar
             user={userID === item.author._id ? item.companion : item.author}
-            online
+            online={isOnline}
           />
         </div>
         <div className="dialog__content">

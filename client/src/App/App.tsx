@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -15,7 +16,7 @@ const App: React.FC = () => {
     if (token && !user) {
       dispatch(fetchUser());
     }
-  });
+  }, [user]);
 
   return (
     <Router>

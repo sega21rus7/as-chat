@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./message_list.scss";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
@@ -8,6 +8,7 @@ import { fetchMessages } from "store/messages/thunkCreators";
 import { fetchDialogs } from "store/dialogs/thunkCreators";
 import messagesActionCreators from "store/messages/actionCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
+import authActionCreators from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
 import { getFullName } from "tools";
 import socket from "core/socket";
@@ -24,6 +25,7 @@ const MessageList: React.FC = () => {
   const user = useSelector(state => state.auth.user);
   const userID = user?._id;
   const loading = useSelector(state => state.messages.fetchMessagesLoading);
+  const [isOnline, setOnline] = useState<boolean | undefined | null>(false);
   const listRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -40,6 +42,17 @@ const MessageList: React.FC = () => {
     isLast && dispatch(fetchDialogs());
   };
 
+  const listenOnline = () => {
+    socket.emit(
+      socketEvents.isOnline,
+      userID === dialog?.author._id ? dialog?.companion._id : dialog?.author._id,
+      (isOnline: boolean | undefined | null) => {
+        setOnline(isOnline);
+        isOnline && dispatch(authActionCreators.setUserOnline(isOnline));
+      },
+    );
+  };
+
   useEffect(() => {
     if (!dialog) {
       return;
@@ -53,6 +66,14 @@ const MessageList: React.FC = () => {
       socket.emit(socketEvents.leaveDialog, ...creds);
       socket.off(socketEvents.sendMessage, listenSendMessage);
       socket.off(socketEvents.deleteMessage, listenDeleteMessage);
+    };
+  }, [dialog?._id]);
+
+  useEffect(() => {
+    listenOnline();
+    const onlineInterval = setInterval(listenOnline, 60 * 1000);
+    return () => {
+      clearInterval(onlineInterval);
     };
   }, [dialog?._id]);
 
@@ -85,17 +106,26 @@ const MessageList: React.FC = () => {
           <ArrowLeftOutlined />
         </div>
         <div className="message-list-header__body">
-          <Avatar user={dialog.companion} classNames="message-list-header__avatar" />
+          <Avatar
+            user={dialog.companion}
+            classNames="message-list-header__avatar"
+            online={isOnline}
+          />
           <div className="message-list-header__content">
             <div className="message-list-header__title">
               {dialog &&
                 getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
             </div>
             <div className="message-list-header__subtitle">
-              <div className="message-list-header__online message-online-icon">
-                <div className="message-online-icon__body" />
-              </div>
-              <p>Online</p>
+              {isOnline ?
+                <React.Fragment>
+                  <div className="message-list-header__online message-online-icon">
+                    <div className="message-online-icon__body" />
+                  </div>
+                  <p>Online</p>
+                </React.Fragment> :
+                <p>Заходил недавно...</p>
+              }
             </div>
           </div>
         </div>

@@ -1,14 +1,18 @@
 import { IUser } from "tools/interfaces";
 import React from "react";
 import "./avatar.scss";
+import { useSelector } from "tools/hooks";
 
 interface IProps {
   user: IUser;
-  online?: boolean;
+  online?: boolean | undefined | null;
   classNames?: string;
+  hideOnline?: boolean;
 }
 
-const Avatar: React.FC<IProps> = ({ user, online, classNames }) => {
+const Avatar: React.FC<IProps> = ({ user, online, classNames, hideOnline }) => {
+  const onlineFromStore = useSelector(state => state.auth.userOnline);
+
   const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
       return user.firstName[0].toUpperCase();
@@ -27,7 +31,7 @@ const Avatar: React.FC<IProps> = ({ user, online, classNames }) => {
             <div className="avatar__letter">{getFirstLetter()}</div>
           </div>
       }
-      {online && <div className="avatar__online" />}
+      {(onlineFromStore || online) && !hideOnline && <div className="avatar__online" />}
     </div>
   );
 };

@@ -2,6 +2,7 @@ export default {
   // в чат для прослушки всех диалогов, которые создаются/удаляются для него
   join: "CHAT:JOIN",
   leave: "CHAT:LEAVE",
+  isOnline: "CHAT:IS_ONLINE",
   // в конкретный диалог
   joinDialog: "DIALOGS:JOIN_DIALOG",
   leaveDialog: "DIALOGS:LEAVE_DIALOG",
