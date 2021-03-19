@@ -30,6 +30,7 @@ import createSocket from "./core/socket";
 
     ["uncaughtException", "SIGINT", "SIGTERM"].forEach(sig => {
       process.on(sig, () => {
+        io.close();
         server.close();
         process.exit();
       });
