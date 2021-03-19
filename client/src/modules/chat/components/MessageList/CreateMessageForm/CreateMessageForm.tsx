@@ -26,14 +26,19 @@ const CreateMessageForm: React.FC = () => {
     inputRef.current?.focus();
   }, []);
 
+  const emitStopTyping = () => {
+    if (!currentDialog) { return; }
+    socket.emit(
+      socketEvents.stopTypingMessage,
+      currentDialog._id,
+      currentDialog.author._id, currentDialog.companion._id,
+    );
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!currentDialog || !user) { return; }
     if (!e.target.value) {
-      socket.emit(
-        socketEvents.stopTypingMessage,
-        currentDialog._id,
-        currentDialog.author._id, currentDialog.companion._id,
-      );
+      emitStopTyping();
       return;
     }
     socket.emit(
@@ -47,6 +52,7 @@ const CreateMessageForm: React.FC = () => {
     if (currentDialogID && values.text && values.text.trim()) {
       dispatch(postMessage(currentDialogID, values.text));
       form.resetFields();
+      emitStopTyping();
     }
   };
 
