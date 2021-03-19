@@ -55,9 +55,7 @@ const MessageList: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!dialog) {
-      return;
-    }
+    if (!dialog) { return; }
     dispatch(fetchMessages(dialog._id));
     const creds = [dialog._id, user?.login];
     socket.emit(socketEvents.joinDialog, ...creds);
