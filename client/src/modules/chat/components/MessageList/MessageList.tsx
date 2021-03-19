@@ -36,6 +36,7 @@ const MessageList: React.FC = () => {
   const listenSendMessage = (message: IMessage) => {
     dispatch(messagesActionCreators.addMessage(message));
     dispatch(fetchDialogs());
+    socket.emit(socketEvents.updateMessagesHasRead, user?._id, dialog?._id, user?.login);
   };
 
   const listenDeleteMessage = (message: IMessage, isLast: boolean) => {
@@ -54,15 +55,22 @@ const MessageList: React.FC = () => {
     );
   };
 
+  const listenUpdateMessagesHasRead = () => {
+    dialog && dispatch(fetchMessages(dialog._id));
+  };
+
   useEffect(() => {
-    if (!dialog) { return; }
+    if (!dialog || !user) { return; }
     dispatch(fetchMessages(dialog._id));
     const creds = [dialog._id, user?.login];
     socket.emit(socketEvents.joinDialog, ...creds);
+    socket.emit(socketEvents.updateMessagesHasRead, user._id, dialog._id, user?.login);
+    socket.on(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     socket.on(socketEvents.sendMessage, listenSendMessage);
     socket.on(socketEvents.deleteMessage, listenDeleteMessage);
     return () => {
       socket.emit(socketEvents.leaveDialog, ...creds);
+      socket.off(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
       socket.off(socketEvents.sendMessage, listenSendMessage);
       socket.off(socketEvents.deleteMessage, listenDeleteMessage);
     };

@@ -1,27 +1,12 @@
-import { jsonFetch, textFetch } from "tools";
+import { jsonFetch } from "tools";
 import { ThunkType } from "./types";
 import actionCreators from "./actionCreators";
 import { message } from "antd";
 import { IMessage } from "tools/interfaces";
 
-export const updateMessagesHasRead = (dialogID: string): ThunkType => {
-  return async dispatch => {
-    try {
-      dispatch(actionCreators.updateMessagesHasReadStart());
-      const res = await textFetch(`/api/chat/messages/update_has_read/${dialogID}`,
-        undefined, { method: "GET" });
-      dispatch(actionCreators.updateMessagesHasReadSuccess(res));
-    } catch (err) {
-      message.error(err || err.message);
-      dispatch(actionCreators.updateMessagesHasReadFail(err));
-    }
-  };
-};
-
 export const fetchMessages = (dialogID: string): ThunkType => {
   return async dispatch => {
     try {
-      dispatch(updateMessagesHasRead(dialogID));
       dispatch(actionCreators.startFetchMessages());
       const { messages } = await jsonFetch<IMessage[]>(
         `/api/chat/messages/${dialogID}`, undefined, { method: "GET" },

@@ -4,6 +4,7 @@ import socketIO from "socket.io";
 import mongoose from "mongoose";
 import events from "./events";
 import User from "modules/auth/models/User";
+import Message from "modules/chat/messages/models/Message";
 
 export default (http: http.Server): socketIO.Server => {
   // @ts-ignore
@@ -24,7 +25,11 @@ export default (http: http.Server): socketIO.Server => {
       console.log(`User ${login} joined the chat. ID: ${userID}`);
     });
     socket.on(events.leave, async (date: Date, userID: string, login: string) => {
-      await User.updateOne({ _id: mongoose.Types.ObjectId(userID) }, { lastVisited: date });
+      try {
+        await User.updateOne({ _id: mongoose.Types.ObjectId(userID) }, { lastVisited: date });
+      } catch (err) {
+        console.log("err in events.leave", err);
+      }
       socket.leave(userID);
       console.log(`User ${login} left the chat. ID: ${userID}`);
     });
@@ -42,6 +47,21 @@ export default (http: http.Server): socketIO.Server => {
       const clients = io.sockets.adapter.rooms.get(userID);
       response(clients && clients.size > 0);
     });
+    socket.on(events.updateMessagesHasRead,
+      async (userID: string, dialogID: string, login: string) => {
+        try {
+          const mres = await Message.updateMany(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            { author: { $nin: [mongoose.Types.ObjectId(userID) as any] }, dialog: mongoose.Types.ObjectId(dialogID) as any, hasRead: false },
+            { hasRead: true }
+          );
+          if (!mres.nModified) { return; }
+          console.log(`User ${login} has read ${mres.nModified} of ${mres.n} messages in the room ${dialogID}`);
+          socket.to(dialogID).emit(events.updateMessagesHasRead);
+        } catch (err) {
+          console.log("err in events.updateMessagesHasRead", err);
+        }
+      });
 
     // socket.on("disconnecting", () => {
     //   console.log("socket.rooms", io.sockets.adapter.rooms);

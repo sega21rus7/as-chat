@@ -33,13 +33,4 @@ export default {
   removeMessage: (item: IMessage) => {
     return { type: ActionTypes.REMOVE_MESSAGE, payload: { item } } as const;
   },
-  updateMessagesHasReadStart: () => {
-    return { type: ActionTypes.UPDATE_MESSAGES_HAS_READ_START } as const;
-  },
-  updateMessagesHasReadFail: (error: string) => {
-    return { type: ActionTypes.UPDATE_MESSAGES_HAS_READ_FAIL, payload: { error } } as const;
-  },
-  updateMessagesHasReadSuccess: (res: string) => {
-    return { type: ActionTypes.UPDATE_MESSAGES_HAS_READ_SUCCESS, payload: { res } } as const;
-  },
 };

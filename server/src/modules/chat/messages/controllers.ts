@@ -21,23 +21,6 @@ interface ICreateRequest extends IEditRequest {
   }
 }
 
-export const updateHasRead = async (req: IRequest, res: express.Response): Promise<unknown> => {
-  try {
-    if (!req.params.dialogID) {
-      throw new Error("ID диалога не может быть пустым!");
-    }
-    const userID = (req.user as IUser)._id;
-    const mres = await Message.updateMany(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      { author: { $nin: [userID] }, dialog: mongoose.Types.ObjectId(req.params.dialogID) as any, hasRead: false },
-      { hasRead: true }
-    );
-    return res.status(200).end(`${mres.nModified} из ${mres.n} сообщений было обновлено.`);
-  } catch (err) {
-    handleError(res, err);
-  }
-};
-
 export const getMessages = async (req: IRequest, res: express.Response): Promise<unknown> => {
   try {
     if (!req.params.dialogID) {

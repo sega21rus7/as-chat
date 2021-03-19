@@ -12,6 +12,7 @@ export default {
   deleteMessage: "MESSAGES:DELETE_MESSAGE",
   typingMessage: "MESSAGES:TYPING_MESSAGE",
   stopTypingMessage: "MESSAGES:STOP_TYPING_MESSAGE",
+  updateMessagesHasRead: "MESSAGES:UPDATE_MESSAGES_HAD_READ",
   // авторизация
   unauthorized: "AUTH:UNAUTHORIZED",
 };

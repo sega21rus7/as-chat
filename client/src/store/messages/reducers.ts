@@ -10,7 +10,6 @@ const initialState = {
   fetchMessagesLoading: false,
   postMessageError: "",
   postDeleteMessageError: "",
-  updateMessagesHasReadError: "",
 };
 
 type StateType = typeof initialState;
@@ -49,8 +48,6 @@ const messagesReducer = (state = initialState, action: ActionCreatorTypes): Stat
         items: state.items && state.items.filter(x => x._id !== action.payload.item._id),
         postDeleteMessageError: "",
       };
-    case ActionTypes.UPDATE_MESSAGES_HAS_READ_FAIL:
-      return { ...state, updateMessagesHasReadError: action.payload.error };
     default:
       return state;
   }
