@@ -125,7 +125,7 @@ const CreateDialogPopup: React.FC<IProps> = ({ visible, hide }) => {
                   >
                     <div className="user-item__body">
                       <div className="user-item__avatar">
-                        <Avatar user={user} />
+                        <Avatar user={user} hideOnline />
                       </div>
                       <div className="user-item__name">{getFullName(user)}</div>
                     </div>
