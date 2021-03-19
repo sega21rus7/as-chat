@@ -38,7 +38,4 @@ export default {
   changePasswordSuccess: () => {
     return { type: ActionTypes.CHANGE_PASSWORD_SUCCESS } as const;
   },
-  setUserOnline: (status: boolean) => {
-    return { type: ActionTypes.SET_USER_ONLINE, payload: { status } } as const;
-  },
 };

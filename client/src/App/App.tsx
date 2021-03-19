@@ -6,6 +6,7 @@ import { getToken } from "tools";
 import { useSelector } from "tools/hooks";
 import BaseRouter from "../routes";
 import { fetchUser } from "store/auth/thunkCreators";
+import socket from "core/socket";
 
 const App: React.FC = () => {
   const token = !!getToken();
@@ -17,6 +18,12 @@ const App: React.FC = () => {
       dispatch(fetchUser());
     }
   }, [user]);
+
+  useEffect(() => {
+    return () => {
+      socket.emit("disconnect", "mydata");
+    };
+  }, []);
 
   return (
     <Router>

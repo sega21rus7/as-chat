@@ -8,7 +8,6 @@ import MessageStatusIcon from "../../MessageStatusIcon/MessageStatusIcon";
 import Avatar from "../../Avatar/Avatar";
 import { getAuthorOrCompanionDependsOnUserID, getFullName } from "tools";
 import dialogsActionCreators from "store/dialogs/actionCreators";
-import authActionCreators from "store/auth/actionCreators";
 import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 import { Menu, Dropdown } from "antd";
@@ -33,7 +32,7 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
       userID && getAuthorOrCompanionDependsOnUserID(userID, item)._id,
       (isOnline: boolean | undefined | null) => {
         setOnline(isOnline);
-        isOnline && dispatch(authActionCreators.setUserOnline(isOnline));
+        isOnline && dispatch(dialogsActionCreators.setUserOnline(isOnline));
       },
     );
   };

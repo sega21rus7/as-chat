@@ -16,6 +16,7 @@ const initialState = {
     type: FilterTypes.SHOW_ALL as FilterTypes,
   },
   postDeleteDialogError: "",
+  userOnline: false,
 };
 
 export type StateType = typeof initialState;
@@ -55,6 +56,8 @@ const dialogsReducer = (state = initialState, action: ActionCreatorTypes): State
         ...state,
         items: state.items && state.items.filter(x => x._id !== action.payload.item._id),
       };
+    case ActionTypes.SET_USER_ONLINE:
+      return { ...state, userOnline: action.payload.status };
     default:
       return state;
   }

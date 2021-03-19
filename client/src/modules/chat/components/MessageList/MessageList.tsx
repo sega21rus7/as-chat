@@ -10,7 +10,6 @@ import { fetchMessages } from "store/messages/thunkCreators";
 import { fetchDialogs } from "store/dialogs/thunkCreators";
 import messagesActionCreators from "store/messages/actionCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
-import authActionCreators from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
 import { getAuthorOrCompanionDependsOnUserID, getFullName } from "tools";
 import socket from "core/socket";
@@ -50,7 +49,7 @@ const MessageList: React.FC = () => {
       userID && dialog && getAuthorOrCompanionDependsOnUserID(userID, dialog)._id,
       (onlineStatus: boolean | undefined | null) => {
         setOnline(onlineStatus);
-        onlineStatus && dispatch(authActionCreators.setUserOnline(onlineStatus));
+        dispatch(dialogsActionCreators.setUserOnline(onlineStatus || false));
       },
     );
   };

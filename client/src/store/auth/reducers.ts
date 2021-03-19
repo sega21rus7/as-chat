@@ -10,7 +10,6 @@ const initialState = {
   authLoading: false,
   fetchUserError: "",
   changePasswordError: "",
-  userOnline: false,
 };
 
 type StateType = typeof initialState;
@@ -35,8 +34,6 @@ const authReducer = (state = initialState, action: ActionCreatorTypes): StateTyp
       return { ...state, changePasswordError: action.payload.error };
     case ActionTypes.CHANGE_PASSWORD_SUCCESS:
       return { ...state, changePasswordError: "" };
-    case ActionTypes.SET_USER_ONLINE:
-      return { ...state, userOnline: action.payload.status };
     default:
       return state;
   }

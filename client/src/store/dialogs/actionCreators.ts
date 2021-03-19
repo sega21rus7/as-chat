@@ -40,4 +40,7 @@ export default {
   removeDialog: (item: IDialog) => {
     return { type: ActionTypes.REMOVE_DIALOG, payload: { item } } as const;
   },
+  setUserOnline: (status: boolean) => {
+    return { type: ActionTypes.SET_USER_ONLINE, payload: { status } } as const;
+  },
 };

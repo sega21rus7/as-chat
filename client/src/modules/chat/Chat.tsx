@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import "./chat.scss";
 import socket from "core/socket";
@@ -22,7 +23,6 @@ const Chat: React.FC = () => {
     return () => {
       socket.off(socketEvents.unauthorized, listenUnauthorized);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

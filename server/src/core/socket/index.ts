@@ -43,8 +43,10 @@ export default (http: http.Server): socketIO.Server => {
       response(clients && clients.size > 0);
     });
 
-    socket.on("disconnect", data => {
-      console.log("data", data);
+    // socket.on("disconnecting", () => {
+    //   console.log("socket.rooms", io.sockets.adapter.rooms);
+    // });
+    socket.on("disconnect", () => {
       console.log("user disconnected");
     });
   });
