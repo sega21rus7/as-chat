@@ -41,7 +41,7 @@ const Message: React.FC<IProps> = ({ item }) => {
         </Dropdown>
         <div className="message__footer">
           <span className="message__date">
-            {formatDistanceToNow(new Date(item.updatedAt), { addSuffix: true, locale: ruLocale })}
+            {formatDistanceToNow(new Date(item.createdAt), { addSuffix: true, locale: ruLocale })}
           </span>
           {my &&
             <span className="message__status">

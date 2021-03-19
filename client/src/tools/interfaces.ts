@@ -16,6 +16,7 @@ export interface IMessage {
   _id: string;
   author: IUser;
   text: string;
+  createdAt: Date;
   updatedAt: Date;
   dialog: string;
 }

@@ -6,6 +6,8 @@ interface IMessage extends Document {
   text: string;
   dialog: Schema.Types.ObjectId;
   hasRead: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const messageSchema = new Schema({
