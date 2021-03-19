@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const Avatar: React.FC<IProps> = ({ user, online, classNames, hideOnline }) => {
-  const onlineFromStore = useSelector(state => state.auth.userOnline);
+  const onlineFromStore = useSelector(state => state.dialogs.userOnline);
 
   const getFirstLetter = () => {
     if (user.firstName && user.firstName[0]) {
