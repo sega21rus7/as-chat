@@ -9,8 +9,9 @@ export interface IUser extends Document {
   firstName?: string;
   middleName?: string;
   roles: Array<UserRoles>;
-  createdAt: Date,
-  updatedAt: Date,
+  createdAt: Date;
+  updatedAt: Date;
+  lastVisited: Date;
 }
 
 const userSchema = new Schema({
@@ -41,7 +42,13 @@ const userSchema = new Schema({
     {
       type: String,
       ref: "Role",
-    }],
+    },
+  ],
+  lastVisited: {
+    type: Date,
+    required: true,
+    default: new Date(),
+  },
 }, { timestamps: true });
 
 export default model<IUser & Document>("User", userSchema);

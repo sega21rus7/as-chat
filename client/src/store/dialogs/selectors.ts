@@ -3,7 +3,7 @@
 import { createSelector } from "reselect";
 import { FilterTypes } from "./types";
 import { StateType } from "./reducers";
-import { getFullName } from "tools";
+import { getAuthorOrCompanionDependsOnUserID, getFullName } from "tools";
 import { IDialog } from "tools/interfaces";
 import { Nullable } from "tools/types";
 
@@ -21,7 +21,7 @@ export const getFiltetedDialogs = (state: StateType, currentUserID: string | und
         }
         case FilterTypes.SHOW_BY_FULLNAME: {
           return dialogs.filter(d => {
-            const dialogAuthor = currentUserID === d.author._id ? d.companion : d.author;
+            const dialogAuthor = getAuthorOrCompanionDependsOnUserID(currentUserID, d);
             return getFullName(dialogAuthor).includes(filter.key);
           },
           );

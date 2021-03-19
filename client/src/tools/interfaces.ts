@@ -9,6 +9,7 @@ export interface IUser {
   lastName?: string;
   middleName?: string;
   avatar?: string;
+  lastVisited: Date;
 }
 export interface IMessage {
   hasRead: boolean;

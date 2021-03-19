@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import "./message_list.scss";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import ruLocale from "date-fns/locale/ru";
 import Message from "./Message/Message";
 import CreateMessageForm from "./CreateMessageForm/CreateMessageForm";
 import { useDispatch } from "react-redux";
@@ -10,7 +12,7 @@ import messagesActionCreators from "store/messages/actionCreators";
 import dialogsActionCreators from "store/dialogs/actionCreators";
 import authActionCreators from "store/auth/actionCreators";
 import { useSelector } from "tools/hooks";
-import { getFullName } from "tools";
+import { getAuthorOrCompanionDependsOnUserID, getFullName } from "tools";
 import socket from "core/socket";
 import { IMessage } from "tools/interfaces";
 import socketEvents from "core/socket/events";
@@ -45,10 +47,10 @@ const MessageList: React.FC = () => {
   const listenOnline = () => {
     socket.emit(
       socketEvents.isOnline,
-      userID === dialog?.author._id ? dialog?.companion._id : dialog?.author._id,
-      (isOnline: boolean | undefined | null) => {
-        setOnline(isOnline);
-        isOnline && dispatch(authActionCreators.setUserOnline(isOnline));
+      userID && dialog && getAuthorOrCompanionDependsOnUserID(userID, dialog)._id,
+      (onlineStatus: boolean | undefined | null) => {
+        setOnline(onlineStatus);
+        onlineStatus && dispatch(authActionCreators.setUserOnline(onlineStatus));
       },
     );
   };
@@ -109,12 +111,12 @@ const MessageList: React.FC = () => {
           <Avatar
             user={dialog.companion}
             classNames="message-list-header__avatar"
-            online={isOnline}
+            hideOnline
           />
           <div className="message-list-header__content">
             <div className="message-list-header__title">
-              {dialog &&
-                getFullName(userID === dialog.author._id ? dialog.companion : dialog.author)}
+              {dialog && userID &&
+                getFullName(getAuthorOrCompanionDependsOnUserID(userID, dialog))}
             </div>
             <div className="message-list-header__subtitle">
               {isOnline ?
@@ -124,7 +126,12 @@ const MessageList: React.FC = () => {
                   </div>
                   <p>Online</p>
                 </React.Fragment> :
-                <p>Заходил недавно...</p>
+                <p>
+                  Заходил {
+                    userID && formatDistanceToNow(new Date(getAuthorOrCompanionDependsOnUserID(userID, dialog).lastVisited),
+                      { addSuffix: true, locale: ruLocale })
+                  }
+                </p>
               }
             </div>
           </div>

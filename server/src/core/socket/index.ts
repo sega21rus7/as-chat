@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import http from "http";
 import socketIO from "socket.io";
+import mongoose from "mongoose";
 import events from "./events";
+import User from "modules/auth/models/User";
 
 export default (http: http.Server): socketIO.Server => {
   // @ts-ignore
@@ -21,7 +23,8 @@ export default (http: http.Server): socketIO.Server => {
       socket.join(userID);
       console.log(`User ${login} joined the chat. ID: ${userID}`);
     });
-    socket.on(events.leave, (userID: string, login: string) => {
+    socket.on(events.leave, async (date: Date, userID: string, login: string) => {
+      await User.updateOne({ _id: mongoose.Types.ObjectId(userID) }, { lastVisited: date });
       socket.leave(userID);
       console.log(`User ${login} left the chat. ID: ${userID}`);
     });
@@ -40,7 +43,8 @@ export default (http: http.Server): socketIO.Server => {
       response(clients && clients.size > 0);
     });
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", data => {
+      console.log("data", data);
       console.log("user disconnected");
     });
   });

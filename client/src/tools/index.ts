@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookies from "universal-cookie";
-import { IUser } from "./interfaces";
+import { IDialog, IUser } from "./interfaces";
 
 export const baseFetch = async (url: string, data?: Record<string, unknown>, params?: {
   method?: string;
@@ -71,3 +71,6 @@ export const getFullName = (user: IUser) => {
   return res || user.login;
 };
 
+export const getAuthorOrCompanionDependsOnUserID = (userID: string, dialog: IDialog): IUser => {
+  return userID === dialog.author._id ? dialog.companion : dialog.author;
+};

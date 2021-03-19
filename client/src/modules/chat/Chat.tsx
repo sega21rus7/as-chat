@@ -29,7 +29,7 @@ const Chat: React.FC = () => {
     const creds = [user?._id, user?.login];
     user && socket.emit(socketEvents.join, ...creds);
     return () => {
-      socket.emit(socketEvents.leave, ...creds);
+      socket.emit(socketEvents.leave, new Date(), ...creds);
     };
   }, [user]);
 
