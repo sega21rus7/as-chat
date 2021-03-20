@@ -60,11 +60,14 @@ const MessageList: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!dialog || !user) { return; }
+    if (!dialog || !user || !userID) { return; }
     dispatch(fetchMessages(dialog._id));
     const creds = [dialog._id, user?.login];
     socket.emit(socketEvents.joinDialog, ...creds);
-    socket.emit(socketEvents.updateMessagesHasRead, user._id, dialog._id, user?.login);
+    socket.emit(
+      socketEvents.updateMessagesHasRead,
+      user._id, dialog._id, user?.login, getAuthorOrCompanionDependsOnUserID(userID, dialog),
+    );
     socket.on(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     socket.on(socketEvents.sendMessage, listenSendMessage);
     socket.on(socketEvents.deleteMessage, listenDeleteMessage);

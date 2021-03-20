@@ -91,7 +91,7 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
               </span>}
               {typing ? "печатает" : item.lastMessage.text}
             </div>
-            {
+            {/* {
               item.lastMessage ?
                 <div className="dialog__count">
                   {999}
@@ -100,7 +100,10 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
                 <div className="dialog__status">
                   <MessageStatusIcon hasRead={item.lastMessage} />
                 </div>
-            }
+            } */}
+            <div className="dialog__status">
+              <MessageStatusIcon hasRead={item.lastMessage.hasRead} />
+            </div>
           </div>
         </div>
       </div>

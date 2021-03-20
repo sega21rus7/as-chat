@@ -27,6 +27,13 @@
     #{$self}__typing-circle {
       background-color: white;
     }
+    #{$self}__status {
+      svg {
+        polygon, path {
+          fill: white;
+        }
+      }
+    }
   }
   &__typing {
     margin: 0 3px 0 0;
@@ -45,12 +52,6 @@
     display: flex;
     align-items: center;
     float: left;
-  }
-  &__status {
-    img {
-      width: 19px;
-      height: 13px;
-    }
   }
   &__content {
     display: flex;
@@ -80,6 +81,10 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
     line-height: 24px;
+  }
+  &__status {
+    display: flex;
+    align-items: center;
   }
   &__count {
     border: 1px solid silver;

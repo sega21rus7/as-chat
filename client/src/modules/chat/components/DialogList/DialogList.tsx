@@ -52,6 +52,10 @@ const DialogList: React.FC = () => {
     setTypingDialogID("");
   };
 
+  const listenUpdateMessagesHasRead = () => {
+    dispatch(fetchDialogs());
+  };
+
   useEffect(() => {
     dispatch(fetchDialogs());
     socket.on(socketEvents.createDialog, listenCreateDialog);
@@ -60,12 +64,14 @@ const DialogList: React.FC = () => {
     socket.on(socketEvents.deleteMessage, listenDeleteMessage);
     socket.on(socketEvents.typingMessage, listenTypingMessage);
     socket.on(socketEvents.stopTypingMessage, listenStopTypingMessage);
+    socket.on(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     return () => {
       socket.off(socketEvents.createDialog, listenCreateDialog);
       socket.off(socketEvents.deleteDialog, listenDeleteDialog);
       socket.off(socketEvents.sendMessage, listenSendMessage);
       socket.off(socketEvents.deleteMessage, listenDeleteMessage);
       socket.off(socketEvents.stopTypingMessage, listenStopTypingMessage);
+      socket.off(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     };
   }, []);
 

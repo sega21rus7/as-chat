@@ -48,7 +48,7 @@ export default (http: http.Server): socketIO.Server => {
       response(clients && clients.size > 0);
     });
     socket.on(events.updateMessagesHasRead,
-      async (userID: string, dialogID: string, login: string) => {
+      async (userID: string, dialogID: string, login: string, companionID: string) => {
         try {
           const mres = await Message.updateMany(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,7 +57,7 @@ export default (http: http.Server): socketIO.Server => {
           );
           if (!mres.nModified) { return; }
           console.log(`User ${login} has read ${mres.nModified} of ${mres.n} messages in the room ${dialogID}`);
-          socket.to(dialogID).emit(events.updateMessagesHasRead);
+          socket.to(dialogID).to(companionID).emit(events.updateMessagesHasRead);
         } catch (err) {
           console.log("err in events.updateMessagesHasRead", err);
         }

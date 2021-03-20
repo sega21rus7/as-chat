@@ -1,16 +1,17 @@
 import React from "react";
 import "./message_status_icon.scss";
-import hasReadIcon from "./assets/svg/has_read.svg";
-import hasSendIcon from "./assets/svg/has_send.svg";
+import HasSendIcon from "./icons/HasSendIcon";
+import HasReadIcon from "./icons/HasReadIcon";
 
 interface IProps {
   hasRead?: boolean;
 }
 
 const MessageStatusIcon: React.FC<IProps> = ({ hasRead }) => {
-  return (
-    <img src={hasRead ? hasReadIcon : hasSendIcon} alt="" />
-  );
+  if (hasRead) {
+    return <HasReadIcon />;
+  }
+  return <HasSendIcon />;
 };
 
 export default MessageStatusIcon;
