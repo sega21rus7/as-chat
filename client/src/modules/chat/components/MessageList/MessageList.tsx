@@ -35,8 +35,6 @@ const MessageList: React.FC = () => {
 
   const listenSendMessage = (message: IMessage) => {
     dispatch(messagesActionCreators.addMessage(message));
-    dispatch(fetchDialogs());
-    socket.emit(socketEvents.updateMessagesHasRead, user?._id, dialog?._id, user?.login);
   };
 
   const listenDeleteMessage = (message: IMessage, isLast: boolean) => {
@@ -66,7 +64,7 @@ const MessageList: React.FC = () => {
     socket.emit(socketEvents.joinDialog, ...creds);
     socket.emit(
       socketEvents.updateMessagesHasRead,
-      user._id, dialog._id, user?.login, getAuthorOrCompanionDependsOnUserID(userID, dialog),
+      user._id, dialog._id, user?.login, getAuthorOrCompanionDependsOnUserID(userID, dialog)._id,
     );
     socket.on(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     socket.on(socketEvents.sendMessage, listenSendMessage);

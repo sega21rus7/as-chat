@@ -16,15 +16,26 @@ export interface IMessage {
   _id: string;
   author: IUser;
   text: string;
+  dialog: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+interface INotPopulatedMessage {
+  hasRead: boolean;
+  _id: string;
+  author: string;
+  text: string;
   dialog: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IDialog {
-  lastMessage: IMessage,
+  lastMessage: INotPopulatedMessage;
   _id: string;
   author: IUser;
   companion: IUser;
   updatedAt: Date;
+  hasNotReadMessagesCount?: number;
 }

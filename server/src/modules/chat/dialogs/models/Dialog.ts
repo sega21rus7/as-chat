@@ -5,6 +5,7 @@ interface IDialog extends Document {
   author: Schema.Types.ObjectId;
   companion: Schema.Types.ObjectId;
   lastMessage: Schema.Types.ObjectId;
+  hasNotReadMessagesCount?: number;
 }
 
 const dialogSchema = new Schema({
@@ -21,6 +22,10 @@ const dialogSchema = new Schema({
   lastMessage: {
     type: Schema.Types.ObjectId,
     ref: "Message",
+  },
+  hasNotReadMessagesCount: {
+    type: Number,
+    default: 1,
   },
 }, { timestamps: true });
 

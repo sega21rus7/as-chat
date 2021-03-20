@@ -8,6 +8,8 @@ export default {
   leaveDialog: "DIALOGS:LEAVE_DIALOG",
   createDialog: "DIALOGS:CREATE_DIALOG",
   deleteDialog: "DIALOGS:DELETE_DIALOG",
+  updateDialogsHasRead: "DIALOGS:UPDATE_DIALOGS_HAD_READ",
+
   sendMessage: "MESSAGES:SEND_MESSAGE",
   deleteMessage: "MESSAGES:DELETE_MESSAGE",
   typingMessage: "MESSAGES:TYPING_MESSAGE",

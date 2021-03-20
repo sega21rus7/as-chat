@@ -91,19 +91,17 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
               </span>}
               {typing ? "печатает" : item.lastMessage.text}
             </div>
-            {/* {
-              item.lastMessage ?
+            {
+              item.hasNotReadMessagesCount && userID && item.lastMessage.author !== userID ?
                 <div className="dialog__count">
-                  {999}
+                  {item.hasNotReadMessagesCount}
                 </div>
-                :
-                <div className="dialog__status">
-                  <MessageStatusIcon hasRead={item.lastMessage} />
-                </div>
-            } */}
-            <div className="dialog__status">
-              <MessageStatusIcon hasRead={item.lastMessage.hasRead} />
-            </div>
+                : userID && item.lastMessage.author === userID ?
+                  <div className="dialog__status">
+                    <MessageStatusIcon hasRead={item.lastMessage.hasRead} />
+                  </div>
+                  : null
+            }
           </div>
         </div>
       </div>

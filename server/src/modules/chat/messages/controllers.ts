@@ -55,7 +55,10 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
     if (!dialog) {
       throw new Error("Диалог не существует!");
     }
-    await dialog.updateOne({ lastMessage: message._id }).exec();
+    await dialog
+      // @ts-ignore
+      .updateOne({ lastMessage: message._id, $inc: { hasNotReadMessagesCount: 1 } })
+      .exec();
     const populated = await message.populate("author").execPopulate();
     req.io?.to(req.body.dialog) // в сам диалог
       .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
