@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./create_message_form.scss";
 import socket from "core/socket";
 import socketEvents from "core/socket/events";
@@ -21,10 +21,18 @@ const CreateMessageForm: React.FC = () => {
   const currentDialog = useSelector(state => state.dialogs.currentDialog);
   const currentDialogID = currentDialog?._id;
   const user = useSelector(state => state.auth.user);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    if (submitted) {
+      inputRef.current?.focus();
+      setSubmitted(false);
+    }
+  }, [submitted]);
 
   const emitStopTyping = () => {
     if (!currentDialog) { return; }
@@ -38,6 +46,7 @@ const CreateMessageForm: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!currentDialog || !user) { return; }
     if (!e.target.value) {
+      inputRef.current?.focus();
       emitStopTyping();
       return;
     }
@@ -53,6 +62,7 @@ const CreateMessageForm: React.FC = () => {
       dispatch(postMessage(currentDialogID, values.text));
       form.resetFields();
       emitStopTyping();
+      setSubmitted(true);
     }
   };
 
