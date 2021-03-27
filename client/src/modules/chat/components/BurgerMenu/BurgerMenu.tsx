@@ -46,7 +46,7 @@ const BurgerMenu: React.FC = () => {
       >
         <div className="burger-menu__header">
           <div className="burger-menu__avatar">
-            {user && <Avatar user={user} />}
+            {user && <Avatar user={user} hideOnline />}
           </div>
           <div className="burger-menu__title">
             {user && getFullName(user)}
