@@ -11,7 +11,7 @@ import dialogsActionCreators from "store/dialogs/actionCreators";
 import { IDialog } from "tools/interfaces";
 import { useSelector } from "tools/hooks";
 import { Menu, Dropdown } from "antd";
-import { postDeleteDialog } from "store/dialogs/thunkCreators";
+import { fetchDialogs, postDeleteDialog } from "store/dialogs/thunkCreators";
 import socket from "core/socket";
 import socketEvents from "core/socket/events";
 
@@ -57,6 +57,7 @@ const DialogListItem: React.FC<IProps> = ({ item, typing }) => {
 
   const handleClick = () => {
     dispatch(dialogsActionCreators.setCurrentDialog(item));
+    dispatch(fetchDialogs());
   };
 
   return (

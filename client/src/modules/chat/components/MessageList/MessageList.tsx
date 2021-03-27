@@ -34,6 +34,10 @@ const MessageList: React.FC = () => {
   });
 
   const listenSendMessage = (message: IMessage) => {
+    userID && dialog && socket.emit(
+      socketEvents.updateMessagesHasRead,
+      user?._id, dialog?._id, user?.login, getAuthorOrCompanionDependsOnUserID(userID, dialog)._id,
+    );
     dispatch(messagesActionCreators.addMessage(message));
   };
 
