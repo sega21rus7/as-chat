@@ -2,6 +2,8 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import config from "config";
+import { IUser } from "modules/auth/models/User";
+import { IDialog } from "modules/chat/dialogs/models/Dialog";
 
 export const handleError = (res: express.Response, err: Error): unknown => {
   console.log(err.message || err);

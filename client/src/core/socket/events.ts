@@ -10,6 +10,7 @@ export default {
   deleteDialog: "DIALOGS:DELETE_DIALOG",
   updateDialogsHasRead: "DIALOGS:UPDATE_DIALOGS_HAD_READ",
 
+  sendMessageForUpdateHasRead: "MESSAGES:SEND_MESSAGE_FOR_UPDATE_HAS_READ",
   sendMessage: "MESSAGES:SEND_MESSAGE",
   deleteMessage: "MESSAGES:DELETE_MESSAGE",
   typingMessage: "MESSAGES:TYPING_MESSAGE",

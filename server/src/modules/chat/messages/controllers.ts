@@ -64,6 +64,8 @@ export const createMessage = async (req: ICreateRequest, res: express.Response):
       .to(dialog.author.toString()) // для обоих собеседников для обновления списка диалогов
       .to(dialog.companion.toString())
       .emit(socketEvents.sendMessage, populated);
+    const targetUser = userID === dialog.author ? dialog.companion : dialog.author;
+    req.io?.to(targetUser.toString()).emit(socketEvents.sendMessageForUpdateHasRead, populated);
     return res.status(201).json({ message: populated });
   } catch (err) {
     handleError(res, err);

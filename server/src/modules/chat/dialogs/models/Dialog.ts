@@ -1,6 +1,6 @@
 import { Schema, Document, model } from "mongoose";
 
-interface IDialog extends Document {
+export interface IDialog extends Document {
   _id: Schema.Types.ObjectId;
   author: Schema.Types.ObjectId;
   companion: Schema.Types.ObjectId;

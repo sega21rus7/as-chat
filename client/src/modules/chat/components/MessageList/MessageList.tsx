@@ -34,11 +34,17 @@ const MessageList: React.FC = () => {
   });
 
   const listenSendMessage = (message: IMessage) => {
+    dispatch(messagesActionCreators.addMessage(message));
+  };
+
+  const listenSendMessageForUpdateHasRead = (message: IMessage) => {
     userID && dialog && socket.emit(
       socketEvents.updateMessagesHasRead,
       user?._id, dialog?._id, user?.login, getAuthorOrCompanionDependsOnUserID(userID, dialog)._id,
+      (success: boolean) => {
+        success && dispatch(fetchDialogs());
+      },
     );
-    dispatch(messagesActionCreators.addMessage(message));
   };
 
   const listenDeleteMessage = (message: IMessage, isLast: boolean) => {
@@ -58,6 +64,8 @@ const MessageList: React.FC = () => {
   };
 
   const listenUpdateMessagesHasRead = () => {
+    console.log("listenUpdateMessagesHasRead");
+    dispatch(fetchDialogs());
     dialog && dispatch(fetchMessages(dialog._id));
   };
 
@@ -72,11 +80,13 @@ const MessageList: React.FC = () => {
     );
     socket.on(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
     socket.on(socketEvents.sendMessage, listenSendMessage);
+    socket.on(socketEvents.sendMessageForUpdateHasRead, listenSendMessageForUpdateHasRead);
     socket.on(socketEvents.deleteMessage, listenDeleteMessage);
     return () => {
       socket.emit(socketEvents.leaveDialog, ...creds);
       socket.off(socketEvents.updateMessagesHasRead, listenUpdateMessagesHasRead);
       socket.off(socketEvents.sendMessage, listenSendMessage);
+      socket.off(socketEvents.sendMessageForUpdateHasRead, listenSendMessageForUpdateHasRead);
       socket.off(socketEvents.deleteMessage, listenDeleteMessage);
     };
   }, [dialog?._id]);

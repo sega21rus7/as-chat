@@ -49,7 +49,7 @@ export default (http: http.Server): socketIO.Server => {
       response(clients && clients.size > 0);
     });
     socket.on(events.updateMessagesHasRead,
-      async (userID: string, dialogID: string, login: string, companionID: string) => {
+      async (userID: string, dialogID: string, login: string, companionID: string, cb: (v: boolean) => void) => {
         try {
           console.log("updateMessagesHasRead");
           const dres = await Dialog.updateOne(
@@ -68,6 +68,7 @@ export default (http: http.Server): socketIO.Server => {
           console.log("userID", userID);
           socket.to(userID).to(companionID).emit(events.updateDialogsHasRead);
           socket.to(dialogID).emit(events.updateMessagesHasRead);
+          cb && cb(true);
         } catch (err) {
           console.log("err in events.updateMessagesHasRead", err);
         }
