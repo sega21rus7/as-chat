@@ -1,3 +1,8 @@
+// увел. размер иконки очистки инпута
 .ant-input-clear-icon {
   font-size: 15px;
 }
+// отменяем анимацию кнопки
+[ant-click-animating-without-extra-node]:after {
+  animation: none;
+} 
