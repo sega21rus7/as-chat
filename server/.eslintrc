@@ -44,10 +44,6 @@
       "error",
       2
     ],
-    "linebreak-style": [ // разделение строк
-      "error",
-      "windows"
-    ],
     "quotes": [ // двойные кавычки
       "warn",
       "double"
